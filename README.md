@@ -1,30 +1,22 @@
-# my_vuetify
+# 이거샀어 I bought it
 
-> A Vue.js project
+> 지출금액 간이 입력기
 
-## Build Setup
 
-``` bash
-# install dependencies
-npm install
+## 특징
 
-# serve with hot reload at localhost:8080
-npm run dev
+모바일우선
 
-# build for production with minification
-npm run build
+vuetify 
 
-# build for production and view the bundle analyzer report
-npm run build --report
+PWA
 
-# run unit tests
-npm run unit
+후잉연동
 
-# run e2e tests
-npm run e2e
+입력예측제안
 
-# run all tests
-npm test
-```
+## 설정
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+입력순서수정
+
+
