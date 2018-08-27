@@ -5,7 +5,7 @@ export default {
   },
   data () {
     return {
-      input: 0,
+      input: '',
       keys: [
         '7', '8', '9',
         '4', '5', '6',
@@ -42,7 +42,7 @@ export default {
                 xs4>
           <v-btn color="success"
                  block
-                 v-on:click="inputKey(k)">{{k}}</v-btn>
+                 @click="inputKey(k)">{{k}}</v-btn>
         </v-flex>
       </v-layout>
     </v-container>

@@ -1,3 +1,28 @@
+<script>
+import LoginModalVue from './components/LoginModal.vue'
+export default {
+  components: {
+    LoginModal: LoginModalVue
+  },
+  data () {
+    return {
+      clipped: true,
+      drawer: false,
+      fixed: true,
+      items: [{
+        icon: 'bubble_chart',
+        title: 'Inspire'
+      }],
+      miniVariant: false,
+      right: true,
+      rightDrawer: false,
+      title: '이거 샀어'
+    }
+  },
+  name: 'App'
+}
+</script>
+
 <template>
   <v-app>
     <v-navigation-drawer persistent
@@ -25,6 +50,7 @@
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
+      <login-modal></login-modal>
       <v-btn icon
              @click.stop="rightDrawer = !rightDrawer">
         <v-icon>menu</v-icon>
@@ -51,26 +77,8 @@
               app>
       <span>&copy; 2017</span>
     </v-footer>
+  
   </v-app>
 </template>
 
-<script>
-export default {
-  data () {
-    return {
-      clipped: true,
-      drawer: false,
-      fixed: true,
-      items: [{
-        icon: 'bubble_chart',
-        title: 'Inspire'
-      }],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: '이거 샀어'
-    }
-  },
-  name: 'App'
-}
-</script>
+
