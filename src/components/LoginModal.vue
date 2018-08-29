@@ -4,27 +4,16 @@
             max-width="290">
     <v-btn slot="activator"
            small
-           icon>
+           icon
+           @click="getLoginHtml">
       <v-icon>person</v-icon>
     </v-btn>
     <v-card>
       <v-card-title class="headline">
         Whoing로그인
       </v-card-title>
-      <v-card-text>
-        이거샀어 서비스를 이용하기 위해서는 후잉(whoing.com) 로그인이 필요합니다.
-        <v-form>
-          <v-text-field prepend-icon="person"
-                        name="login"
-                        label="Login"
-                        type="text"></v-text-field>
-          <v-text-field id="password"
-                        prepend-icon="lock"
-                        name="password"
-                        label="Password"
-                        type="password"></v-text-field>
-        </v-form>
-      </v-card-text>
+      <div b-html="login_html">
+      </div>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="green darken-1"
@@ -34,15 +23,46 @@
                @click.native="dialog = false">Agree</v-btn>
       </v-card-actions>
     </v-card>
+    <form action="https://whooing.com/app_auth/authorize"
+          method="post"
+          ref="form">
+      <input type="hidden"
+             name="token"
+             v-model="token">
+      <input type="hidden"
+             name="callbackuri"
+             v-model="reutrnUrl">
+    </form>
   </v-dialog>
 </template>
 
 <script>
+import { getWhooingAppToken, postWhooingLoginHtml } from '../../src/api'
+import { GetWhooingAppTokenData, PostWhooingLoginHtmlData } from '../../src/model/'
 export default {
   data () {
     return {
-      dialog: false
+      dialog: false,
+      login_html: null,
+      token: null,
+      reutrnUrl: 'http://localhost:8080/#/ok',
+      states: {
+        isLoading: false
+      }
     }
+  },
+  methods: {
+    async getLoginHtml () {
+      var res = await getWhooingAppToken(new GetWhooingAppTokenData('190', '45cf40565fcc263c8dd63773aaa2a3f279ea4f62'))
+      this.token = res.token
+      // var html = await postWhooingLoginHtml(new PostWhooingLoginHtmlData(token, 'http://localhost:8080/#/ok'))
+      // this.login_html = html
+      this.$nextTick(function () {
+        this.$refs.form.submit()
+      })
+    }
+  },
+  created () {
   }
 }
 </script>
