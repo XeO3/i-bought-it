@@ -4,28 +4,31 @@
             max-width="290">
     <v-btn slot="activator"
            small
-           icon
-           @click="getLoginHtml">
+           icon>
       <v-icon>person</v-icon>
     </v-btn>
     <v-card>
       <v-card-title class="headline">
-        Whoing로그인
+        로그인
       </v-card-title>
-      <div b-html="login_html">
-      </div>
+      <v-card-text>
+        <p>이거샀어 서비스를 이용하시기위해서는 후잉 로그인이 필요합니다.</p>
+        <v-btn @click="getLoginHtml"
+               color="primary"
+               block>
+          Whoing로그인
+        </v-btn>
+      </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="green darken-1"
                flat
                @click.native="dialog = false">close</v-btn>
-        <v-btn color="primary"
-               @click.native="dialog = false">Agree</v-btn>
       </v-card-actions>
     </v-card>
     <form action="https://whooing.com/app_auth/authorize"
           method="post"
-          ref="form">
+          ref="formWhooingLogin">
       <input type="hidden"
              name="token"
              v-model="token">
@@ -58,7 +61,7 @@ export default {
       // var html = await postWhooingLoginHtml(new PostWhooingLoginHtmlData(token, 'http://localhost:8080/#/ok'))
       // this.login_html = html
       this.$nextTick(function () {
-        this.$refs.form.submit()
+        this.$refs.formWhooingLogin.submit()
       })
     }
   },
