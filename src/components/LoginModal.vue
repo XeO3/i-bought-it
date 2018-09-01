@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import { getWhooingAppToken, postWhooingLoginHtml } from '../../src/api'
-import { GetWhooingAppTokenData, PostWhooingLoginHtmlData } from '../../src/model/'
+import { getWhooingAppToken } from '../../src/api'
+import { GetWhooingAppTokenData } from '../../src/model/'
 export default {
   data () {
     return {

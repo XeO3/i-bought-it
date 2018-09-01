@@ -1,3 +1,6 @@
+/**
+ * 후잉 로그인 토큰 발급용 데이터
+ */
 export class GetWhooingAppTokenData {
   app_id
   app_secret
@@ -7,11 +10,18 @@ export class GetWhooingAppTokenData {
   }
 }
 
-export class PostWhooingLoginHtmlData {
+/**
+ * 후잉 엑서스 토큰 발급용 데이터
+ */
+export class GetWhooingAccessTokenData {
+  app_id
+  app_secret
   token
-  callbackuri
-  constructor(token, callbackuri) {
+  pin
+  constructor(app_id, app_secret, token, pin) {
+    this.app_id = app_id
+    this.app_secret = app_secret
     this.token = token
-    this.callbackuri = callbackuri
+    this.pin = pin
   }
 }
