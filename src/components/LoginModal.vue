@@ -40,15 +40,15 @@
 </template>
 
 <script>
-import { getWhooingAppToken } from '../../src/api'
-import { GetWhooingAppTokenData } from '../../src/model/'
+import { getWhooingAppToken, GetWhooingAppTokenData } from '../../src/api/getWhooingAppToken'
+
 export default {
   data () {
     return {
       dialog: false,
       login_html: null,
       token: null,
-      reutrnUrl: 'http://localhost:8080/#/ok',
+      reutrnUrl: 'http://localhost:8080/#/whooing/callback',
       states: {
         isLoading: false
       }
@@ -56,7 +56,12 @@ export default {
   },
   methods: {
     async getLoginHtml () {
-      var res = await getWhooingAppToken(new GetWhooingAppTokenData('190', '45cf40565fcc263c8dd63773aaa2a3f279ea4f62'))
+      var res = await getWhooingAppToken(
+        new GetWhooingAppTokenData(
+          '190',
+          '45cf40565fcc263c8dd63773aaa2a3f279ea4f62'
+        )
+      )
       this.token = res.token
       // var html = await postWhooingLoginHtml(new PostWhooingLoginHtmlData(token, 'http://localhost:8080/#/ok'))
       // this.login_html = html
