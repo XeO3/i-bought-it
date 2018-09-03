@@ -5,7 +5,7 @@
     <v-btn slot="activator"
            small
            icon>
-      <v-icon>person</v-icon>
+      <v-icon>exit_to_app</v-icon>
     </v-btn>
     <v-card>
       <v-card-title class="headline">
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { getWhooingAppToken, GetWhooingAppTokenData } from '../../src/api/getWhooingAppToken'
 
 export default {
@@ -53,6 +54,11 @@ export default {
         isLoading: false
       }
     }
+  },
+  computed: {
+    ...mapState({
+      user_id: state => state.user.user_id
+    })
   },
   methods: {
     async getLoginHtml () {

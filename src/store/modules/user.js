@@ -3,6 +3,7 @@ import {
   setUser
 } from '../mutation-types'
 import sha1 from 'js-sha1'
+import { getWhooingUser } from '../../api'
 
 function SaveLocalStorageUserState(state) {
   console.log(state)
@@ -83,10 +84,19 @@ const mutations = {
   }
 }
 
+const actions = {
+  async initUserData({
+    commit
+  }) {
+    let data = await getWhooingUser()
+    commit(setUser, data.results)
+  }
+}
+
 const user = {
   state,
   getters,
   mutations,
-  actions: {}
+  actions
 }
 export default user

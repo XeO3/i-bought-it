@@ -1,6 +1,6 @@
 <script>
 import { getWhooingAccessToken, GetWhooingAccessTokenData } from '../../api/getWhooingAccessToken'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 import { setUserToken } from '../../store/mutation-types'
 export default {
   computed: {
@@ -13,6 +13,7 @@ export default {
   },
   methods: {
     ...mapMutations([setUserToken]),
+    ...mapActions(['initUserData']),
     async getAccessToken () {
       if (this.token && this.pin) {
         try {
@@ -26,6 +27,7 @@ export default {
           )
           console.log(data)
           this.setUserToken(data)
+          this.initUserData()
         } catch (e) {
           console.log(e)
         }
@@ -34,7 +36,7 @@ export default {
   },
   created () {
     this.getAccessToken()
-      .then(() => this.$router.push('/'))
+      .then(() => this.$router.replace('/'))
   }
 }
 </script>
