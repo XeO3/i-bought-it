@@ -4,6 +4,25 @@ import {
 } from '../mutation-types'
 import sha1 from 'js-sha1'
 
+function SaveLocalStorageUserState(state) {
+  console.log(state)
+  localStorage.setItem('user', JSON.stringify(state))
+}
+
+function LoadLocalStorageUserState() {
+  let user = localStorage.getItem('user')
+  console.log(user)
+  try {
+    return JSON.parse(user)
+  } catch (e) {
+    return null
+  }
+}
+
+function RemoveLocalstorageUserState() {
+  localStorage.removeItem('user')
+}
+
 class UserState {
   token
   token_secret
@@ -17,7 +36,7 @@ class UserState {
   }
 }
 
-const state = new UserState()
+const state = LoadLocalStorageUserState() || new UserState()
 
 const getters = {
   apiKey(state, getters, rootState) {
@@ -42,6 +61,7 @@ const getters = {
   }
 }
 
+const logout = 'logout'
 const mutations = {
   [setUserToken](state, {
     token,
@@ -51,9 +71,15 @@ const mutations = {
     state.token = token
     state.token_secret = token_secret
     state.user_id = user_id
+    SaveLocalStorageUserState(state)
   },
   [setUser](state, user) {
     state.user = user
+    SaveLocalStorageUserState(state)
+  },
+  [logout](state) {
+    state = new UserState()
+    RemoveLocalstorageUserState()
   }
 }
 
