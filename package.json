@@ -1,7 +1,7 @@
 {
-  "name": "my_vuetify",
+  "name": "i-bought-it",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "이거샀어! 가계부 간편 입력기 for Whooing",
   "author": "Kim Kwanguk <bangley@outlook.com>",
   "private": true,
   "scripts": {

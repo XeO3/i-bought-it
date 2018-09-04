@@ -49,7 +49,7 @@ export default {
       dialog: false,
       login_html: null,
       token: null,
-      reutrnUrl: 'http://localhost:8080/#/whooing/callback',
+      reutrnUrl: window.location.origin + '/#/whooing/callback',
       states: {
         isLoading: false
       }
