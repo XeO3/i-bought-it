@@ -4,6 +4,11 @@ import InputNumberVue from './input/InputNumber.vue'
 export default {
   components: {
     InputNumber: InputNumberVue
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
+    }
   }
 }
 </script>
@@ -25,6 +30,7 @@ export default {
           </footer>
         </blockquote>
         <input-number></input-number>
+        {{user}}
       </v-layout>
     </v-slide-y-transition>
   </v-container>

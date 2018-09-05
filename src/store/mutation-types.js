@@ -1,2 +1,5 @@
 export const setUserToken = 'setUserToken'
 export const setUser = 'setUser'
+export const logout = 'logout'
+export const setSections = 'setSections'
+export const setAccounts = 'setAccounts'
