@@ -13,7 +13,7 @@ export default new Router({
       component: HelloWorld
     },
     {
-      path: '/whooing/callback',
+      path: '/whooing/callback/:random',
       name: '후잉콜백',
       component: loginCallBack
     }

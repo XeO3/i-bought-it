@@ -47,9 +47,8 @@ export default {
   data () {
     return {
       dialog: false,
-      login_html: null,
       token: null,
-      reutrnUrl: window.location.origin + '/#/whooing/callback',
+      reutrnUrl: window.location.origin + '/#/whooing/callback/' + Math.random().toString(36).substring(7),
       states: {
         isLoading: false
       }
@@ -69,8 +68,6 @@ export default {
         )
       )
       this.token = res.token
-      // var html = await postWhooingLoginHtml(new PostWhooingLoginHtmlData(token, 'http://localhost:8080/#/ok'))
-      // this.login_html = html
       this.$nextTick(function () {
         this.$refs.formWhooingLogin.submit()
       })
