@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
+import appSetting from '../../appSetting.json'
 import user from './modules/user'
 import states from './modules/states'
-import appSetting from '../../appSetting.json'
-import createPersistedState from 'vuex-persistedstate'
+import alerts from './modules/alerts'
 
 Vue.use(Vuex)
 
@@ -13,11 +14,13 @@ const state = {
 }
 
 const store = new Vuex.Store({
+  strict: true,
   plugins: [createPersistedState()],
   state,
   modules: {
     user: user,
-    states: states
+    states: states,
+    alerts: alerts
   }
 })
 

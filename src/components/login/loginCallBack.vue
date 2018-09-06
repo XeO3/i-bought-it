@@ -1,7 +1,8 @@
 <script>
 import { getWhooingAccessToken, GetWhooingAccessTokenData } from '../../api/getWhooingAccessToken'
 import { mapMutations, mapActions } from 'vuex'
-import { setUserToken } from '../../store/mutation-types'
+import { setUserToken, logout, addAlertTop } from '../../store/mutation-types'
+import { AlertModel } from '../../model'
 export default {
   computed: {
     token () {
@@ -12,8 +13,8 @@ export default {
     }
   },
   methods: {
-    ...mapMutations([setUserToken]),
-    ...mapActions(['initUserData']),
+    ...mapMutations([setUserToken, logout, addAlertTop]),
+    ...mapActions(['initUserDataAsync']),
     async getAccessToken () {
       if (this.token && this.pin) {
         try {
@@ -27,9 +28,15 @@ export default {
           )
           console.log(data)
           this.setUserToken(data)
-          this.initUserData()
+          await this.initUserDataAsync()
         } catch (e) {
-          console.log(e)
+          console.log('유저정보 불러오기 실패!', e)
+          let newAlert = new AlertModel()
+          newAlert.message = '유저정보를 불러오는중 에러가 발생했습니다.'
+          newAlert.type = 'error'
+          newAlert.dismissible = true
+          this.addAlertTop(newAlert)
+          this.logout()
         }
       }
     }

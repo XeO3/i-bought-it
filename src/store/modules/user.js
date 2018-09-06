@@ -83,7 +83,7 @@ const mutations = {
 }
 
 const actions = {
-  async initUserData({
+  async initUserDataAsync({
     commit
   }) {
     // 유저정보

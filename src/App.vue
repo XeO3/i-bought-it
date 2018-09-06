@@ -1,6 +1,10 @@
 <script>
 import LoginModalVue from './components/LoginModal.vue'
+import { mapState, mapMutations } from 'vuex'
+import { removeAlretTop } from './store/mutation-types'
+
 export default {
+  name: 'App',
   components: {
     LoginModal: LoginModalVue
   },
@@ -19,7 +23,14 @@ export default {
       title: '이거 샀어'
     }
   },
-  name: 'App'
+  computed: {
+    ...mapState({
+      alertsTop: state => state.alerts.top
+    })
+  },
+  methods: {
+    ...mapMutations([removeAlretTop])
+  }
 }
 </script>
 
@@ -57,6 +68,19 @@ export default {
       </v-btn>
     </v-toolbar>
     <v-content>
+      <div name="top-alert">
+        <v-alert v-for="(item, i) in alertsTop"
+                 :key="i"
+                 :value="true"
+                 @input="val=> removeAlretTop(item)"
+                 :icon="item.icon"
+                 :dismissible="item.dismissible"
+                 :outline="item.outline"
+                 :transition="item.transition"
+                 :type="item.type">
+          {{item.message}}
+        </v-alert>
+      </div>
       <router-view/>
     </v-content>
     <v-navigation-drawer temporary
@@ -77,7 +101,7 @@ export default {
               app>
       <span>&copy; 2017</span>
     </v-footer>
-  
+
   </v-app>
 </template>
 

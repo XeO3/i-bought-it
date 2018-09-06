@@ -1,4 +1,5 @@
-class StatesState {}
+class StatesState {
+}
 
 const state = new StatesState()
 
