@@ -9,7 +9,7 @@ export const getWhooingAccessToken = async function (GetWhooingAccessTokenData) 
   for (var key in GetWhooingAccessTokenData) {
     formData.append(key, GetWhooingAccessTokenData[key])
   }
-  console.log(GetWhooingAccessTokenData, formData)
+  // console.log(GetWhooingAccessTokenData, formData)
   const res = await axios.post(url, formData)
   return res.data
 }
