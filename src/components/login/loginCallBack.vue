@@ -50,7 +50,7 @@ export default {
 
 <template>
   <div>
-    인증완료
+    유저정보를 불러오는중입니다..
   </div>
 </template>
 

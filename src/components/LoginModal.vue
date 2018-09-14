@@ -3,7 +3,6 @@
             persistent
             max-width="290">
     <v-btn slot="activator"
-           small
            icon>
       <v-icon>exit_to_app</v-icon>
     </v-btn>
@@ -48,7 +47,7 @@ export default {
     return {
       dialog: false,
       token: null,
-      reutrnUrl: window.location.origin + '/#/whooing/callback/' + Math.random().toString(36).substring(7),
+      reutrnUrl: window.location.origin + '/whooing/callback/' + Math.random().toString(36).substring(7),
       states: {
         isLoading: false
       }

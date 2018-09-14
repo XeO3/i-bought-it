@@ -1,7 +1,7 @@
 <script>
 export default {
   props: {
-    value: [String, Number]
+    value: [Number]
   },
   data () {
     return {
@@ -13,11 +13,36 @@ export default {
         '00', '0', '.']
     }
   },
+  computed: {
+    inputNumber () {
+      try {
+        return Number(this.input.trim('.'))
+      } catch (e) {
+        return null
+      }
+    }
+  },
   methods: {
     inputKey (val) {
-      if (val === '.' && this.input.indexOf('.') >= 0) {
-      } else {
-        this.input = (this.input || '') + val
+      if (val === '.') {
+        if (!this.input) {
+          val = '0.'
+        } else if (this.input.indexOf('.') >= 0) {
+          val = ''
+        }
+      }
+      this.input = (this.input || '') + val
+      this.onInput()
+    },
+    onInput () {
+      this.$emit('input', this.inputNumber)
+    }
+  },
+  watch: {
+    'value' (newVal, oldVal) {
+      if (newVal !== this.inputNumber) {
+        console.log(newVal)
+        this.input = (newVal ? newVal.ToString() : '0')
       }
     }
   }
@@ -30,7 +55,8 @@ export default {
                     solo
                     clearable
                     class="input-right"
-                    v-model="input">W
+                    v-model="input"
+                    @input="onInput">
       </v-text-field>
     </v-card-actions>
     <v-container fluid

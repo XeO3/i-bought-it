@@ -78,7 +78,7 @@ const mutations = {
     state.accounts = accounts
   },
   [logout](state) {
-    state = new UserState()
+    Object.assign(state, new UserState())
   }
 }
 
