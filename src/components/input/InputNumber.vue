@@ -1,4 +1,14 @@
 <script>
+function inputDot (input) {
+  let val = ''
+  if (input) {
+    val = '0.'
+  } else if (input.indexOf('.') >= 0) {
+    val = ''
+  }
+  return (input || '') + val
+}
+
 export default {
   props: {
     value: [Number]
@@ -24,14 +34,13 @@ export default {
   },
   methods: {
     inputKey (val) {
-      if (val === '.') {
-        if (!this.input) {
-          val = '0.'
-        } else if (this.input.indexOf('.') >= 0) {
-          val = ''
-        }
+      switch (val) {
+        case '.':
+          this.input = inputDot(this.input)
+          break
+        default:
+          this.input = (this.input || '') + val
       }
-      this.input = (this.input || '') + val
       this.onInput()
     },
     onInput () {
@@ -56,19 +65,46 @@ export default {
                     clearable
                     class="input-right"
                     v-model="input"
+                    hide-details
                     @input="onInput">
       </v-text-field>
     </v-card-actions>
     <v-container fluid
-                 grid-list-sm>
+                 grid-list-md>
       <v-layout row
                 wrap>
+        <v-flex xs4>
+          <v-btn color="red lighten-1"
+                 block
+                 dark
+                 x-large
+                 @click="input = ''">
+            Clear
+          </v-btn>
+        </v-flex>
+        <v-flex xs4
+                offset-xs4>
+          <v-btn block
+                 color="blue-grey lighten-3"
+                 x-large
+                 @click="input = input.substring(0, input.length - 1)">
+            <v-icon>backspace</v-icon>
+          </v-btn>
+        </v-flex>
+      </v-layout>
+      <v-layout row
+                wrap>
+
         <v-flex v-for="k in keys"
                 :key="k"
                 xs4>
-          <v-btn color="success"
+          <v-btn v-if="k"
+                 color="grey lighten-4"
                  block
-                 @click="inputKey(k)">{{k}}</v-btn>
+                 large
+                 @click="inputKey(k)">
+            {{k}}
+          </v-btn>
         </v-flex>
       </v-layout>
     </v-container>
