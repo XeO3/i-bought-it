@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import appSetting from '../../appSetting.json'
 import user from './modules/user'
-import states from './modules/states'
+import settings from './modules/settings'
 import alerts from './modules/alerts'
 
 Vue.use(Vuex)
@@ -19,7 +19,7 @@ const store = new Vuex.Store({
   state,
   modules: {
     user: user,
-    states: states,
+    settings: settings,
     alerts: alerts
   }
 })

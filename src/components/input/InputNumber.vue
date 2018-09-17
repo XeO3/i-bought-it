@@ -43,6 +43,14 @@ export default {
       }
       this.onInput()
     },
+    clear () {
+      this.input = ''
+      this.onInput()
+    },
+    backspace () {
+      this.input = this.input.substring(0, this.input.length - 1)
+      this.onInput()
+    },
     onInput () {
       this.$emit('input', this.inputNumber)
     }
@@ -78,7 +86,7 @@ export default {
                  block
                  dark
                  x-large
-                 @click="input = ''">
+                 @click="clear">
             Clear
           </v-btn>
         </v-flex>
@@ -87,7 +95,7 @@ export default {
           <v-btn block
                  color="blue-grey lighten-3"
                  x-large
-                 @click="input = input.substring(0, input.length - 1)">
+                 @click="backspace">
             <v-icon>backspace</v-icon>
           </v-btn>
         </v-flex>

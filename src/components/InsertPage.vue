@@ -33,6 +33,10 @@ export default {
         this.states.isProcessing = false
       }
     }
+  },
+  created () {
+    this.input.item = '이거샀어!'
+    this.input.memo = `time:${new Date()}`
   }
 }
 </script>
@@ -42,7 +46,9 @@ export default {
       <v-layout column
                 align-center>
         <input-number v-model="input.money"></input-number>
-        <v-btn @click="insert">
+        {{input}}
+        <v-btn @click="insert"
+               :loading="states.isProcessing">
           테스트입력
         </v-btn>
         {{result}}

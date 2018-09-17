@@ -102,7 +102,7 @@ export default {
     </v-navigation-drawer> -->
     <v-footer :fixed="fixed"
               app>
-      <span>&copy; 2017</span>
+      <span>&copy; 2018 이거샀어! i bought it</span>
     </v-footer>
 
   </v-app>
