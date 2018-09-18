@@ -3,6 +3,7 @@ import LoginModalVue from './components/LoginModal.vue'
 import { mapState, mapMutations } from 'vuex'
 import { removeAlretTop } from './store/mutation-types'
 import UserMenuVue from './components/UserMenu.vue'
+import { pingApiServer } from './api/pingApiServer'
 
 export default {
   name: 'App',
@@ -32,7 +33,15 @@ export default {
     })
   },
   methods: {
-    ...mapMutations([removeAlretTop])
+    ...mapMutations([removeAlretTop]),
+    ping () {
+      console.log('Ping')
+      pingApiServer()
+        .then(data => console.log(data))
+    }
+  },
+  created () {
+    this.ping()
   }
 }
 </script>
@@ -102,7 +111,7 @@ export default {
     </v-navigation-drawer> -->
     <v-footer :fixed="fixed"
               app>
-      <span>&copy; 2018 이거샀어! i bought it</span>
+      <span>&copy; 2018 이거샀어! I bought it!</span>
     </v-footer>
 
   </v-app>

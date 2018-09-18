@@ -1,30 +1,53 @@
 <script>
+import { mapState } from 'vuex'
 import { PostWhooingEntriesData, postWhooingEntries } from '../api/postWhooingEntries'
 import InputNumberVue from './input/InputNumber.vue'
+import SelectRightVue from './input/SelectRight.vue'
+import SelectLeftVue from './input/SelectLeft.vue'
+import SelectItemVue from './input/SelectItem.vue'
+
 export default {
   components: {
-    InputNumber: InputNumberVue
+    InputNumber: InputNumberVue,
+    SelectRight: SelectRightVue,
+    SelectLeft: SelectLeftVue,
+    SelectItem: SelectItemVue
   },
   data () {
     return {
-      input: new PostWhooingEntriesData(
-        's36403',
-        'expenses',
-        'x125',
-        'assets',
-        'x131',
-        0),
+      leftItem: null,
+      rightItem: null,
+      item: null,
+      money: 0,
       states: {
         isProcessing: false
       },
       result: null
     }
   },
+  computed: {
+    ...mapState({
+      settings: state => state.settings
+    })
+
+  },
   methods: {
+    createInput () {
+      let input = new PostWhooingEntriesData(
+        this.settings.sectionId,
+        this.leftItem.accountsType,
+        this.leftItem.value,
+        this.rightItem.accountsType,
+        this.rightItem.value,
+        this.money)
+      input.item = '이거샀어!'
+      input.memo = `time:${new Date()}`
+      return input
+    },
     async insert () {
       try {
         this.states.isProcessing = true
-        let res = await postWhooingEntries(this.input)
+        let res = await postWhooingEntries(this.createInput())
         this.result = res
         this.input.money = 0
       } catch (e) {
@@ -35,8 +58,9 @@ export default {
     }
   },
   created () {
-    this.input.item = '이거샀어!'
-    this.input.memo = `time:${new Date()}`
+    this.item = this.settings.itemList[0]
+    this.rightItem = this.settings.rightMenuList[0]
+    this.leftItem = this.settings.leftMenuList[0]
   }
 }
 </script>
@@ -45,8 +69,14 @@ export default {
     <v-slide-y-transition mode="out-in">
       <v-layout column
                 align-center>
-        <input-number v-model="input.money"></input-number>
-        {{input}}
+        <input-number v-model="money"></input-number>
+        <select-item v-model="item"
+                     :options="settings.itemList"></select-item>
+        <select-left v-model="leftItem"
+                     :options="settings.leftMenuList"></select-left>
+        <select-right v-model="rightItem"
+                      :options="settings.rightMenuList"></select-right>
+
         <v-btn @click="insert"
                :loading="states.isProcessing">
           테스트입력

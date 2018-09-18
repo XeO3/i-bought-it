@@ -84,7 +84,8 @@ const mutations = {
 
 const actions = {
   async initUserDataAsync({
-    commit
+    commit,
+    dispatch
   }) {
     // 유저정보
     let userdata = await getWhooingUser()
@@ -99,6 +100,8 @@ const actions = {
       accounts[section.section_id] = accountData.results
     }
     commit(setAccounts, accounts)
+    // settins
+    dispatch('setTestSettings')
   }
 }
 
