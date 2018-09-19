@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 /**
- * ping
+ * Ping
  * return 'Pong'
  */
 export const pingApiServer = async function () {

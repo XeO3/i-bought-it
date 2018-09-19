@@ -5,6 +5,14 @@ import { removeAlretTop } from './store/mutation-types'
 import UserMenuVue from './components/UserMenu.vue'
 import { pingApiServer } from './api/pingApiServer'
 
+/** azure api서버(무료) 슬립방지용 */
+function ping () {
+  console.log('Ping')
+  pingApiServer()
+    .then(data => console.log(data))
+}
+const OneMinuteMillisec = 1000 * 60
+
 export default {
   name: 'App',
   components: {
@@ -33,15 +41,11 @@ export default {
     })
   },
   methods: {
-    ...mapMutations([removeAlretTop]),
-    ping () {
-      console.log('Ping')
-      pingApiServer()
-        .then(data => console.log(data))
-    }
+    ...mapMutations([removeAlretTop])
   },
   created () {
-    this.ping()
+    ping()
+    setInterval(ping, OneMinuteMillisec)
   }
 }
 </script>

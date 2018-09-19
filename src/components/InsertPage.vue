@@ -40,7 +40,7 @@ export default {
         this.rightItem.accountsType,
         this.rightItem.value,
         this.money)
-      input.item = '이거샀어!'
+      input.item = this.item
       input.memo = `time:${new Date()}`
       return input
     },
