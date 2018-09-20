@@ -5,6 +5,7 @@ import appSetting from '../../appSetting.json'
 import user from './modules/user'
 import settings from './modules/settings'
 import alerts from './modules/alerts'
+import history from './modules/history'
 
 Vue.use(Vuex)
 
@@ -20,7 +21,8 @@ const store = new Vuex.Store({
   modules: {
     user: user,
     settings: settings,
-    alerts: alerts
+    alerts: alerts,
+    history: history
   }
 })
 

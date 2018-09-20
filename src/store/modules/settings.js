@@ -54,10 +54,9 @@ const actions = {
   }
 }
 
-const states = {
+export default {
   state,
   getters,
   mutations,
   actions
 }
-export default states

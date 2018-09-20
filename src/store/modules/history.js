@@ -1,14 +1,16 @@
-import {setMoney} from '../mutation-types'
+import {
+  pushHistory
+} from '../mutation-types'
 
 const state = {
-  money: 0
+  list: []
 }
 
 const getters = {}
 
 const mutations = {
-  [setMoney](state, money) {
-    state.money = money
+  [pushHistory](state, item) {
+    state.list.push(item)
   }
 }
 

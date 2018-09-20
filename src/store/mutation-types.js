@@ -8,3 +8,5 @@ export const removeAlretTop = 'removeAlretTop'
 export const setMoney = 'setMoney'
 export const setSelectedSection = 'setSelectedSection'
 export const setSettings = 'setSettings'
+/** 이력에 추가 */
+export const pushHistory = 'pushHistory'

@@ -13,7 +13,11 @@ export const getWhooingUser = async function () {
       'X-API-KEY': key
     }
   })
-  return res.data
+  if (res.data.code === 200) {
+    return res.data
+  } else {
+    throw new Error(`유저정보 불러오기 실패(${res.data.code})`)
+  }
 }
 
 // let sampleData = {

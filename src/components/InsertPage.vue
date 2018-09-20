@@ -1,5 +1,6 @@
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
+import { pushHistory } from '../store/mutation-types'
 import { PostWhooingEntriesData, postWhooingEntries } from '../api/postWhooingEntries'
 import InputNumberVue from './input/InputNumber.vue'
 import SelectRightVue from './input/SelectRight.vue'
@@ -32,6 +33,7 @@ export default {
 
   },
   methods: {
+    ...mapMutations([pushHistory]),
     createInput () {
       let input = new PostWhooingEntriesData(
         this.settings.sectionId,
@@ -47,8 +49,9 @@ export default {
     async insert () {
       try {
         this.states.isProcessing = true
-        let res = await postWhooingEntries(this.createInput())
-        this.result = res
+        let data = await postWhooingEntries(this.createInput())
+        this.pushHistory(data.results[0])
+        this.result = '입력 성공'
         this.input.money = 0
       } catch (e) {
         this.result = e

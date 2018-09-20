@@ -105,10 +105,9 @@ const actions = {
   }
 }
 
-const user = {
+export default {
   state,
   getters,
   mutations,
   actions
 }
-export default user

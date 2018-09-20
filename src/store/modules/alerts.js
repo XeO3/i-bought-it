@@ -20,10 +20,9 @@ const mutations = {
 
 const actions = {}
 
-const alerts = {
+export default {
   state,
   getters,
   mutations,
   actions
 }
-export default alerts
