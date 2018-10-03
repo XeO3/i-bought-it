@@ -5,8 +5,8 @@ import store from '../store'
  * 후잉 항목 정보
  */
 export const getWhooingAccounts = async function (section_id) {
-  // const url = `https://old.whooing.com/api/accounts.json_array?section_id=${section_id}`
-  const url = `https://api-i-bought-it.azurewebsites.net/api/whooing/accounts.json_array?section_id=${section_id}`
+  const url = `https://old.whooing.com/api/accounts.json_array?section_id=${section_id}`
+  // const url = `https://api-i-bought-it.azurewebsites.net/api/whooing/accounts.json_array?section_id=${section_id}`
   let key = store.getters.apiKey
   const res = await axios.get(url, {
     headers: {

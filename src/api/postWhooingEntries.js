@@ -5,7 +5,8 @@ import store from '../store'
  * 후잉 거래 입력
  */
 export const postWhooingEntries = async function (postWhooingEntriesData) {
-  const url = 'https://api-i-bought-it.azurewebsites.net/api/whooing/entries'
+  // const url = 'https://api-i-bought-it.azurewebsites.net/api/whooing/entries'
+  const url = 'https://old.whooing.com/api/entries'
   let formData = new FormData()
   for (var key in postWhooingEntriesData) {
     formData.append(key, postWhooingEntriesData[key])

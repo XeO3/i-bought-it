@@ -25,7 +25,7 @@
                @click.native="dialog = false">close</v-btn>
       </v-card-actions>
     </v-card>
-    <form action="https://whooing.com/app_auth/authorize"
+    <form action="https://old.whooing.com/app_auth/authorize"
           method="post"
           ref="formWhooingLogin">
       <input type="hidden"

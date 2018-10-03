@@ -4,7 +4,7 @@ import axios from 'axios'
  * @param {GetWhooingAppTokenData} getWhooingAppTokenData 폼데이터
  */
 export const getWhooingAppToken = async function (getWhooingAppTokenData) {
-  const url = 'https://whooing.com/app_auth/request_token'
+  const url = 'https://old.whooing.com/app_auth/request_token'
   let formData = new FormData()
   for (var key in getWhooingAppTokenData) {
     formData.append(key, getWhooingAppTokenData[key])
