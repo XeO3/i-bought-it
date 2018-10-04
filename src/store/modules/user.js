@@ -16,6 +16,7 @@ import {
 import {
   getWhooingAccounts
 } from '../../api/getWhooingAccounts'
+import { getWhooingFrequentItems } from '../../api/getWhooingFrequentItems'
 
 class UserState {
   token
@@ -108,7 +109,7 @@ const actions = {
         .then(res => {
           accounts[section.section_id] = res.results
         })
-      getWhooingUser().then(res => {
+      getWhooingFrequentItems().then(res => {
         frequentItems[section.section_id] = res.results
       })
     }
