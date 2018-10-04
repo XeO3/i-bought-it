@@ -1,55 +1,3 @@
-<script>
-import LoginModalVue from './components/LoginModal.vue'
-import { mapState, mapMutations } from 'vuex'
-import { removeAlretTop } from './store/mutation-types'
-import UserMenuVue from './components/UserMenu.vue'
-import { pingApiServer } from './api/pingApiServer'
-
-/** azure api서버(무료) 슬립방지용 */
-function ping () {
-  console.log('Ping')
-  pingApiServer()
-    .then(data => console.log(data))
-}
-const OneMinuteMillisec = 1000 * 60
-
-export default {
-  name: 'App',
-  components: {
-    LoginModal: LoginModalVue,
-    UserMenu: UserMenuVue
-  },
-  data () {
-    return {
-      clipped: true,
-      drawer: false,
-      fixed: true,
-      items: [{
-        icon: 'bubble_chart',
-        title: 'Inspire'
-      }],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: '이거 샀어'
-    }
-  },
-  computed: {
-    ...mapState({
-      alertsTop: state => state.alerts.top,
-      user: state => state.user.user
-    })
-  },
-  methods: {
-    ...mapMutations([removeAlretTop])
-  },
-  created () {
-    ping()
-    setInterval(ping, OneMinuteMillisec)
-  }
-}
-</script>
-
 <template>
   <v-app>
     <v-navigation-drawer persistent
@@ -97,7 +45,7 @@ export default {
           {{alertsTop[0].message}}
         </v-alert>
       </div>
-      <router-view/>
+      <router-view />
     </v-content>
     <!-- <v-navigation-drawer temporary
                          :right="right"
@@ -120,5 +68,46 @@ export default {
 
   </v-app>
 </template>
+
+<script>
+import LoginModalVue from './components/LoginModal.vue'
+import { mapState, mapMutations } from 'vuex'
+import { removeAlretTop } from './store/mutation-types'
+import UserMenuVue from './components/UserMenu.vue'
+
+export default {
+  name: 'App',
+  components: {
+    LoginModal: LoginModalVue,
+    UserMenu: UserMenuVue
+  },
+  data () {
+    return {
+      clipped: true,
+      drawer: false,
+      fixed: true,
+      items: [{
+        icon: 'bubble_chart',
+        title: 'Inspire'
+      }],
+      miniVariant: false,
+      right: true,
+      rightDrawer: false,
+      title: '이거 샀어'
+    }
+  },
+  computed: {
+    ...mapState({
+      alertsTop: state => state.alerts.top,
+      user: state => state.user.user
+    })
+  },
+  methods: {
+    ...mapMutations([removeAlretTop])
+  },
+  created () {
+  }
+}
+</script>
 
 

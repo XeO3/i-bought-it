@@ -26,7 +26,7 @@ export default {
               this.pin
             )
           )
-          console.log(data)
+          // console.log(data)
           this.setUserToken(data)
           await this.initUserDataAsync()
         } catch (e) {

@@ -3,7 +3,8 @@ import {
   setUser,
   logout,
   setSections,
-  setAccounts
+  setAccounts,
+  setFrequentItems
 } from '../mutation-types'
 import sha1 from 'js-sha1'
 import {
@@ -23,6 +24,7 @@ class UserState {
   user
   sections
   accounts
+  frequentItems
   constructor() {
     this.token = null
     this.token_secret = null
@@ -30,6 +32,7 @@ class UserState {
     this.user = null
     this.sections = null
     this.accounts = null
+    this.frequentItems = null
   }
 }
 
@@ -77,6 +80,9 @@ const mutations = {
   [setAccounts](state, accounts) {
     state.accounts = accounts
   },
+  [setFrequentItems](state, frequentItems) {
+    state.frequentItems = frequentItems
+  },
   [logout](state) {
     Object.assign(state, new UserState())
   }
@@ -95,11 +101,19 @@ const actions = {
     commit(setSections, sectionsdata.results)
     // 항목리스트
     let accounts = {}
+    // 자주입력거래 리스트
+    let frequentItems = {}
     for (let section of sectionsdata.results) {
-      let accountData = await getWhooingAccounts(section.section_id)
-      accounts[section.section_id] = accountData.results
+      getWhooingAccounts(section.section_id)
+        .then(res => {
+          accounts[section.section_id] = res.results
+        })
+      getWhooingUser().then(res => {
+        frequentItems[section.section_id] = res.results
+      })
     }
     commit(setAccounts, accounts)
+    commit(setFrequentItems, frequentItems)
     // settins
     dispatch('setTestSettings')
   }
