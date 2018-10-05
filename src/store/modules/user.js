@@ -16,7 +16,9 @@ import {
 import {
   getWhooingAccounts
 } from '../../api/getWhooingAccounts'
-import { getWhooingFrequentItems } from '../../api/getWhooingFrequentItems'
+import {
+  getWhooingFrequentItems
+} from '../../api/getWhooingFrequentItems'
 
 class UserState {
   token
@@ -101,20 +103,16 @@ const actions = {
     let sectionsdata = await getWhooingSections()
     commit(setSections, sectionsdata.results)
     // 항목리스트
-    let accounts = {}
+    let promiseAccounts = sectionsdata.results
+      .map(section => getWhooingAccounts(section.section_id))
+    Promise.all(promiseAccounts)
+      .then(values => commit(setAccounts, values.map(v => v.results)))
     // 자주입력거래 리스트
-    let frequentItems = {}
-    for (let section of sectionsdata.results) {
-      getWhooingAccounts(section.section_id)
-        .then(res => {
-          accounts[section.section_id] = res.results
-        })
-      getWhooingFrequentItems().then(res => {
-        frequentItems[section.section_id] = res.results
-      })
-    }
-    commit(setAccounts, accounts)
-    commit(setFrequentItems, frequentItems)
+    let promiseFrequentItems = sectionsdata.results
+      .map(section => getWhooingFrequentItems(section.section_id))
+    Promise.all(promiseFrequentItems)
+      .then(values => commit(setFrequentItems, values.map(v => v.results)))
+
     // settins
     dispatch('setTestSettings')
   }
