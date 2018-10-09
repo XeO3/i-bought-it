@@ -1,24 +1,18 @@
-import {
-  pushHistory
-} from '../mutation-types'
-
+import { pushHistory } from '../mutation-types';
 const state = {
-  list: []
-}
-
-const getters = {}
-
+    list: []
+};
+const getters = {};
 const mutations = {
-  [pushHistory](state, item) {
-    state.list.push(item)
-  }
-}
-
-const actions = {}
-
+    [pushHistory](state, item) {
+        state.list.push(item);
+    }
+};
+const actions = {};
 export default {
-  state,
-  getters,
-  mutations,
-  actions
-}
+    state,
+    getters,
+    mutations,
+    actions
+};
+//# sourceMappingURL=history.js.map
