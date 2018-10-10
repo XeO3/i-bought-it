@@ -1,16 +1,14 @@
 import axios from 'axios'
 import store from '../store'
+import { PostWhooingEntriesData } from '../Types';
 
 /**
  * 후잉 거래 입력
  */
-export const postWhooingEntries = async function (postWhooingEntriesData) {
+export const postWhooingEntries = async function (data: PostWhooingEntriesData) {
   // const url = 'https://api-i-bought-it.azurewebsites.net/api/whooing/entries'
   const url = 'https://old.whooing.com/api/entries'
-  let formData = new FormData()
-  for (var key in postWhooingEntriesData) {
-    formData.append(key, postWhooingEntriesData[key])
-  }
+  let formData = data.GetFormData()
   let apikey = store.getters.apiKey
   const res = await axios.post(url, formData, {
     headers: {
@@ -25,37 +23,7 @@ export const postWhooingEntries = async function (postWhooingEntriesData) {
   }
 }
 
-/**
- * 후잉 거래 입력용 데이터
- */
-export class PostWhooingEntriesData {
-  /** 섹션의 고유번호 Example Value : s99 */
-  section_id;
-  /** 거래가 일어난 날짜 Example Value : 20110812 */
-  entry_date;
-  /** 왼쪽의 계정 Example Value : expenses */
-  l_account;
-  /** 왼쪽의 항목 고유번호 Example Value : x20 */
-  l_account_id;
-  /** 오른쪽의 계정 Example Value : assets */
-  r_account;
-  /** 오른쪽의 항목 고유번호 Example Value : x4 */
-  r_account_id;
-  /** 아이템 or 거래처. 괄호메모나 명령어도 포함. Example Value : 후원(과장학금)**2 */
-  item;
-  /** 거래액 Example Value : 10000 */
-  money;
-  /** 거래에 들어가는 보충 메모. 일기. 이 값으로는 검색할 수 없음. Example Value : 오늘도 어김없이 빠져나갔다 */
-  memo;
-  constructor(section_id, l_account, l_account_id, r_account, r_account_id, money) {
-    this.section_id = section_id
-    this.l_account = l_account
-    this.l_account_id = l_account_id
-    this.r_account = r_account
-    this.r_account_id = r_account_id
-    this.money = money
-  }
-}
+
 
 // let resultsample = {
 //   'code': 200,

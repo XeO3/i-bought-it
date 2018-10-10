@@ -4,7 +4,7 @@ import store from '../store'
 /**
  * 후잉 유저 정보
  */
-export const getWhooingFrequentItems = async function (section_id) {
+export const getWhooingFrequentItems = async function (section_id: string) {
   const url = `https://old.whooing.com/api/frequent_items.json_array?section_id=${section_id}`
   let key = store.getters.apiKey
   const res = await axios.get(url, {
