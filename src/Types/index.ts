@@ -131,3 +131,22 @@ export class PostWhooingEntriesData extends IPostData {
     }
 }
 
+export class UserTokenData {
+    constructor(
+        public token: string,
+        public token_secret: string,
+        public user_id: string,
+    ) { }
+}
+
+export class AlertModel {
+    constructor(
+        public message: string,
+        public icon: string,
+        public dismissible = false,
+        public outline = false,
+        public transition: string,
+        /** success, info, warning, error*/
+        public type = 'error',
+        public value = true) { }
+}
