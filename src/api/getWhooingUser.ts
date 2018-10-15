@@ -1,10 +1,11 @@
 import axios from 'axios'
 import store from '../store'
+import { WhooingResponseModel, WhooingUserModel } from '../Types';
 
 /**
  * 후잉 유저 정보
  */
-export const getWhooingUser = async function () {
+export const getWhooingUser = async function (): Promise<WhooingResponseModel<WhooingUserModel>> {
   const url = 'https://old.whooing.com/api/user.json'
   // const url = 'https://api-i-bought-it.azurewebsites.net/api/whooing/user.json'
   let key = store.getters.apiKey
@@ -19,6 +20,7 @@ export const getWhooingUser = async function () {
     throw new Error(`유저정보 불러오기 실패(${res.data.code})`)
   }
 }
+
 
 // let sampleData = {
 //   'code': 200,

@@ -150,3 +150,99 @@ export class AlertModel {
         public type = 'error',
         public value = true) { }
 }
+
+
+export interface WhooingResponseModel<T> {
+    code: number
+    message: string
+    error_parameters: object
+    rest_of_api: number
+    results: T
+}
+
+export interface WhooingResponseArrayModel<T> extends WhooingResponseModel<Array<T>> { }
+
+export class WhooingSectionModel {
+    constructor(
+        public section_id: string,
+        public title: string,
+        public memo: string,
+        public currency: string,
+        public isolation: string,
+        public total_assets: number,
+        public total_liabilities: number,
+        public skin_id: number,
+        public decimal_places: number,
+        public date_format: string) { }
+}
+
+export class WhooingAccountModel {
+    constructor(
+        public account_id: string,
+        public type: string,
+        public title: string,
+        public memo: string,
+        public open_date: number,
+        public close_date: number,
+        public category: string
+    ) { }
+}
+
+export class WhooingFrequentItem {
+    constructor(
+        public item_id: string,
+        public item: string,
+        public money: number,
+        public l_account: string,
+        public l_account_id: string,
+        public r_account: string,
+        public r_account_id: string
+    ) { }
+}
+
+
+export class WhooingUserModel {
+    constructor(
+        public user_id: number,
+        public username: string,
+        public last_ip: string,
+        public last_login_timestamp: number,
+        public created_timestamp: number,
+        public modified_timestamp: number,
+        public language: string,
+        public level: string,
+        public expire: number,
+        public timezone: string,
+        public currency: string,
+        public country: string,
+        public image_url: string,
+        public mileage: number
+    ) { }
+}
+
+export class WhooingAccountTypeModel {
+    constructor(
+        public assets: Array<WhooingAccountModel>,
+        public liabilities: Array<WhooingAccountModel>,
+        public capital: Array<WhooingAccountModel>,
+        public income: Array<WhooingAccountModel>,
+        public expenses: Array<WhooingAccountModel>,
+    ) { }
+}
+
+
+export class WhooingEntryModel {
+    constructor(
+      public entry_id: number,
+      public entry_date: number,
+      public l_account: string,
+      public l_account_id: string,
+      public r_account: string,
+      public r_account_id: string,
+      public item: string,
+      public money: number,
+      public total: string,
+      public memo: string,
+      public app_id: number
+    ) { }
+  }

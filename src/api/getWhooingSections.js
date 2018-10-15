@@ -24,6 +24,14 @@ export const getWhooingSections = function () {
         return res.data;
     });
 };
+export class WhooingResponseModel {
+    constructor(code, message, error_parameters, rest_of_api) {
+        this.code = code;
+        this.message = message;
+        this.error_parameters = error_parameters;
+        this.rest_of_api = rest_of_api;
+    }
+}
 // let sampleData = {
 //   'code': 200,
 //   'message': '',

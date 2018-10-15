@@ -72,7 +72,7 @@ const mutations = <MutationTree<UserState>>{
     state.frequentItems = frequentItems
   },
   [logout](state) {
-    Object.assign(state, new UserState())
+    Object.assign(state, <UserState>{})
   }
 }
 

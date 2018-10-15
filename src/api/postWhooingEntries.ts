@@ -1,11 +1,11 @@
 import axios from 'axios'
 import store from '../store'
-import { PostWhooingEntriesData } from '../Types';
+import { PostWhooingEntriesData, WhooingResponseArrayModel, WhooingEntryModel } from '../Types';
 
 /**
  * 후잉 거래 입력
  */
-export const postWhooingEntries = async function (data: PostWhooingEntriesData) {
+export const postWhooingEntries = async function (data: PostWhooingEntriesData): Promise<WhooingResponseArrayModel<WhooingEntryModel>> {
   // const url = 'https://api-i-bought-it.azurewebsites.net/api/whooing/entries'
   const url = 'https://old.whooing.com/api/entries'
   let formData = data.GetFormData()
@@ -15,12 +15,7 @@ export const postWhooingEntries = async function (data: PostWhooingEntriesData) 
       'X-API-KEY': apikey
     }
   })
-
-  if (res.data.code === 200) {
-    return res.data
-  } else {
-    throw new Error(`거래 입력 실패(${res.data.code})`)
-  }
+  return res.data as WhooingResponseArrayModel<WhooingEntryModel>
 }
 
 

@@ -12,7 +12,6 @@ import { getWhooingUser } from '../../api/getWhooingUser';
 import { getWhooingSections } from '../../api/getWhooingSections';
 import { getWhooingAccounts } from '../../api/getWhooingAccounts';
 import { getWhooingFrequentItems } from '../../api/getWhooingFrequentItems';
-import { UserState } from '../../Types';
 const state = {};
 const getters = {
     apiKey(state, getters, rootState) {
@@ -55,7 +54,7 @@ const mutations = {
         state.frequentItems = frequentItems;
     },
     [logout](state) {
-        Object.assign(state, new UserState());
+        Object.assign(state, {});
     }
 };
 const actions = {

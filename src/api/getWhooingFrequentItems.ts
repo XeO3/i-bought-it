@@ -1,10 +1,11 @@
 import axios from 'axios'
 import store from '../store'
+import { WhooingResponseArrayModel, WhooingFrequentItem } from '../Types';
 
 /**
  * 후잉 유저 정보
  */
-export const getWhooingFrequentItems = async function (section_id: string) {
+export const getWhooingFrequentItems = async function (section_id: string) :Promise<WhooingResponseArrayModel<WhooingFrequentItem>>{
   const url = `https://old.whooing.com/api/frequent_items.json_array?section_id=${section_id}`
   let key = store.getters.apiKey
   const res = await axios.get(url, {
@@ -12,7 +13,7 @@ export const getWhooingFrequentItems = async function (section_id: string) {
       'X-API-KEY': key
     }
   })
-  return res.data
+  return res.data as WhooingResponseArrayModel<WhooingFrequentItem>
 }
 
 // let sampleData = {

@@ -1,11 +1,12 @@
 import axios from 'axios'
 import store from '../store'
+import { WhooingResponseModel, WhooingAccountTypeModel } from '../Types';
 
 /**
  * 후잉 항목 정보
  * @param section_id 섹션아이디
  */
-export const getWhooingAccounts = async function (section_id: string) {
+export const getWhooingAccounts = async function (section_id: string): Promise<WhooingResponseModel<WhooingAccountTypeModel>> {
   const url = `https://old.whooing.com/api/accounts.json_array?section_id=${section_id}`
   // const url = `https://api-i-bought-it.azurewebsites.net/api/whooing/accounts.json_array?section_id=${section_id}`
   let key = store.getters.apiKey
@@ -14,8 +15,10 @@ export const getWhooingAccounts = async function (section_id: string) {
       'X-API-KEY': key
     }
   })
-  return res.data
+  return res.data as WhooingResponseModel<WhooingAccountTypeModel>
 }
+
+
 
 // let sampleData = {
 //   'code': 200,
