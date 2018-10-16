@@ -22,12 +22,7 @@ export const postWhooingEntries = function (data) {
                 'X-API-KEY': apikey
             }
         });
-        if (res.data.code === 200) {
-            return res.data;
-        }
-        else {
-            throw new Error(`거래 입력 실패(${res.data.code})`);
-        }
+        return res.data;
     });
 };
 // let resultsample = {

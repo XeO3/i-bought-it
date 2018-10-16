@@ -157,4 +157,82 @@ export class AlertModel {
         this.value = value;
     }
 }
+export class WhooingSectionModel {
+    constructor(section_id, title, memo, currency, isolation, total_assets, total_liabilities, skin_id, decimal_places, date_format) {
+        this.section_id = section_id;
+        this.title = title;
+        this.memo = memo;
+        this.currency = currency;
+        this.isolation = isolation;
+        this.total_assets = total_assets;
+        this.total_liabilities = total_liabilities;
+        this.skin_id = skin_id;
+        this.decimal_places = decimal_places;
+        this.date_format = date_format;
+    }
+}
+export class WhooingAccountModel {
+    constructor(account_id, type, title, memo, open_date, close_date, category) {
+        this.account_id = account_id;
+        this.type = type;
+        this.title = title;
+        this.memo = memo;
+        this.open_date = open_date;
+        this.close_date = close_date;
+        this.category = category;
+    }
+}
+export class WhooingFrequentItem {
+    constructor(item_id, item, money, l_account, l_account_id, r_account, r_account_id) {
+        this.item_id = item_id;
+        this.item = item;
+        this.money = money;
+        this.l_account = l_account;
+        this.l_account_id = l_account_id;
+        this.r_account = r_account;
+        this.r_account_id = r_account_id;
+    }
+}
+export class WhooingUserModel {
+    constructor(user_id, username, last_ip, last_login_timestamp, created_timestamp, modified_timestamp, language, level, expire, timezone, currency, country, image_url, mileage) {
+        this.user_id = user_id;
+        this.username = username;
+        this.last_ip = last_ip;
+        this.last_login_timestamp = last_login_timestamp;
+        this.created_timestamp = created_timestamp;
+        this.modified_timestamp = modified_timestamp;
+        this.language = language;
+        this.level = level;
+        this.expire = expire;
+        this.timezone = timezone;
+        this.currency = currency;
+        this.country = country;
+        this.image_url = image_url;
+        this.mileage = mileage;
+    }
+}
+export class WhooingAccountTypeModel {
+    constructor(assets, liabilities, capital, income, expenses) {
+        this.assets = assets;
+        this.liabilities = liabilities;
+        this.capital = capital;
+        this.income = income;
+        this.expenses = expenses;
+    }
+}
+export class WhooingEntryModel {
+    constructor(entry_id, entry_date, l_account, l_account_id, r_account, r_account_id, item, money, total, memo, app_id) {
+        this.entry_id = entry_id;
+        this.entry_date = entry_date;
+        this.l_account = l_account;
+        this.l_account_id = l_account_id;
+        this.r_account = r_account;
+        this.r_account_id = r_account_id;
+        this.item = item;
+        this.money = money;
+        this.total = total;
+        this.memo = memo;
+        this.app_id = app_id;
+    }
+}
 //# sourceMappingURL=index.js.map
