@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import LoginCallBackVue from '../components/login/logincallback.vue';
+import LoginCallBackVue from '../components/login/loginCallBack.vue';
 import InsertPageVue from '../components/InsertPage.vue';
 Vue.use(Router);
 export default new Router({

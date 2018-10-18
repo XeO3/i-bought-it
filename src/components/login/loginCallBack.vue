@@ -1,8 +1,8 @@
 <script>
-import { getWhooingAccessToken, GetWhooingAccessTokenData } from '../../api/getWhooingAccessToken'
+import { getWhooingAccessToken } from '../../api/getWhooingAccessToken'
 import { mapMutations, mapActions } from 'vuex'
 import { setUserToken, logout, addAlertTop } from '../../store/mutation-types'
-import { AlertModel } from '../../model'
+import { AlertModel, GetWhooingAccessTokenData } from '../../types'
 export default {
   computed: {
     token () {

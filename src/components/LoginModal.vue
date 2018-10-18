@@ -40,8 +40,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import { getWhooingAppToken, GetWhooingAppTokenData } from '../../src/api/getWhooingAppToken'
-
+import { getWhooingAppToken } from '../../src/api/getWhooingAppToken'
+import { GetWhooingAppTokenData } from '../types'
 export default {
   data () {
     return {

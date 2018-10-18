@@ -1,11 +1,12 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import { pushHistory } from '../store/mutation-types'
-import { PostWhooingEntriesData, postWhooingEntries } from '../api/postWhooingEntries'
+import { postWhooingEntries } from '../api/postWhooingEntries'
 import InputNumberVue from './input/InputNumber.vue'
 import SelectRightVue from './input/SelectRight.vue'
 import SelectLeftVue from './input/SelectLeft.vue'
 import SelectItemVue from './input/SelectItem.vue'
+import { PostWhooingEntriesData } from '../types'
 
 export default {
   components: {

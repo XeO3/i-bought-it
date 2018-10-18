@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GetWhooingAccessTokenData, WhooingResponseArrayModel } from '../Types';
+import { GetWhooingAccessTokenData } from '../Types';
 /**
  * 후잉 엑서스 토큰 발급
  * @param {GetWhooingAccessTokenData} GetWhooingAccessTokenData 폼데이터
