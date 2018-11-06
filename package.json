@@ -15,7 +15,9 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "https-proxy-agent": "^2.2.1",
     "js-sha1": "^0.6.0",
+    "parsejson": "0.0.3",
     "vue-router": "^3.0.1",
     "vuetify": "^1.0.0",
     "vuex": "^3.0.1",
