@@ -1,5 +1,4 @@
 'use strict'
-
 const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
@@ -10,6 +9,7 @@ function resolve (dir) {
 }
 
 module.exports = {
+  context: path.resolve(__dirname, '../'),
   entry: {
     app: './src/main.ts'
   },
@@ -24,20 +24,13 @@ module.exports = {
     extensions: ['.ts', '.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
+      'vuetify/components': 'vuetify/es5/components/',
+      // 'vuetify$': 'vuetify/es5/components/',
       '@': resolve('src')
     }
   },
   module: {
     rules: [
-      {
-        test: /\.(js|vue)$/,
-        loader: 'eslint-loader',
-        enforce: 'pre',
-        include: [resolve('src'), resolve('test')],
-        options: {
-          formatter: require('eslint-friendly-formatter')
-        }
-      },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -46,15 +39,11 @@ module.exports = {
       {
         test: /\.tsx?$/,
         loader: 'ts-loader',
+        exclude: /node_modules/,
         options: {
           appendTsSuffixTo: [/\.vue$/],
         }
       },
-      // {
-      //   test: /\.js$/,
-      //   loader: 'babel-loader',
-      //   include: [resolve('src'), resolve('test')]
-      // },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
@@ -80,13 +69,5 @@ module.exports = {
         }
       }
     ]
-  },
-  devServer: {
-    historyApiFallback: true,
-    noInfo: true
-  },
-  performance: {
-    hints: false
-  },
-  devtool: '#eval-source-map'
+  }
 }
