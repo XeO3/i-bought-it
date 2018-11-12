@@ -1,3 +1,4 @@
+<script lang="ts" src="./app.ts"></script>
 <template>
   <v-app>
     <v-navigation-drawer persistent
@@ -65,49 +66,8 @@
               app>
       <span>&copy; 2018 이거샀어! I bought it!</span>
     </v-footer>
-
   </v-app>
 </template>
 
-<script>
-import LoginModalVue from './components/LoginModal.vue'
-import { mapState, mapMutations } from 'vuex'
-import { removeAlretTop } from './store/mutation-types'
-import UserMenuVue from './components/UserMenu.vue'
-
-export default {
-  name: 'App',
-  components: {
-    LoginModal: LoginModalVue,
-    UserMenu: UserMenuVue
-  },
-  data () {
-    return {
-      clipped: true,
-      drawer: false,
-      fixed: true,
-      items: [{
-        icon: 'bubble_chart',
-        title: 'Inspire'
-      }],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: '이거 샀어'
-    }
-  },
-  computed: {
-    ...mapState({
-      alertsTop: state => state.alerts.top,
-      user: state => state.user.user
-    })
-  },
-  methods: {
-    ...mapMutations([removeAlretTop])
-  },
-  created () {
-  }
-}
-</script>
 
 

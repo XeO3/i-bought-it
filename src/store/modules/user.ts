@@ -19,14 +19,12 @@ import {
 import {
   getWhooingFrequentItems
 } from '../../api/getWhooingFrequentItems'
-import { UserState } from '../../Types';
-import { GetterTree, MutationTree, ActionTree } from 'vuex';
+import { UserState } from '../../Types'
+import { GetterTree, MutationTree, ActionTree } from 'vuex'
 
+const state = {} as UserState
 
-
-const state = <UserState>{}
-
-const getters = <GetterTree<UserState, any>>{
+const getters: GetterTree<UserState, any> = {
   apiKey(state, getters, rootState) {
     // X-API-KEY:app_id=45,
     // token=7580361ddabad0a55ab34ee880be438a0e5dc294,
@@ -49,7 +47,7 @@ const getters = <GetterTree<UserState, any>>{
   }
 }
 
-const mutations = <MutationTree<UserState>>{
+const mutations: MutationTree<UserState> = {
   [setUserToken](state, {
     token,
     token_secret,
@@ -72,11 +70,11 @@ const mutations = <MutationTree<UserState>>{
     state.frequentItems = frequentItems
   },
   [logout](state) {
-    Object.assign(state, <UserState>{})
+    Object.assign(state, {} as UserState)
   }
 }
 
-const actions = <ActionTree<UserState, any>>{
+const actions: ActionTree<UserState, any> = {
   async initUserDataAsync({
     commit,
     dispatch

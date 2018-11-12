@@ -1,0 +1,8 @@
+{
+  "defaultSeverity": "error",
+  "extends": "tslint-config-standard",
+  "rules": {
+    "no-empty": false,
+    "space-before-function-paren": false
+  }
+}

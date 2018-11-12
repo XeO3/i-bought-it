@@ -6,7 +6,15 @@
       "noImplicitReturns": true,
       "module": "es2015",
       "moduleResolution": "node",
-      "target": "es6"
+      "target": "es6",
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "baseUrl": ".",
+      "paths": {
+        "@/*": [
+          "./*"
+        ]
+      }
   },
   "include": [
       "./src/**/*"
