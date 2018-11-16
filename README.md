@@ -1,39 +1,22 @@
-# i_bought_it
+# 이거샀어 I bought it
+> 지출금액 간이 입력기
 
-## Project setup
-```
-npm install
-```
+## 데모
+<https://boughtit-1318.firebaseapp.com/>
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+외출시 현금(혹은 교통카드 등)사용 내역을 재빠르게 입력가능 하도록 도와주는 웹앱입니다.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## 특징  
+모바일우선  
+vuetify   
+PWA  
+후잉연동  
+입력예측제안  
+no keyboard  
+페이지열고 바로 입력가능  
 
-### Run your tests
-```
-npm run test
-```
+## 설정
+입력순서수정
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Run your end-to-end tests
-```
-npm run test:e2e
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 업데이트 내역
+ * 0.1 필수 기능 테스트 작성 완료
