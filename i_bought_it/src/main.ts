@@ -5,8 +5,8 @@ import store from './store';
 import './registerServiceWorker';
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
-import thema from './jsons/thema.json';
-Vue.use(Vuetify, {thema});
+import VuetifyOption from './config/VuetifyOption';
+Vue.use(Vuetify, VuetifyOption);
 
 Vue.config.productionTip = false;
 
