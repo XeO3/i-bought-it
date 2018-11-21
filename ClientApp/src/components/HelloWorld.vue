@@ -35,11 +35,16 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import basket from '@/store/basket/basket';
 
 @Component
 export default class HelloWorld extends Vue {
   @Prop()
   private msg!: string;
+
+  itee(){
+  basket.dispatchRestoreSavedBasket()
+  }
 }
 </script>
 
