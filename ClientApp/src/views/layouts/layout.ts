@@ -9,7 +9,7 @@ import { AppModule } from '@/store/modules/app';
   },
 })
 export default class Layout extends Vue {
-  public ToggleLeftNav() {
-    AppModule.ToggleSideBar();
-  }
+  // public ToggleLeftNav() {
+  //   AppModule.ToggleSideBar();
+  // }
 }

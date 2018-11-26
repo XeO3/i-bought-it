@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
-import Layout from './views/layouts/layout';
+import Layout from './views/layouts/Layout';
 
 Vue.use(Router);
 
@@ -11,7 +10,6 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
       component: Layout,
       children: [
         {
@@ -21,7 +19,7 @@ export default new Router({
             import(/* webpackChunkName: "about" */ './views/Home.vue'),
         },
         {
-          path: '/about',
+          path: 'about',
           name: 'about',
           component: () =>
             import(/* webpackChunkName: "about" */ './views/About.vue'),
