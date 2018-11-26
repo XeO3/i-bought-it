@@ -1,5 +1,6 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import LeftItems, { LeftItem, LeftItemClick } from '../config/LeftItems';
+import LeftItems, { LeftItem, LeftItemClick } from '@/config/LeftItems';
+
 
 @Component({})
 export default class LeftNav extends Vue {
