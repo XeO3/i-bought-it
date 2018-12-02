@@ -1,7 +1,5 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import LeftNav from './navs/LeftNav';
-import { AppModule } from '@/store/modules/app';
-
 
 @Component({
   components: {
