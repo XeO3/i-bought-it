@@ -3,8 +3,7 @@
                            clipped
                            class="grey lighten-4"
                            app
-                           :value="value"
-                           @input="val=> $emit('input', val)">
+                           v-model="opened">
         <v-list dense
                 class="grey lighten-4">
           <template v-for="(item, i) in items">

@@ -1,12 +1,18 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import LeftItems, { LeftItem, LeftItemClick } from '@/config/LeftItems';
-
+import { AppModule } from '@/store/modules/app';
 
 @Component({})
 export default class LeftNav extends Vue {
-  @Prop()
-  private value = false;
   private items = LeftItems;
+
+  get opened(): boolean {
+    return AppModule.sidebar.opened;
+  }
+  set opened(v) {
+    AppModule.SET_SIDEBAR(v);
+  }
+
   public itemClick(item: LeftItem) {
     switch (item.click) {
       case LeftItemClick.NewTab:

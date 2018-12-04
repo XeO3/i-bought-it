@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Layout from './views/layouts/Layout.vue';
+import Layout from './views/layouts/Layout';
+import Header from './views/layouts/Header';
+import LeftNav from './views/layouts/navs/LeftNav';
 
 Vue.use(Router);
 
@@ -10,7 +12,11 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: Layout,
+      components: {
+          default: Layout,
+          top: Header,
+          left: LeftNav,
+      },
       children: [
         {
           path: '',
