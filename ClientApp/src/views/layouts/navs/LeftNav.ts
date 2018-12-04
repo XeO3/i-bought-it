@@ -16,14 +16,15 @@ export default class LeftNav extends Vue {
   public itemClick(item: LeftItem) {
     switch (item.click) {
       case LeftItemClick.NewTab:
+        this.opened = false;
         const win = window.open(item.link, '_blank');
         if (win instanceof Window) {
           win.focus();
-          return;
         }
+        break;
       case LeftItemClick.Link:
         this.$router.push({ name: item.link });
-        return;
+        break;
     }
   }
 }
