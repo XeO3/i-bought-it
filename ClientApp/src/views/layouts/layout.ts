@@ -1,4 +1,4 @@
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import LeftNav from './navs/LeftNav';
 
 @Component({
@@ -7,7 +7,4 @@ import LeftNav from './navs/LeftNav';
   },
 })
 export default class Layout extends Vue {
-  // public ToggleLeftNav() {
-  //   AppModule.ToggleSideBar();
-  // }
 }

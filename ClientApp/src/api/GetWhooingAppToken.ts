@@ -10,6 +10,6 @@ export async function getWhooingAppToken(data: GetWhooingAppTokenData): Promise<
   const formData = data.GetFormData();
   const res = await axios.post(url, formData);
   return res.data as string;
-};
+}
 
 

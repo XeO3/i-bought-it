@@ -20,7 +20,7 @@ export async function getWhooingUser(): Promise<WhooingResponseModel<WhooingUser
   } else {
     throw new Error(`유저정보 불러오기 실패(${res.data.code})`);
   }
-};
+}
 
 
 // let sampleData = {

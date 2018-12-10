@@ -1,9 +1,15 @@
-import { VuexModule, Module, Mutation, Action, getModule } from 'vuex-module-decorators';
+import {
+  VuexModule,
+  Module,
+  Mutation,
+  Action,
+  getModule,
+} from 'vuex-module-decorators';
 import store from '@/store/store';
 
 export interface IAppState {
   sidebar: {
-    opened: boolean ;
+    opened: boolean;
   };
 }
 
@@ -14,21 +20,21 @@ class App extends VuexModule implements IAppState {
   };
 
   @Mutation
-  public TOGGLE_SIDEBAR() {
-    this.sidebar.opened = !this.sidebar.opened;
-  }
-  @Mutation
   public SET_SIDEBAR(opened: boolean) {
     this.sidebar.opened = opened;
   }
 
-  @Action({ commit: 'TOGGLE_SIDEBAR' })
+  @Action({ commit: 'SET_SIDEBAR' })
   public ToggleSideBar() {
-    return;
+    return !this.sidebar.opened;
+  }
+  @Action({ commit: 'SET_SIDEBAR' })
+  public OpenSideBar(opened: boolean) {
+    return true;
   }
   @Action({ commit: 'SET_SIDEBAR' })
   public CloseSideBar(opened: boolean) {
-    return opened;
+    return false;
   }
 }
 

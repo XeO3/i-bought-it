@@ -20,7 +20,7 @@ export async function getWhooingSections(): Promise<
     },
   });
   return res.data;
-};
+}
 
 // let sampleData = {
 //   'code': 200,

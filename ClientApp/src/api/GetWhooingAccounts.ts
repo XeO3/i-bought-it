@@ -20,7 +20,7 @@ export async function getWhooingAccounts(
     },
   });
   return res.data as WhooingResponseModel<WhooingAccountTypeModel>;
-};
+}
 
 // let sampleData = {
 //   'code': 200,
