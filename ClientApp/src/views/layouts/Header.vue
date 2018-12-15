@@ -10,6 +10,7 @@
       </span>
     </v-toolbar-title>
     <v-spacer></v-spacer>
+    <login-modal></login-modal>
   </v-toolbar>
 </template>
 <script lang="ts" src="./Header.ts"></script>

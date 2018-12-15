@@ -24,3 +24,5 @@ yarn-error.log*
 *.sw*
 
 ClientApp/.vs/**/*
+
+ClientApp/_src.v*/**/*
