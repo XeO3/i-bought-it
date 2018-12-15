@@ -1,6 +1,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { getWhooingAppToken } from '@/api/GetWhooingAppToken';
 import { GetWhooingAppTokenData } from '@/models/GetWhooingAppTokenData';
+import { AppModule } from '@/store/modules/app';
 
 @Component({})
 export default class LoginModal extends Vue {
@@ -17,18 +18,15 @@ export default class LoginModal extends Vue {
   };
 
   public async getLoginHtml() {
-    console.log(this)
     const res = await getWhooingAppToken(
       new GetWhooingAppTokenData(
-        '190',
-        '45cf40565fcc263c8dd63773aaa2a3f279ea4f62',
+        AppModule.appId,
+        AppModule.appSecret,
       ),
     );
-    console.log(this)
     this.token = res.token;
     this.$nextTick(function() {
       (this.$refs.formWhooingLogin as HTMLFormElement).submit();
     });
   }
-
 }
