@@ -6,6 +6,7 @@ import {
   getModule,
 } from 'vuex-module-decorators';
 import store from '@/store/store';
+import { UserModule } from './User';
 
 export interface IAuthState {
   token: string;
@@ -24,6 +25,18 @@ class Auth extends VuexModule implements IAuthState {
   @Mutation
   public SET_TOKEN_SECRET(tokenSecret: string) {
     this.tokenSecret = tokenSecret;
+  }
+
+  @Mutation
+  public CLEAR_AUTH() {
+    this.SET_TOKEN('');
+    this.SET_TOKEN_SECRET('');
+  }
+
+  @Action({})
+  public LogOut() {
+    this.CLEAR_AUTH();
+    UserModule.CLEAR_UESR();
   }
 }
 

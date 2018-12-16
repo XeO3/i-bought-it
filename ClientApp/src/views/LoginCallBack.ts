@@ -2,7 +2,9 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import { getWhooingAccessToken } from '@/api/GetWhooingAccessToken';
 import { GetWhooingAccessTokenData } from '@/models/GetWhooingAccessTokenData';
 import { AlertModel, AlertType } from '@/models/AlertModel';
-import { AppModule } from '@/store/modules/app';
+import { AppModule } from '@/store/modules/App';
+import { AuthModule } from '@/store/modules/auth';
+import { UserModule } from '@/store/modules/User';
 
 @Component({})
 export default class LoginModal extends Vue {
@@ -24,7 +26,7 @@ export default class LoginModal extends Vue {
   }
 
   private async LoginAsync() {
-    const data = await getWhooingAccessToken(
+    const token = await getWhooingAccessToken(
       new GetWhooingAccessTokenData(
         AppModule.appId,
         AppModule.appSecret,
@@ -32,8 +34,8 @@ export default class LoginModal extends Vue {
         this.pin,
       ),
     );
-    this.SetUserToken(data);
-    await this.InitUserDataAsync();
+    AuthModule.SET_TOKEN(token);
+    await UserModule.FectchUserInfoAsync();
   }
 
   private FailLogin() {
@@ -42,16 +44,10 @@ export default class LoginModal extends Vue {
     newAlert.type = AlertType.error;
     newAlert.dismissible = true;
     AppModule.ADD_ALERT(newAlert);
-    this.Logout();
+    AuthModule.LogOut();
   }
 
-  private Logout(): any {
-    throw new Error('Method not implemented.');
-  }
   private InitUserDataAsync(): any {
     throw new Error('Method not implemented.');
   }
-  private SetUserToken(data: string): any {
-    throw new Error('Method not implemented.');
-  }
-}
+ }

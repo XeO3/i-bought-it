@@ -41,11 +41,11 @@ class App extends VuexModule implements IAppState {
     return !this.sidebar.opened;
   }
   @Action({ commit: 'SET_SIDEBAR' })
-  public OpenSideBar(opened: boolean) {
+  public OpenSideBar() {
     return true;
   }
   @Action({ commit: 'SET_SIDEBAR' })
-  public CloseSideBar(opened: boolean) {
+  public CloseSideBar() {
     return false;
   }
 }

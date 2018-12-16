@@ -1,7 +1,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { getWhooingAppToken } from '@/api/GetWhooingAppToken';
 import { GetWhooingAppTokenData } from '@/models/GetWhooingAppTokenData';
-import { AppModule } from '@/store/modules/app';
+import { AppModule } from '@/store/modules/App';
 
 @Component({})
 export default class LoginModal extends Vue {
