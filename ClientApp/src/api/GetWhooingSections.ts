@@ -1,20 +1,18 @@
 import axios from 'axios';
-import store from '@/store/store';
-import {
-  WhooingResponseArrayModel,
-  WhooingSectionModel,
-} from '@/models/WhooingResponseArrayModel';
+import { IWhooingSection } from '@/models/IWhooingSection';
+import { IWhooingResponseModel } from '@/models/IWhooingResponseModel';
+import { Whooing } from '@/utils/WhooingHelper';
 
 /**
  * 후잉 유저 정보
  */
 export async function getWhooingSections(): Promise<
-  WhooingResponseArrayModel<WhooingSectionModel>
+  IWhooingResponseModel<IWhooingSection[]>
 > {
   const url = 'https://old.whooing.com/api/sections.json_array';
   // const url = 'https://api-i-bought-it.azurewebsites.net/api/whooing/sections.json_array'
-  const key = store.getters.apiKey;
-  const res = await axios.get(url, {
+  const key = Whooing.ApiKey;
+  const res = await axios.get<IWhooingResponseModel<IWhooingSection[]>>(url, {
     headers: {
       'X-API-KEY': key,
     },

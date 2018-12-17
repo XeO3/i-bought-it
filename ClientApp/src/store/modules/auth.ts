@@ -35,8 +35,7 @@ class Auth extends VuexModule implements IAuthState {
 
   @Action({})
   public LogOut() {
-    this.CLEAR_AUTH();
-    UserModule.CLEAR_UESR();
+    // console.log('logout');
   }
 }
 

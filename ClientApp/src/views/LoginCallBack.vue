@@ -4,5 +4,5 @@
   </div>
 </template>
 
-<script lang="ts" src="./LoginCallBack">
+<script lang="ts" src="./LoginCallBack.ts">
 </script>

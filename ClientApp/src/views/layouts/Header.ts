@@ -7,7 +7,7 @@ import LoginModal from '@/components/login/LoginModal';
     LoginModal,
   },
 })
-export default class Layout extends Vue {
+export default class Header extends Vue {
   public functional: true = true;
   public ToggleSidebar() {
     AppModule.ToggleSideBar();

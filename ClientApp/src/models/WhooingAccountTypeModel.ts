@@ -1,10 +1,8 @@
 import { WhooingAccountModel } from './WhooingAccountModel';
-export class WhooingAccountTypeModel {
-  constructor(
-    public assets: WhooingAccountModel[],
-    public liabilities: WhooingAccountModel[],
-    public capital: WhooingAccountModel[],
-    public income: WhooingAccountModel[],
-    public expenses: WhooingAccountModel[],
-  ) {}
+export interface IWhooingSectionAccounts {
+  assets: WhooingAccountModel[];
+  liabilities: WhooingAccountModel[];
+  capital: WhooingAccountModel[];
+  income: WhooingAccountModel[];
+  expenses: WhooingAccountModel[];
 }

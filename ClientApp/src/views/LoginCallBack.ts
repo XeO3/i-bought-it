@@ -3,16 +3,20 @@ import { getWhooingAccessToken } from '@/api/GetWhooingAccessToken';
 import { GetWhooingAccessTokenData } from '@/models/GetWhooingAccessTokenData';
 import { AlertModel, AlertType } from '@/models/AlertModel';
 import { AppModule } from '@/store/modules/App';
-import { AuthModule } from '@/store/modules/auth';
+import { AuthModule } from '@/store/modules/Auth';
 import { UserModule } from '@/store/modules/User';
 
 @Component({})
-export default class LoginModal extends Vue {
+export default class LoginCallBack extends Vue {
   get token(): string {
     return this.$route.query.token;
   }
   get pin(): string {
     return this.$route.query.pin;
+  }
+
+  public created() {
+    this.getAccessToken();
   }
 
   public async getAccessToken() {
@@ -36,6 +40,7 @@ export default class LoginModal extends Vue {
     );
     AuthModule.SET_TOKEN(token);
     await UserModule.FectchUserInfoAsync();
+    await UserModule.FectchSections();
   }
 
   private FailLogin() {
@@ -46,8 +51,4 @@ export default class LoginModal extends Vue {
     AppModule.ADD_ALERT(newAlert);
     AuthModule.LogOut();
   }
-
-  private InitUserDataAsync(): any {
-    throw new Error('Method not implemented.');
-  }
- }
+}

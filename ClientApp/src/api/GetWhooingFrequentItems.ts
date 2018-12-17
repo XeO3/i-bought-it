@@ -1,22 +1,25 @@
 import axios from 'axios';
-import store from '@/store/store';
-import { WhooingResponseArrayModel } from '@/models/WhooingResponseArrayModel';
 import { WhooingFrequentItem } from '@/models/WhooingFrequentItem';
+import { Whooing } from '@/utils/WhooingHelper';
+import { IWhooingResponseModel } from '@/models/IWhooingResponseModel';
 
 /**
  * 후잉 유저 정보
  */
 export async function getWhooingFrequentItems(
   sectionId: string,
-): Promise<WhooingResponseArrayModel<WhooingFrequentItem>> {
+): Promise<IWhooingResponseModel<WhooingFrequentItem[]>> {
   const url = `https://old.whooing.com/api/frequent_items.json_array?section_id=${sectionId}`;
-  const key = store.getters.apiKey;
-  const res = await axios.get(url, {
-    headers: {
-      'X-API-KEY': key,
+  const key = Whooing.ApiKey;
+  const res = await axios.get<IWhooingResponseModel<WhooingFrequentItem[]>>(
+    url,
+    {
+      headers: {
+        'X-API-KEY': key,
+      },
     },
-  });
-  return res.data as WhooingResponseArrayModel<WhooingFrequentItem>;
+  );
+  return res.data;
 }
 
 // let sampleData = {

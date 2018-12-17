@@ -4,5 +4,5 @@ declare module '*.json' {
 }
 
 declare module 'js-sha1' {
-  export default function (message: string): string;
+  export default function(message: string): string;
 }

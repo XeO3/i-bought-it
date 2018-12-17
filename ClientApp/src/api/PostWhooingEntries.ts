@@ -1,25 +1,30 @@
 import axios from 'axios';
 import { PostWhooingEntriesData } from '@/models/PostWhooingEntriesData';
-import { WhooingResponseArrayModel } from '@/models/WhooingResponseArrayModel';
 import { WhooingEntryModel } from '@/models/WhooingEntryModel';
 import store from '@/store/store';
+import { IWhooingResponseModel } from '@/models/IWhooingResponseModel';
+import { Whooing } from '@/utils/WhooingHelper';
 
 /**
  * 후잉 거래 입력
  */
 export async function postWhooingEntries(
   data: PostWhooingEntriesData,
-): Promise<WhooingResponseArrayModel<WhooingEntryModel>> {
+): Promise<IWhooingResponseModel<WhooingEntryModel[]>> {
   // const url = 'https://api-i-bought-it.azurewebsites.net/api/whooing/entries'
   const url = 'https://old.whooing.com/api/entries';
   const formData = data.GetFormData();
-  const apikey = store.getters.apiKey;
-  const res = await axios.post(url, formData, {
-    headers: {
-      'X-API-KEY': apikey,
+  const apikey = Whooing.ApiKey;
+  const res = await axios.post<IWhooingResponseModel<WhooingEntryModel[]>>(
+    url,
+    formData,
+    {
+      headers: {
+        'X-API-KEY': apikey,
+      },
     },
-  });
-  return res.data as WhooingResponseArrayModel<WhooingEntryModel>;
+  );
+  return res.data;
 }
 
 // let resultsample = {

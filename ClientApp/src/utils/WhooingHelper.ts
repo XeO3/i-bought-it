@@ -1,6 +1,6 @@
 import sha1 from 'js-sha1';
-import { AppModule } from '@/store/modules/app';
-import { AuthModule } from '@/store/modules/auth';
+import { AppModule } from '@/store/modules/App';
+import { AuthModule } from '@/store/modules/Auth';
 
 export namespace Whooing {
   export function ApiKey(): string {

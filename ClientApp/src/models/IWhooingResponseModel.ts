@@ -1,4 +1,4 @@
-export interface WhooingResponseModel<T> {
+export interface IWhooingResponseModel<T> {
   code: number;
   message: string;
   error_parameters: object;
