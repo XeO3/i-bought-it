@@ -1,11 +1,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { IAppState } from './modules/App';
+import { IAuthState } from './modules/Auth';
+import { IUserState } from './modules/User';
 
 Vue.use(Vuex);
 
 export interface IRootState {
-  app: IAppState;
+  App: IAppState;
+  Auth: IAuthState;
+  User: IUserState;
 }
 
 // Declare empty store first, dynamically register all modules later.

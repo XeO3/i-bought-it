@@ -6,7 +6,6 @@ import {
   getModule,
 } from 'vuex-module-decorators';
 import store from '@/store/store';
-import { UserModule } from './User';
 
 export interface IAuthState {
   token: string;

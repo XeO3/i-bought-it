@@ -1,7 +1,5 @@
 <template>
-  <div>
-    유저정보를 불러오는중입니다..
-  </div>
+  <div>유저정보를 불러오는중입니다..</div>
 </template>
 
 <script lang="ts">
@@ -31,13 +29,16 @@ export default class LoginCallBack extends Vue {
       try {
         await this.LoginAsync();
       } catch (e) {
+        alert(e);
         this.FailLogin();
+      } finally {
+        this.$router.push('/');
       }
     }
   }
 
   private async LoginAsync() {
-    const token = await getWhooingAccessToken(
+    const res = await getWhooingAccessToken(
       new GetWhooingAccessTokenData(
         AppModule.appId,
         AppModule.appSecret,
@@ -45,12 +46,18 @@ export default class LoginCallBack extends Vue {
         this.pin,
       ),
     );
-    AuthModule.SET_TOKEN(token);
+    alert(res.token);
+    this.$store.state.Auth.token = res.token;
+    alert(AuthModule.token);
+
+    // AuthModule.SET_TOKEN(res.token);
+    // AuthModule.SET_TOKEN_SECRET(res.token_secret);
     await UserModule.FectchUserInfoAsync();
     await UserModule.FectchSections();
   }
 
   private FailLogin() {
+    alert('유저정보를 불러오는중 에러가 발생했습니다.');
     const newAlert = new AlertModel();
     newAlert.message = '유저정보를 불러오는중 에러가 발생했습니다.';
     newAlert.type = AlertType.error;
@@ -59,5 +66,4 @@ export default class LoginCallBack extends Vue {
     AuthModule.LogOut();
   }
 }
-
 </script>

@@ -38,12 +38,12 @@ export default class LoginModal extends Vue {
       .toString(36)
       .substring(7);
   public states = {
-    isLoading: false
+    isLoading: false,
   };
 
   public async getLoginHtml() {
     const res = await getWhooingAppToken(
-      new GetWhooingAppTokenData(AppModule.appId, AppModule.appSecret)
+      new GetWhooingAppTokenData(AppModule.appId, AppModule.appSecret),
     );
     this.token = res.token;
     this.$nextTick(function() {

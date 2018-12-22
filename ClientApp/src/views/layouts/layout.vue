@@ -14,5 +14,9 @@ import LeftNav from '@/views/layouts/navs/LeftNav.vue';
     LeftNav,
   },
 })
-export default class Layout extends Vue {}
+export default class Layout extends Vue {
+   get store(): any {
+    return this.$store;
+  }
+}
 </script>

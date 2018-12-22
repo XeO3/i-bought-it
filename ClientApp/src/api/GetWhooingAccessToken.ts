@@ -7,9 +7,15 @@ import { GetWhooingAccessTokenData } from '@/models/GetWhooingAccessTokenData';
  */
 export async function getWhooingAccessToken(
   data: GetWhooingAccessTokenData,
-): Promise<string> {
+): Promise<IWhooingAccessToken> {
   const url = 'https://old.whooing.com/app_auth/access_token';
   const formData = data.GetFormData();
-  const res = await axios.post(url, formData);
-  return res.data as string;
+  const res = await axios.post<IWhooingAccessToken>(url, formData);
+  return res.data;
+}
+
+export interface IWhooingAccessToken {
+  token: string;
+  token_secret: string;
+  user_id: number;
 }
