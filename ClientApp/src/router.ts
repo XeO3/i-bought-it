@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Layout from './views/layouts/Layout';
-import Header from './views/layouts/Header';
-import LeftNav from './views/layouts/navs/LeftNav';
-import home from './views/Home.vue';
-import LoginCallBack from './views/LoginCallBack';
+
+import LoginCallBack from '@/views/LoginCallBack.vue';
+import Layout from '@/views/layouts/Layout.vue';
+import Header from '@/views/layouts/Header.vue';
+import LeftNav from '@/views/layouts/navs/LeftNav.vue';
 
 Vue.use(Router);
 

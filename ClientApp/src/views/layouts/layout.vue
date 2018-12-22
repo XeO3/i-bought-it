@@ -5,4 +5,14 @@
     </v-container>
   </v-content>
 </template>
-<script lang="ts" src="./Layout.ts"></script>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import LeftNav from '@/views/layouts/navs/LeftNav.vue';
+
+@Component({
+  components: {
+    LeftNav,
+  },
+})
+export default class Layout extends Vue {}
+</script>

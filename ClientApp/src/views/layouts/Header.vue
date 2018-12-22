@@ -13,4 +13,21 @@
     <login-modal></login-modal>
   </v-toolbar>
 </template>
-<script lang="ts" src="./Header.ts"></script>
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator';
+import { AppModule } from '@/store/modules/App';
+import LoginModal from '@/components/login/LoginModal.vue';
+
+@Component({
+  components: {
+    LoginModal,
+  },
+})
+export default class Header extends Vue {
+  // public functional: true = true;
+  public ToggleSidebar() {
+    AppModule.ToggleSideBar();
+  }
+}
+
+</script>
