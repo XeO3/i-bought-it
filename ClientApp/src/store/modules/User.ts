@@ -25,24 +25,30 @@ class User extends VuexModule implements IUserState {
     this.userInfo = null;
     this.sectionList = [];
   }
-
-  @MutationAction({ mutate: ['userInfo'] })
-  public async FetchUserInfoAsync(): Promise<{ userInfo: IWhooingUser }> {
-    // 유저정보
-    const resUser = await getWhooingUser();
-    console.log(resUser.results);
-    return { userInfo: resUser.results };
+  @Mutation
+  public SET_USER(user: IWhooingUser) {
+    this.userInfo = user;
+  }
+  @Mutation
+  public SET_SECTIONLIST(sectionList: IWhooingSection[]) {
+    this.sectionList = sectionList;
   }
 
-  @MutationAction({ mutate: ['sectionList'] })
-  public async FetchSectionList(): Promise<{ sectionList: IWhooingSection[] }> {
+  @Action({})
+  public async FetchUserInfoAsync() {
+    const { results } = await getWhooingUser();
+    this.SET_USER(results);
+  }
+
+  @Action({})
+  public async FetchSectionList() {
     const sections = (await getWhooingSections()).results;
     sections.forEach((section) => {
       getWhooingAccounts(section.section_id).then((res) => {
         section.accounts = res.results;
       });
     });
-    return { sectionList: sections };
+    this.SET_SECTIONLIST(sections);
   }
 }
 
