@@ -9,8 +9,8 @@ import { IWhooingResponseModel } from '@/models/IWhooingResponseModel';
 export async function getWhooingUser(): Promise<IWhooingResponseModel<IWhooingUser>> {
   const url = 'https://old.whooing.com/api/user.json';
   // const url = 'https://api-i-bought-it.azurewebsites.net/api/whooing/user.json'
-  const key = Whooing.ApiKey;
-  const res = await axios.get(url, {
+  const key = Whooing.ApiKey();
+  const res = await axios.get<IWhooingResponseModel<IWhooingUser>>(url, {
     headers: {
       'X-API-KEY': key,
     },

@@ -31,5 +31,6 @@ function CreateApiKey(
     `nounce=${nounce}`,
     `timestapme=${timestapme}`,
   ];
-  return list.join(',');
+  const result = list.join(',');
+  return result;
 }

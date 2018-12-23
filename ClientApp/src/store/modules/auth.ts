@@ -6,11 +6,7 @@ import {
   getModule,
 } from 'vuex-module-decorators';
 import store from '@/store/store';
-
-export interface IAuthState {
-  token: string;
-  tokenSecret: string;
-}
+import { IAuthState } from '../../models/IAuthState';
 
 @Module({ dynamic: true, store, name: 'Auth' })
 class Auth extends VuexModule implements IAuthState {

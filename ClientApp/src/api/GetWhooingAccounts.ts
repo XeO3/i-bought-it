@@ -13,7 +13,7 @@ export async function getWhooingAccounts(
 ): Promise<IWhooingResponseModel<IWhooingSectionAccounts>> {
   const url = `https://old.whooing.com/api/accounts.json_array?section_id=${sectionId}`;
   // const url = `https://api-i-bought-it.azurewebsites.net/api/whooing/accounts.json_array?section_id=${section_id}`
-  const key = Whooing.ApiKey;
+  const key = Whooing.ApiKey();
   const res = await axios.get<IWhooingResponseModel<IWhooingSectionAccounts>>(
     url,
     {

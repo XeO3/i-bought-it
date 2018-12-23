@@ -1,3 +1,5 @@
+import { IWhooingSectionAccounts } from './WhooingAccountTypeModel';
+
 export interface IWhooingSection {
   section_id: string;
   title: string;
@@ -9,5 +11,6 @@ export interface IWhooingSection {
   skin_id: number;
   decimal_places: number;
   date_format: string;
+  accounts?: IWhooingSectionAccounts;
 }
 

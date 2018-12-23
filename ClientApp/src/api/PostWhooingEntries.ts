@@ -14,7 +14,7 @@ export async function postWhooingEntries(
   // const url = 'https://api-i-bought-it.azurewebsites.net/api/whooing/entries'
   const url = 'https://old.whooing.com/api/entries';
   const formData = data.GetFormData();
-  const apikey = Whooing.ApiKey;
+  const apikey = Whooing.ApiKey();
   const res = await axios.post<IWhooingResponseModel<WhooingEntryModel[]>>(
     url,
     formData,

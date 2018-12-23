@@ -10,7 +10,7 @@ export async function getWhooingFrequentItems(
   sectionId: string,
 ): Promise<IWhooingResponseModel<WhooingFrequentItem[]>> {
   const url = `https://old.whooing.com/api/frequent_items.json_array?section_id=${sectionId}`;
-  const key = Whooing.ApiKey;
+  const key = Whooing.ApiKey();
   const res = await axios.get<IWhooingResponseModel<WhooingFrequentItem[]>>(
     url,
     {

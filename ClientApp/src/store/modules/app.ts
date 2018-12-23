@@ -7,15 +7,7 @@ import {
 } from 'vuex-module-decorators';
 import store from '@/store/store';
 import { AlertModel } from '@/models/AlertModel';
-
-export interface IAppState {
-  sidebar: {
-    opened: boolean;
-  };
-  alerts: AlertModel[];
-  appId: string;
-  appSecret: string;
-}
+import { IAppState } from '../../models/IAppState';
 
 @Module({ dynamic: true, store, name: 'App' })
 class App extends VuexModule implements IAppState {

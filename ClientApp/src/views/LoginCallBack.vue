@@ -29,10 +29,10 @@ export default class LoginCallBack extends Vue {
       try {
         await this.LoginAsync();
       } catch (e) {
-        alert(e);
+        console.log(e);
         this.FailLogin();
       } finally {
-        this.$router.push('/');
+        // this.$router.push('/');
       }
     }
   }
@@ -46,14 +46,12 @@ export default class LoginCallBack extends Vue {
         this.pin,
       ),
     );
-    alert(res.token);
     this.$store.state.Auth.token = res.token;
-    alert(AuthModule.token);
 
-    // AuthModule.SET_TOKEN(res.token);
-    // AuthModule.SET_TOKEN_SECRET(res.token_secret);
-    await UserModule.FectchUserInfoAsync();
-    await UserModule.FectchSections();
+    AuthModule.SET_TOKEN(res.token);
+    AuthModule.SET_TOKEN_SECRET(res.token_secret);
+    await UserModule.FetchUserInfoAsync();
+    // await UserModule.FectchSections();
   }
 
   private FailLogin() {
