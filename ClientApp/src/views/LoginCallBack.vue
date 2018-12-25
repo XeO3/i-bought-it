@@ -45,8 +45,6 @@ export default class LoginCallBack extends Vue {
         this.pin,
       ),
     );
-    this.$store.state.Auth.token = res.token;
-
     AuthModule.SET_TOKEN(res.token);
     AuthModule.SET_TOKEN_SECRET(res.token_secret);
     await UserModule.FetchUserInfoAsync();

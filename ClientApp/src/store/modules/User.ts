@@ -35,13 +35,15 @@ class User extends VuexModule implements IUserState {
   }
 
   @Mutation
-  public SET_SECTIONACCOUNTS(
-    sectionId: string,
-    accounts: IWhooingSectionAccounts,
-  ) {
-    const section = this.sectionList.find((o) => o.section_id === sectionId);
+  public SET_SECTIONACCOUNTS(payload: {
+    sectionId: string;
+    accounts: IWhooingSectionAccounts;
+  }) {
+    const section = this.sectionList.find(
+      (o) => o.section_id === payload.sectionId,
+    );
     if (section) {
-      section.accounts = accounts;
+      section.accounts = payload.accounts;
     }
   }
 
@@ -54,13 +56,16 @@ class User extends VuexModule implements IUserState {
   @Action({})
   public async FetchSectionList() {
     const sections = (await getWhooingSections()).results;
+    this.SET_SECTIONLIST(sections);
     sections.forEach((section) => {
       getWhooingAccounts(section.section_id).then((res) => {
-        this.SET_SECTIONACCOUNTS(section.section_id, res.results);
+        this.SET_SECTIONACCOUNTS({
+          sectionId: section.section_id,
+          accounts: res.results,
+        });
         // section.accounts = res.results;
       });
     });
-    this.SET_SECTIONLIST(sections);
   }
 }
 
