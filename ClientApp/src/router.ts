@@ -5,6 +5,7 @@ import LoginCallBack from '@/views/LoginCallBack.vue';
 import Layout from '@/views/layouts/Layout.vue';
 import Header from '@/views/layouts/Header.vue';
 import LeftNav from '@/views/layouts/navs/LeftNav.vue';
+import Settings from '@/views/Settings.vue';
 
 Vue.use(Router);
 
@@ -36,6 +37,11 @@ export default new Router({
           path: 'whooing/callback/:random',
           name: 'callback',
           component: LoginCallBack,
+        },
+        {
+          path: 'settings',
+          name: 'settings',
+          component: Settings,
         },
       ],
     },

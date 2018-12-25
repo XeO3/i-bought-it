@@ -4,6 +4,4 @@ export interface IAppState {
     opened: boolean;
   };
   alerts: AlertModel[];
-  appId: string;
-  appSecret: string;
 }

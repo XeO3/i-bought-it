@@ -14,7 +14,7 @@ export enum LeftItemClick {
 
 const LeftItems: LeftItem[] = [
   { icon: 'home', text: 'home', click: LeftItemClick.Link, link: 'home' },
-  { icon: 'settings', text: 'Settings', click: LeftItemClick.None },
+  { icon: 'settings', text: 'Settings', click: LeftItemClick.Link, link: 'settings'  },
   { divider: true, click: LeftItemClick.None },
   { icon: 'info', text: 'About', click: LeftItemClick.Link, link: 'about' },
   {

@@ -8,15 +8,21 @@ import {
 import store from '@/store/store';
 import { AlertModel } from '@/models/AlertModel';
 import { IAppState } from '../../models/IAppState';
+import { AppProperties } from '@/config/AppProperties';
 
 @Module({ dynamic: true, store, name: 'App' })
 class App extends VuexModule implements IAppState {
   public alerts: AlertModel[] = [];
-  public appId: string = '190';
-  public appSecret: string = '45cf40565fcc263c8dd63773aaa2a3f279ea4f62';
   public sidebar = {
     opened: false,
   };
+
+  get appId(): string {
+    return AppProperties.appId;
+  }
+  get appSecret(): string {
+    return AppProperties.appSecret;
+  }
 
   @Mutation
   public SET_SIDEBAR(opened: boolean) {
