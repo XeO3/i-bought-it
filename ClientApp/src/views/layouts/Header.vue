@@ -15,7 +15,7 @@
 </template>
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import { AppModule } from '@/store/modules/App';
+import { AppModule } from '@/store/store';
 import LoginModal from '@/components/login/LoginModal.vue';
 
 @Component({

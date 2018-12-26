@@ -15,8 +15,8 @@ import { IUserState } from '@/models/IUserState';
 import { getWhooingSections } from '@/api/GetWhooingSections';
 import { getWhooingAccounts } from '@/api/GetWhooingAccounts';
 
-@Module({ dynamic: true, store, name: 'User' })
-class User extends VuexModule implements IUserState {
+@Module({ dynamic: false, store, name: 'User' })
+export class User extends VuexModule implements IUserState {
   public sectionList: IWhooingSection[] = [];
   public userInfo: IWhooingUser | null = null;
 
@@ -69,4 +69,4 @@ class User extends VuexModule implements IUserState {
   }
 }
 
-export const UserModule = getModule(User);
+// export const UserModule = getModule(User);

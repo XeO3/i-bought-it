@@ -19,7 +19,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import LeftItems, { LeftItem, LeftItemClick } from '@/config/LeftItems';
-import { AppModule } from '@/store/modules/App';
+import { AppModule } from '@/store/store';
 
 @Component({})
 export default class LeftNav extends Vue {

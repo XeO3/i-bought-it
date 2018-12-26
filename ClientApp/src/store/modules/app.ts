@@ -10,8 +10,8 @@ import { AlertModel } from '@/models/AlertModel';
 import { IAppState } from '../../models/IAppState';
 import { AppProperties } from '@/config/AppProperties';
 
-@Module({ dynamic: true, store, name: 'App' })
-class App extends VuexModule implements IAppState {
+@Module({ dynamic: false, store, name: 'App' })
+export class App extends VuexModule implements IAppState {
   public alerts: AlertModel[] = [];
   public sidebar = {
     opened: false,
@@ -48,4 +48,4 @@ class App extends VuexModule implements IAppState {
   }
 }
 
-export const AppModule = getModule(App);
+// export const AppModule = getModule(App);

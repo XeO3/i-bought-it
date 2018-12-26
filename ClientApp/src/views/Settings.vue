@@ -13,7 +13,7 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { UserModule } from '@/store/modules/User';
+import { UserModule } from '@/store/store';
 @Component({})
 export default class Settings extends Vue {
   get sections() {

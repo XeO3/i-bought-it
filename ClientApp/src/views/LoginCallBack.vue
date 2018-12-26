@@ -7,9 +7,9 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import { getWhooingAccessToken } from '@/api/GetWhooingAccessToken';
 import { GetWhooingAccessTokenData } from '@/models/GetWhooingAccessTokenData';
 import { AlertModel, AlertType } from '@/models/AlertModel';
-import { AppModule } from '@/store/modules/App';
-import { AuthModule } from '@/store/modules/Auth';
-import { UserModule } from '@/store/modules/User';
+
+import { AuthModule, UserModule } from '@/store/store';
+import { AppModule } from '@/store/store';
 
 @Component({})
 export default class LoginCallBack extends Vue {

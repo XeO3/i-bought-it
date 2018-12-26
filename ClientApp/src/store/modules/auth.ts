@@ -8,8 +8,8 @@ import {
 import store from '@/store/store';
 import { IAuthState } from '../../models/IAuthState';
 
-@Module({ dynamic: true, store, name: 'Auth' })
-class Auth extends VuexModule implements IAuthState {
+@Module({ dynamic: false, store, name: 'Auth' })
+export class Auth extends VuexModule implements IAuthState {
   public token = '';
   public tokenSecret = '';
 
@@ -34,4 +34,4 @@ class Auth extends VuexModule implements IAuthState {
   }
 }
 
-export const AuthModule = getModule(Auth);
+// export const AuthModule = getModule(Auth);
