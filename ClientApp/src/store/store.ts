@@ -6,6 +6,7 @@ import { App } from './modules/App';
 import { getModule } from 'vuex-module-decorators';
 import { Auth } from './modules/Auth';
 import { User } from './modules/User';
+import { Settings } from './modules/Settings';
 
 Vue.use(Vuex);
 
@@ -17,6 +18,7 @@ const store = new Vuex.Store<IRootState>({
     App,
     Auth,
     User,
+    Settings,
   },
 });
 export default store;
@@ -24,3 +26,4 @@ export default store;
 export const AppModule = getModule(App, store);
 export const AuthModule = getModule(Auth, store);
 export const UserModule = getModule(User, store);
+export const SettingsModule = getModule(Settings, store);

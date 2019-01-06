@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar color="primary" app absolute clipped-left>
+  <v-toolbar color="blue-grey lighten-4" app absolute clipped-left>
     <v-toolbar-side-icon @click="ToggleSidebar">
       <v-icon>menu</v-icon>
     </v-toolbar-side-icon>
