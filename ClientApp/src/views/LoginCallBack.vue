@@ -14,10 +14,10 @@ import { AppModule } from '@/store/store';
 @Component({})
 export default class LoginCallBack extends Vue {
   get token(): string {
-    return this.$route.query.token;
+    return this.$route.query.token as string;
   }
   get pin(): string {
-    return this.$route.query.pin;
+    return this.$route.query.pin as string;
   }
 
   public created() {

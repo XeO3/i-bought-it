@@ -19,21 +19,18 @@
               <v-card-text>
                 <v-list subheader>
                   <v-list-tile
-                    v-for="asset in section.accounts.assets"
+                    v-for="asset in section.accounts.assets.filter(o=> IsShowAccount(o))"
                     :key="asset.account_id"
-                    v-if="IsShowAccount(asset)"
                   >
                     <v-list-tile-action>
                       <v-checkbox
-                        v-model="pinedList"
+                        :input-value="GetPinedList(section.section_id)"
                         :value="asset.account_id"
+                        @change="val => SetPinedList(section.section_id, val)"
                         :label="asset.title"
                         ripple
                       ></v-checkbox>
                     </v-list-tile-action>
-                    <!-- <v-list-tile-content>
-                      <v-list-tile-title>{{ asset.title }}</v-list-tile-title>
-                    </v-list-tile-content>-->
                   </v-list-tile>
                 </v-list>
               </v-card-text>
@@ -50,18 +47,12 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { UserModule, SettingsModule } from '@/store/store';
 import { WhooingAccountModel } from '@/models/WhooingAccountModel';
+import { Settings } from '@/store/modules/Settings';
 
 @Component({})
-export default class Settings extends Vue {
+export default class SettingsVue extends Vue {
   get sections() {
     return UserModule.sectionList;
-  }
-
-  get pinedList() {
-    return SettingsModule.pinedList;
-  }
-  set pinedList(v) {
-    SettingsModule.Set_PinedList(v);
   }
 
   public IsShowAccount(account: WhooingAccountModel): boolean {
@@ -74,8 +65,12 @@ export default class Settings extends Vue {
     return true;
   }
 
-  public Toggle_PinedItem(account_id: string) {
-    SettingsModule.Toggle_PinedItem(account_id);
+  public GetPinedList(section_id: string): string[] {
+    const section = Settings.Get_SettingSecion(SettingsModule, section_id);
+    return section.pinedList;
+  }
+  public SetPinedList(section_id: string, pinedList: string[]) {
+    SettingsModule.Set_PinedList({ section_id, pinedList });
   }
 }
 </script>

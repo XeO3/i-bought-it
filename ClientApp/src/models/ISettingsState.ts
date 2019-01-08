@@ -1,3 +1,5 @@
+import { ISettingsSection } from './ISettingsSection';
+
 export interface ISettingsState {
-  pinedList: string[];
+  sections: ISettingsSection[];
 }

@@ -25,7 +25,7 @@ export default new Router({
           path: '',
           name: 'home',
           component: () =>
-            import(/* webpackChunkName: "about" */ './views/Home.vue'),
+            import(/* webpackChunkName: "Home" */ './views/Home.vue'),
         },
         {
           path: 'about',
@@ -41,7 +41,8 @@ export default new Router({
         {
           path: 'settings',
           name: 'settings',
-          component: Settings,
+          component: () =>
+            import(/* webpackChunkName: "Settings" */ './views/Settings.vue'),
         },
       ],
     },
