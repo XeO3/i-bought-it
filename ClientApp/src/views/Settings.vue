@@ -47,7 +47,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { UserModule, SettingsModule } from '@/store/store';
 import { WhooingAccountModel } from '@/models/WhooingAccountModel';
-import { Settings } from '@/store/modules/Settings';
+import { SettingsHelper } from '@/store/modules/Settings';
 
 @Component({})
 export default class SettingsVue extends Vue {
@@ -66,7 +66,10 @@ export default class SettingsVue extends Vue {
   }
 
   public GetPinedList(section_id: string): string[] {
-    const section = Settings.Get_SettingSecion(SettingsModule, section_id);
+    const section = SettingsHelper.Get_SettingSecion(
+      SettingsModule,
+      section_id,
+    );
     return section.pinedList;
   }
   public SetPinedList(section_id: string, pinedList: string[]) {
