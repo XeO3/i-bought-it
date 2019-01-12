@@ -2,15 +2,18 @@ import axios from 'axios';
 import { IWhooingResponseModel } from '@/models/IWhooingResponseModel';
 import { Whooing } from '@/utils/WhooingHelper';
 import { IWhooingBs } from '@/models/WooingBs';
+import Urls from '@/config/Urls';
 
 /**
- * 후잉 유저 정보
+ * 후잉 잔액 정보가져오기
+ * @param section_id 섹션아이디
+ * @param end_date 날짜(Whooing Date)
  */
-export async function getWhooingSections(
+export async function getWhooingBs(
   section_id: string,
   end_date: number,
 ): Promise<IWhooingResponseModel<IWhooingBs>> {
-  const url = 'https://old.whooing.com/api/bs.json_array';
+  const url = Urls.whooingApi + 'bs.json_array';
   const key = Whooing.ApiKey();
   const res = await axios.get<IWhooingResponseModel<IWhooingBs>>(url, {
     headers: {

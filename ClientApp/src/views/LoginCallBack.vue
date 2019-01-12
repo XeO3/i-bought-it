@@ -8,8 +8,9 @@ import { getWhooingAccessToken } from '@/api/GetWhooingAccessToken';
 import { GetWhooingAccessTokenData } from '@/models/GetWhooingAccessTokenData';
 import { AlertModel, AlertType } from '@/models/AlertModel';
 
-import { AuthModule, UserModule } from '@/store/store';
+import { AuthModule, UserModule, AppDataModule } from '@/store/store';
 import { AppModule } from '@/store/store';
+import { AppData } from '@/store/modules/AppData';
 
 @Component({})
 export default class LoginCallBack extends Vue {
@@ -49,6 +50,7 @@ export default class LoginCallBack extends Vue {
     AuthModule.SET_TOKEN_SECRET(res.token_secret);
     await UserModule.FetchUserInfoAsync();
     await UserModule.FetchSectionList();
+    AppDataModule.FetchWhooingBs();
   }
 
   private FailLogin() {

@@ -3,6 +3,7 @@ import store from '@/store/store';
 import { IWhooingResponseModel } from '@/models/IWhooingResponseModel';
 import { IWhooingSectionAccounts } from '@/models/WhooingAccountTypeModel';
 import { Whooing } from '@/utils/WhooingHelper';
+import Urls from '@/config/Urls';
 
 /**
  * 후잉 항목 정보
@@ -11,7 +12,7 @@ import { Whooing } from '@/utils/WhooingHelper';
 export async function getWhooingAccounts(
   sectionId: string,
 ): Promise<IWhooingResponseModel<IWhooingSectionAccounts>> {
-  const url = `https://old.whooing.com/api/accounts.json_array?section_id=${sectionId}`;
+  const url = Urls.whooingApi + `accounts.json_array?section_id=${sectionId}`;
   // const url = `https://api-i-bought-it.azurewebsites.net/api/whooing/accounts.json_array?section_id=${section_id}`
   const key = Whooing.ApiKey();
   const res = await axios.get<IWhooingResponseModel<IWhooingSectionAccounts>>(

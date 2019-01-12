@@ -2,6 +2,7 @@ import axios from 'axios';
 import { WhooingFrequentItem } from '@/models/WhooingFrequentItem';
 import { Whooing } from '@/utils/WhooingHelper';
 import { IWhooingResponseModel } from '@/models/IWhooingResponseModel';
+import Urls from '@/config/Urls';
 
 /**
  * 후잉 유저 정보
@@ -9,7 +10,7 @@ import { IWhooingResponseModel } from '@/models/IWhooingResponseModel';
 export async function getWhooingFrequentItems(
   sectionId: string,
 ): Promise<IWhooingResponseModel<WhooingFrequentItem[]>> {
-  const url = `https://old.whooing.com/api/frequent_items.json_array?section_id=${sectionId}`;
+  const url = Urls.whooingApi + `frequent_items.json_array?section_id=${sectionId}`;
   const key = Whooing.ApiKey();
   const res = await axios.get<IWhooingResponseModel<WhooingFrequentItem[]>>(
     url,

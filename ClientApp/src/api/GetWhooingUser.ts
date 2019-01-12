@@ -2,13 +2,13 @@ import axios from 'axios';
 import { IWhooingUser } from '@/models/WhooingUserModel';
 import { Whooing } from '@/utils/WhooingHelper';
 import { IWhooingResponseModel } from '@/models/IWhooingResponseModel';
+import Urls from '@/config/Urls';
 
 /**
  * 후잉 유저 정보
  */
 export async function getWhooingUser(): Promise<IWhooingResponseModel<IWhooingUser>> {
-  const url = 'https://old.whooing.com/api/user.json';
-  // const url = 'https://api-i-bought-it.azurewebsites.net/api/whooing/user.json'
+  const url = Urls.whooingApi + 'user.json';
   const key = Whooing.ApiKey();
   const res = await axios.get<IWhooingResponseModel<IWhooingUser>>(url, {
     headers: {
