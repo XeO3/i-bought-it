@@ -1,3 +1,5 @@
+import { WhooingDate } from '@/utils/WhooingDate';
+
 export class WhooingAccountModel {
   public static IsClosed(account: WhooingAccountModel): boolean {
     const closeDate = WhooingAccountModel.GetCloseDate(account);
@@ -11,10 +13,7 @@ export class WhooingAccountModel {
   }
 
   private static GetDate(dateNumber: number) {
-    const year = dateNumber / 10000;
-    const month = Math.floor((dateNumber % 10000) / 100 + 1);
-    const day = dateNumber % 100;
-    return new Date(year, month, day);
+    return WhooingDate.ParseNumber(dateNumber);
   }
 
   constructor(
@@ -27,3 +26,4 @@ export class WhooingAccountModel {
     public category: string,
   ) {}
 }
+
