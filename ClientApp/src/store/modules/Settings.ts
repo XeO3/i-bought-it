@@ -7,7 +7,8 @@ import {
 } from 'vuex-module-decorators';
 import store, { UserModule } from '@/store/store';
 import { ISettingsState } from '@/models/ISettingsState';
-import { ISettingsSection, SettingsSection } from '@/models/ISettingsSection';
+import { ISettingsSection } from '@/models/ISettingsSection';
+import { SettingsSection } from '@/models/SettingsSection';
 
 @Module({ dynamic: false, store, name: 'Settings' })
 export class Settings extends VuexModule implements ISettingsState {

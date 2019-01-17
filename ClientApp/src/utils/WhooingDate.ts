@@ -10,6 +10,6 @@ export namespace WhooingDate {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDay();
-    return year * 1000 + month * 100 + day;
+    return year * 10000 + month * 100 + day;
   };
 }

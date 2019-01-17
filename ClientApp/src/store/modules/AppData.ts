@@ -1,12 +1,11 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
-import {
-  IAppDataState,
-  IBalanceItem,
-  BalanceItem,
-} from '@/models/IAppDataState';
+
 import { getWhooingBs } from '@/api/GetWhooingBs';
 import store, { UserModule } from '@/store/store';
 import { WhooingDate } from '@/utils/WhooingDate';
+import { IAppDataState } from '@/models/IAppDataState';
+import { BalanceItem } from '@/models/BalanceItem';
+import { IBalanceItem } from '@/models/IBalanceItem';
 
 @Module({ dynamic: false, store, name: 'AppData' })
 export class AppData extends VuexModule implements IAppDataState {
@@ -41,19 +40,29 @@ export class AppData extends VuexModule implements IAppDataState {
    * 잔액정보를 업데이트 합니다. 해당 잔액정보가 없을경우 잔액정보를 추가합니다.
    * @param balance 잔액 아이템
    */
-  @Mutation
+  @Action
   public Upsert_Balance(balance: IBalanceItem) {
     try {
-      const item = AppDataHelper.Get_Balance(
-        this,
-        balance.section_id,
-        balance.account_id,
-      );
-      item.money = balance.money;
+      this.Set_Balance(balance);
     } catch (e) {
       this.Push_Balance(balance);
     }
   }
+
+  /**
+   * 잔액을 설정합니다.
+   * @param payload
+   */
+  @Mutation
+  public Set_Balance(balance: IBalanceItem) {
+    const item = AppDataHelper.Get_Balance(
+      this,
+      balance.section_id,
+      balance.account_id,
+    );
+    item.money = balance.money;
+  }
+
   /**
    * 잔액에 'addBalance'를 더합니다.
    * @param payload
@@ -99,7 +108,7 @@ export namespace AppDataHelper {
     account_id: string,
   ): IBalanceItem {
     const item = appData.balances.find(
-      (b) => b.account_id === section_id && b.account_id === account_id,
+      (b) => b.section_id === section_id && b.account_id === account_id,
     );
     if (item) {
       return item;
