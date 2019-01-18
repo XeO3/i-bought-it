@@ -13,10 +13,12 @@ export enum LeftItemClick {
 }
 
 const LeftItems: LeftItem[] = [
-  { icon: 'home', text: 'home', click: LeftItemClick.Link, link: 'home' },
-  { icon: 'settings', text: 'Settings', click: LeftItemClick.Link, link: 'settings'  },
+  { icon: 'home', text: 'Home', click: LeftItemClick.Link, link: 'home' },
+  { icon: 'dashboard', text: 'DashBoard', click: LeftItemClick.Link, link: 'dashboard' },
   { divider: true, click: LeftItemClick.None },
+  { icon: 'settings', text: 'Settings', click: LeftItemClick.Link, link: 'settings'  },
   { icon: 'info', text: 'About', click: LeftItemClick.Link, link: 'about' },
+  { divider: true, click: LeftItemClick.None },
   {
     icon: 'open_in_new',
     text: 'Whooing 바로가기',

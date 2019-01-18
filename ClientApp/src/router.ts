@@ -28,6 +28,12 @@ export default new Router({
             import(/* webpackChunkName: "Home" */ './views/Home.vue'),
         },
         {
+          path: 'dashboard',
+          name: 'dashboard',
+          component: () =>
+            import(/* webpackChunkName: "Dashboard" */ './views/DashBoard.vue'),
+        },
+        {
           path: 'about',
           name: 'about',
           component: () =>
