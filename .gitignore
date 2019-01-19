@@ -2,8 +2,8 @@
 node_modules
 /i_bought_it/dist
 
-/i_bought_it/tests/e2e/videos/
-/i_bought_it/tests/e2e/screenshots/
+tests/e2e/videos/
+tests/e2e/screenshots/
 
 # local env files
 .env.local
@@ -23,6 +23,5 @@ yarn-error.log*
 *.sln
 *.sw*
 
-ClientApp/.vs/**/*
-
-ClientApp/_src.v*/**/*
+.vs/**/*
+_src.v*/**/*
