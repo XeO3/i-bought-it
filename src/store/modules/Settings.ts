@@ -5,7 +5,7 @@ import {
   Action,
   getModule,
 } from 'vuex-module-decorators';
-import store, { UserModule } from '@/store/store';
+import store, { UserModule, SettingsModule } from '@/store/store';
 import { ISettingsState } from '@/models/ISettingsState';
 import { ISettingsSection } from '@/models/ISettingsSection';
 import { SettingsSection } from '@/models/SettingsSection';
@@ -84,4 +84,21 @@ export namespace SettingsHelper {
     }
     throw new Error(`섹션아이디 [${section_id}]는 유효하지 않습니다.`);
   }
+
+  /**
+   * 대시보드 표시 항목일경우 true
+   * @param payload 조건
+   * @param settings 셋팅모듈
+   */
+  export const IsPined = (
+    payload: { section_id: string; account_id: string },
+    settings: Settings = SettingsModule,
+  ): boolean => {
+    return settings.sections.some((section) => {
+      return (
+        section.section_id === payload.section_id &&
+        section.pinedList.includes(payload.account_id)
+      );
+    });
+  };
 }
