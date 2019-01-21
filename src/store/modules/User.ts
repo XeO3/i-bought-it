@@ -6,7 +6,7 @@ import {
   getModule,
   MutationAction,
 } from 'vuex-module-decorators';
-import store from '@/store/store';
+import store, { UserModule } from '@/store/store';
 import { IWhooingUser } from '@/models/WhooingUserModel';
 import { getWhooingUser } from '@/api/GetWhooingUser';
 import { IWhooingSection } from '@/models/IWhooingSection';
@@ -14,6 +14,7 @@ import { IWhooingSectionAccounts } from '@/models/WhooingAccountTypeModel';
 import { IUserState } from '@/models/IUserState';
 import { getWhooingSections } from '@/api/GetWhooingSections';
 import { getWhooingAccounts } from '@/api/GetWhooingAccounts';
+import { WhooingAccountModel } from '@/models/WhooingAccountModel';
 
 @Module({ dynamic: false, store, name: 'User' })
 export class User extends VuexModule implements IUserState {
@@ -77,4 +78,20 @@ export class User extends VuexModule implements IUserState {
   }
 }
 
-// export const UserModule = getModule(User);
+export namespace UserHelper {
+  export function GetSection(section_id: string, user: User = UserModule) {
+    return user.sectionList.find(
+      (section) => section.section_id === section_id,
+    );
+  }
+  export function GetSectionName(
+    section_id: string,
+    user: User = UserModule,
+  ): string | undefined {
+    const section = GetSection(section_id);
+    if (section) {
+      return section.title;
+    }
+    return undefined;
+  }
+}

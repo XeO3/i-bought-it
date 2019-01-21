@@ -16,9 +16,9 @@ export default new Router({
     {
       path: '/',
       components: {
-          default: Layout,
-          top: Header,
-          left: LeftNav,
+        default: Layout,
+        top: Header,
+        left: LeftNav,
       },
       children: [
         {
@@ -34,10 +34,18 @@ export default new Router({
             import(/* webpackChunkName: "Dashboard" */ './views/DashBoard.vue'),
         },
         {
+          path: 'input',
+          name: 'input',
+          components: {
+            default: () =>
+              import(/* webpackChunkName: "Input" */ './views/Input.vue'),
+          },
+        },
+        {
           path: 'about',
           name: 'about',
           component: () =>
-            import(/* webpackChunkName: "about" */ './views/About.vue'),
+            import(/* webpackChunkName: "About" */ './views/About.vue'),
         },
         {
           path: 'whooing/callback/:random',

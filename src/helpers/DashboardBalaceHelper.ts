@@ -4,13 +4,13 @@ import { AppData, AppDataHelper } from '@/store/modules/AppData';
 import { SettingsModule, UserModule, AppDataModule } from '@/store/store';
 import { getWhooingSections } from '@/api/GetWhooingSections';
 
-interface IDashboardBalace {
+export interface IDashboardBalace {
   section_id: string;
   title: string;
   accounts: IDashboardBalanceItem[];
 }
 
-interface IDashboardBalanceItem {
+export interface IDashboardBalanceItem {
   account_id: string;
   title: string;
   money: number | null;

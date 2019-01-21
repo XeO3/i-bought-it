@@ -1,5 +1,5 @@
 <template>
-  <v-container grid-list-lg fluid pa-0 fill-height>
+  <v-container grid-list-lg fluid>
     <v-layout v-if="dashboardData.length > 0" row wrap>
       <v-flex v-for="(section) in dashboardData" :key="section.section_id" xs12>
         <v-card>
@@ -10,7 +10,7 @@
           <v-container fluid grid-list-md>
             <v-layout row wrap>
               <v-flex v-for="account in section.accounts" :key="account.account_id" xs6 sm4 md3 lg2>
-                <v-card ripple>
+                <v-card ripple @click="PushInput(section.section_id ,account.account_id)">
                   <v-card-title
                     class="pt-2 pb-1 purple darken-1 white--text text-truncate"
                   >{{account.title}}</v-card-title>
@@ -38,7 +38,10 @@ import { Component, Vue } from 'vue-property-decorator';
 import { AppDataModule, UserModule, SettingsModule } from '@/store/store';
 import dateFns from 'date-fns';
 import { IWhooingSection } from '@/models/IWhooingSection';
-import { DashboardBalaceHelper } from '@/helpers/DashboardBalaceHelper.ts';
+import {
+  DashboardBalaceHelper,
+  IDashboardBalanceItem,
+} from '@/helpers/DashboardBalaceHelper.ts';
 
 @Component
 export default class DashBoardVue extends Vue {
@@ -64,6 +67,10 @@ export default class DashBoardVue extends Vue {
     ) {
       AppDataModule.FetchWhooingBs();
     }
+  }
+
+  private PushInput(sId: string, right: string): void {
+    this.$router.push({ name: 'input', query: { sId, right } });
   }
 }
 </script>

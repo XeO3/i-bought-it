@@ -8,6 +8,7 @@ import { Auth } from './modules/Auth';
 import { User } from './modules/User';
 import { Settings } from './modules/Settings';
 import { AppData } from './modules/AppData';
+import { Entries } from './modules/Entries';
 
 Vue.use(Vuex);
 
@@ -21,6 +22,7 @@ const store = new Vuex.Store<IRootState>({
     User,
     Settings,
     AppData,
+    Entries,
   },
 });
 export default store;
@@ -30,3 +32,4 @@ export const AuthModule = getModule(Auth, store);
 export const UserModule = getModule(User, store);
 export const SettingsModule = getModule(Settings, store);
 export const AppDataModule = getModule(AppData, store);
+export const EntriesModule = getModule(Entries, store);
