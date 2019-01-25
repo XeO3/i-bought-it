@@ -1,5 +1,5 @@
 <template>
-  <v-container grid-list-lg fluid>
+  <v-container grid-list-lg fluid pa-0>
     <v-layout v-if="dashboardData.length > 0" row wrap>
       <v-flex v-for="(section) in dashboardData" :key="section.section_id" xs12>
         <v-card>

@@ -19,10 +19,13 @@
                   <v-text-field v-model="tag" label="금액" type="number" required reverse clearable></v-text-field>
                 </v-flex>
                 <v-flex xs6 md3>
-                  <v-text-field v-model="left" label="왼쪽" required></v-text-field>
+                  <v-select :items="['aa', 'bb']" v-model="left" label="왼쪽" small-chips readonly></v-select>
                 </v-flex>
                 <v-flex xs6 md3>
                   <v-text-field v-model="right" label="오른쪽" required></v-text-field>
+                </v-flex>
+                <v-flex xs6 md3>
+                  <InputAccountModal v-model="left" :sectionId="sId" left></InputAccountModal>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -63,7 +66,12 @@ import { UserModule } from '@/store/store';
 import { WhooingDate } from '@/utils/WhooingDate';
 import fns from 'date-fns';
 import { UserHelper } from '@/store/modules/User';
-@Component
+import InputAccountModal from '@/components/InputAccountModal.vue';
+@Component({
+  components: {
+    InputAccountModal,
+  },
+})
 export default class Input extends Vue {
   get sId(): string {
     return this.$route.query.sId as string;

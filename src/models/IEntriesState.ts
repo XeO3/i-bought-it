@@ -1,11 +1,10 @@
 export interface IEntriesState {
-  data: IEntryItem[];
+  sections: IEntrySection[];
 }
 
-export interface IEntryItem {
+export interface IEntrySection {
   syncDate: Date;
   section_id: string;
-  right: string;
   data: IEntryDataItem[];
 }
 
@@ -13,4 +12,5 @@ export interface IEntryDataItem {
   item: string;
   money: string;
   left: string;
+  right: string;
 }
