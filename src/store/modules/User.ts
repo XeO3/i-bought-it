@@ -14,7 +14,10 @@ import { IWhooingSectionAccounts } from '@/models/WhooingAccountTypeModel';
 import { IUserState } from '@/models/IUserState';
 import { getWhooingSections } from '@/api/GetWhooingSections';
 import { getWhooingAccounts } from '@/api/GetWhooingAccounts';
-import { WhooingAccountModel } from '@/models/WhooingAccountModel';
+import {
+  WhooingAccountModel,
+  IWhooingAccountModel,
+} from '@/models/WhooingAccountModel';
 
 @Module({ dynamic: false, store, name: 'User' })
 export class User extends VuexModule implements IUserState {
@@ -84,6 +87,34 @@ export namespace UserHelper {
       (section) => section.section_id === section_id,
     );
   }
+  export function GetAccount(
+    section_id: string,
+    account_id: string,
+    user: User = UserModule,
+  ): (IWhooingAccountModel & { account: string }) | undefined {
+    const section = GetSection(section_id, user);
+    if (section && section.accounts) {
+      const accounts = section.accounts;
+      const list = [
+        ...accounts.assets.map((o) => {
+          return { ...o, account: 'assets' };
+        }),
+        ...accounts.capital.map((o) => {
+          return { ...o, account: 'capital' };
+        }),
+        ...accounts.expenses.map((o) => {
+          return { ...o, account: 'expenses' };
+        }),
+        ...accounts.income.map((o) => {
+          return { ...o, account: 'income' };
+        }),
+        ...accounts.liabilities.map((o) => {
+          return { ...o, account: 'liabilities' };
+        }),
+      ];
+      return list.find((item) => item.account_id === account_id);
+    }
+  }
   export function GetSectionName(
     section_id: string,
     user: User = UserModule,
@@ -92,6 +123,15 @@ export namespace UserHelper {
     if (section) {
       return section.title;
     }
-    return undefined;
+  }
+  export function GetAccountName(
+    section_id: string,
+    account_id: string,
+    user: User = UserModule,
+  ): string | undefined {
+    const account = GetAccount(section_id, account_id, user);
+    if (account) {
+      return account.title;
+    }
   }
 }

@@ -1,6 +1,16 @@
 import { WhooingDate } from '@/utils/WhooingDate';
 
-export class WhooingAccountModel {
+export interface IWhooingAccountModel {
+  account_id: string;
+  type: string;
+  title: string;
+  memo: string;
+  open_date: number;
+  close_date: number;
+  category: string;
+}
+
+export class WhooingAccountModel implements IWhooingAccountModel {
   public static IsClosed(account: WhooingAccountModel): boolean {
     const closeDate = WhooingAccountModel.GetCloseDate(account);
     const now = new Date();
@@ -26,4 +36,3 @@ export class WhooingAccountModel {
     public category: string,
   ) {}
 }
-

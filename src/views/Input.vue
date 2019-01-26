@@ -10,22 +10,15 @@
                   <div class="text-xs-center">
                     <v-chip>{{sIdName}}</v-chip>
                     <v-chip>{{date}}</v-chip>
+                    <InputAccountModal v-model="left" :sectionId="sId" left></InputAccountModal>
+                    <InputAccountModal v-model="right" :sectionId="sId" right></InputAccountModal>
                   </div>
                 </v-flex>
                 <v-flex xs6 md3>
                   <v-text-field v-model="item" label="아이템" required clearable></v-text-field>
                 </v-flex>
                 <v-flex xs6 md3>
-                  <v-text-field v-model="tag" label="금액" type="number" required reverse clearable></v-text-field>
-                </v-flex>
-                <v-flex xs6 md3>
-                  <v-select :items="['aa', 'bb']" v-model="left" label="왼쪽" small-chips readonly></v-select>
-                </v-flex>
-                <v-flex xs6 md3>
-                  <v-text-field v-model="right" label="오른쪽" required></v-text-field>
-                </v-flex>
-                <v-flex xs6 md3>
-                  <InputAccountModal v-model="left" :sectionId="sId" left></InputAccountModal>
+                  <v-text-field v-model="money" label="금액" type="number" required reverse clearable></v-text-field>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -54,7 +47,13 @@
       </v-card>
     </v-flex>
     <v-flex xs12 mt-3 class="text-xs-center">
-      <v-btn large color="success" :disabled="!Inputtable">입력
+      <v-btn
+        large
+        color="success"
+        :disabled="!Inputtable || entryLoading"
+        :loading="entryLoading"
+        @click="PushEntry"
+      >입력
         <v-icon right>send</v-icon>
       </v-btn>
     </v-flex>
@@ -67,12 +66,20 @@ import { WhooingDate } from '@/utils/WhooingDate';
 import fns from 'date-fns';
 import { UserHelper } from '@/store/modules/User';
 import InputAccountModal from '@/components/InputAccountModal.vue';
+import { postWhooingEntries } from '@/api/PostWhooingEntries';
+import {
+  PostWhooingEntriesData,
+  IPostWhooingEntriesData,
+} from '@/models/PostWhooingEntriesData';
+
 @Component({
   components: {
     InputAccountModal,
   },
 })
 export default class Input extends Vue {
+  private entryLoading: boolean = false;
+
   get sId(): string {
     return this.$route.query.sId as string;
   }
@@ -155,11 +162,21 @@ export default class Input extends Vue {
     });
   }
   get Inputtable() {
-    if (this.sId && this.item && this.left && this.right && this.date) {
+    if (
+      this.sId &&
+      this.item &&
+      this.left &&
+      this.right &&
+      this.date &&
+      this.money
+    ) {
       return true;
     } else {
       return false;
     }
+  }
+  get suggestionItems() {
+    return [];
   }
 
   public suggestionHeaders = [
@@ -168,8 +185,33 @@ export default class Input extends Vue {
     { text: '왼쪽', value: 'left' },
     { text: '오른쪽', value: 'right' },
   ];
-  get suggestionItems() {
-    return [];
+
+  public async PushEntry() {
+    this.entryLoading = true;
+    try {
+      const left = UserHelper.GetAccount(this.sId, this.left);
+      const right = UserHelper.GetAccount(this.sId, this.right);
+      if (left && right) {
+        const data: IPostWhooingEntriesData = {
+          section_id: this.sId,
+          l_account: left.account,
+          l_account_id: left.account_id,
+          r_account: right.account,
+          r_account_id: right.account_id,
+          item: this.item,
+          money: Number(this.money),
+          memo: this.memo,
+        };
+        const res = await postWhooingEntries(new PostWhooingEntriesData(data));
+        if(res.code === 200){
+          
+        }else{
+          throw Error('거래 입력 실패')
+        }
+      }
+    } finally {
+      this.entryLoading = false;
+    }
   }
 }
 </script>
