@@ -6,42 +6,46 @@
           <v-card-text>
             <v-container pa-0 grid-list-lg>
               <v-layout row wrap>
+                <v-flex xs12 class="text-xs-center">
+                  <v-chip>{{sIdName}}</v-chip>
+                  <v-chip>{{date}}</v-chip>
+                </v-flex>
                 <v-flex xs12>
                   <div class="text-xs-center">
-                    <v-chip>{{sIdName}}</v-chip>
-                    <v-chip>{{date}}</v-chip>
                     <InputAccountModal v-model="left" :sectionId="sId" left></InputAccountModal>
                     <InputAccountModal v-model="right" :sectionId="sId" right></InputAccountModal>
                   </div>
                 </v-flex>
-                <v-flex xs6 md3>
+                <v-flex xs12 md6 offset-md1>
                   <v-text-field v-model="item" label="아이템" required clearable></v-text-field>
                 </v-flex>
-                <v-flex xs6 md3>
+                <v-flex xs12 md4>
                   <v-text-field v-model="money" label="금액" type="number" required reverse clearable></v-text-field>
                 </v-flex>
               </v-layout>
             </v-container>
           </v-card-text>
+          <v-card-actions>
+            <v-btn color="blue darken-1" flat @click="ClearInput">clear</v-btn>
+          </v-card-actions>
         </v-card>
       </v-form>
     </v-flex>
-    <v-flex xs12 mt-3 v-if="suggestionItems.length> 0">
+    <v-flex xs12 mt-3 v-if="suggestionItems.length> 0 && !item">
       <v-card>
         <v-data-table
           :headers="suggestionHeaders"
           :items="suggestionItems"
-          hide-headers
           hide-actions
           :rowsPerPage="-1"
+          disable-initial-sort
         >
           <template slot="items" slot-scope="props">
-            <td>{{ props.item.name }}</td>
-            <td class="text-xs-right">{{ props.item.calories }}</td>
-            <td class="text-xs-right">{{ props.item.fat }}</td>
-            <td class="text-xs-right">{{ props.item.carbs }}</td>
-            <td class="text-xs-right">{{ props.item.protein }}</td>
-            <td class="text-xs-right">{{ props.item.iron }}</td>
+            <tr @click="AcceptProposal(props.item)">
+              <td class="px-2">{{ props.item.item }}</td>
+              <td class="px-2 text-xs-center">{{ GetAccountName(sId, props.item.left) }}</td>
+              <td class="px-2 text-xs-center">{{ GetAccountName(sId, props.item.right) }}</td>
+            </tr>
           </template>
         </v-data-table>
       </v-card>
@@ -61,7 +65,7 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { UserModule } from '@/store/store';
+import { UserModule, EntriesModule } from '@/store/store';
 import { WhooingDate } from '@/utils/WhooingDate';
 import fns from 'date-fns';
 import { UserHelper } from '@/store/modules/User';
@@ -71,6 +75,11 @@ import {
   PostWhooingEntriesData,
   IPostWhooingEntriesData,
 } from '@/models/PostWhooingEntriesData';
+import { IEntrySection } from '@/models/IEntriesState';
+import {
+  InputSuggestionHelper,
+  IInputSeggestionItem,
+} from '@/helpers/InputSuggestionHelper';
 
 @Component({
   components: {
@@ -78,6 +87,11 @@ import {
   },
 })
 export default class Input extends Vue {
+  public suggestionHeaders = [
+    { text: '아이템', value: 'item' },
+    { text: '왼쪽', value: 'left' },
+    { text: '오른쪽', value: 'right' },
+  ];
   private entryLoading: boolean = false;
 
   get sId(): string {
@@ -176,15 +190,13 @@ export default class Input extends Vue {
     }
   }
   get suggestionItems() {
-    return [];
+    return InputSuggestionHelper.get(this.sId, {
+      item: this.item,
+      left: this.left,
+      right: this.right,
+      money: this.money,
+    });
   }
-
-  public suggestionHeaders = [
-    { text: '아이템', value: 'item' },
-    { text: '금액', value: 'money' },
-    { text: '왼쪽', value: 'left' },
-    { text: '오른쪽', value: 'right' },
-  ];
 
   public async PushEntry() {
     this.entryLoading = true;
@@ -203,15 +215,35 @@ export default class Input extends Vue {
           memo: this.memo,
         };
         const res = await postWhooingEntries(new PostWhooingEntriesData(data));
-        if(res.code === 200){
-          
-        }else{
-          throw Error('거래 입력 실패')
+        if (res.code === 200) {
+          const entry: IEntrySection = {
+            section_id: this.sId,
+            data: res.results,
+          };
+          EntriesModule.Push_EntryItem(entry);
+        } else {
+          throw Error('거래 입력 실패');
         }
       }
     } finally {
       this.entryLoading = false;
     }
+  }
+  public ClearInput() {
+    this.left = '';
+    this.right = '';
+    this.item = '';
+    this.money = '';
+  }
+
+  public AcceptProposal(item: IInputSeggestionItem) {
+    this.left = item.left;
+    this.right = item.right;
+    this.item = item.item;
+  }
+
+  public GetAccountName(section_id: string, account_id: string) {
+    return UserHelper.GetAccountName(section_id, account_id);
   }
 }
 </script>

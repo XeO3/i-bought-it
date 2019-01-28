@@ -11,16 +11,21 @@ import { IWhoooingGetEntriesParams } from '@/models/IWhoooingGetEntriesPayload';
  */
 export async function getWhooingEntries(
   params: IWhoooingGetEntriesParams,
-): Promise<IWhooingResponseModel<WhooingEntryModel[]>> {
+): Promise<IWhooingResponseModel<IWhooingEntriesResults>> {
   const url = Urls.whooingApi + 'entries.json_array';
   const key = Whooing.ApiKey();
-  const res = await axios.get<IWhooingResponseModel<WhooingEntryModel[]>>(url, {
+  const res = await axios.get<IWhooingResponseModel<IWhooingEntriesResults>>(url, {
     headers: {
       'X-API-KEY': key,
     },
     params,
   });
   return res.data;
+}
+
+export interface IWhooingEntriesResults {
+  reports: any[];
+  rows: WhooingEntryModel[];
 }
 
 // let resultsample = {

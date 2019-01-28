@@ -1,6 +1,6 @@
 .DS_Store
 node_modules
-/i_bought_it/dist
+dist
 
 tests/e2e/videos/
 tests/e2e/screenshots/
@@ -25,3 +25,5 @@ yarn-error.log*
 
 .vs/**/*
 _src.v*/**/*
+.firebaserc
+.firebase

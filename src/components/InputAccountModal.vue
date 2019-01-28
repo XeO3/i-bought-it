@@ -4,7 +4,7 @@
       slot="activator"
       :color="selectedAccount ? GetAccountColor(selectedAccount.account): 'default'"
       dark
-    >{{selectedAccount ? `${selectedAccount.title} ${GetSuffix(selectedAccount.account)}`  : `${typeText} 미선택`}}</v-chip>
+    >{{selectedAccount ? `${selectedAccount.title} ${GetSuffix(selectedAccount.account)}` : `${typeText} 미선택`}}</v-chip>
     <v-card>
       <v-card-title>{{typeText}} 선택</v-card-title>
       <v-divider></v-divider>
@@ -139,8 +139,8 @@ export default class InputAccountModal extends Vue {
     }
   }
 
-  public GetSuffix(account: WhooingAccount){
-     switch (account) {
+  public GetSuffix(account: WhooingAccount) {
+    switch (account) {
       case WhooingAccount.assets:
         return this.left ? '+' : this.right ? '-' : '';
       case WhooingAccount.liabilities:

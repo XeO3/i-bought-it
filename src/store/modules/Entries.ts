@@ -7,6 +7,8 @@ import {
 } from 'vuex-module-decorators';
 import store, { EntriesModule } from '@/store/store';
 import { IEntriesState, IEntrySection } from '@/models/IEntriesState';
+import { getWhooingEntries } from '@/api/GetWhooingEntries';
+import { WhoooingGetEntriesParams } from '@/models/IWhoooingGetEntriesPayload';
 
 @Module({ dynamic: false, store, name: 'Entries' })
 export class Entries extends VuexModule implements IEntriesState {
@@ -42,6 +44,19 @@ export class Entries extends VuexModule implements IEntriesState {
       this.sections.push(payload);
     }
   }
+
+  @Action
+  public async Fetch_EntryItemAsync(section_id: string) {
+    const param = new WhoooingGetEntriesParams(section_id);
+    const res = await getWhooingEntries(param);
+    if (res.code === 200) {
+      this.Set_EntryItem({
+        section_id,
+        data: res.results.rows,
+        syncDate: new Date(),
+      });
+    }
+  }
 }
 
 export namespace EntriesHelper {
@@ -52,8 +67,9 @@ export namespace EntriesHelper {
     const entry = entries.sections.find(
       (item) => item.section_id === section_id,
     );
+    if (!entry) {
+      EntriesModule.Fetch_EntryItemAsync(section_id);
+    }
     return entry;
   }
-
-  export function GetOrFetcEntry(){}
 }
