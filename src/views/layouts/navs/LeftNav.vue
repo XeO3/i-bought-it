@@ -19,11 +19,17 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import LeftItems, { LeftItem, LeftItemClick } from '@/config/LeftItems';
-import { AppModule } from '@/store/store';
+import { AppModule, UserModule } from '@/store/store';
 
 @Component({})
 export default class LeftNav extends Vue {
-  private items = LeftItems;
+  get isLogin() {
+    return UserModule.isLogin;
+  }
+
+  get items() {
+    return LeftItems.filter(item=> !item.isLogin || this.isLogin)
+  }
 
   get opened(): boolean {
     return AppModule.sidebar.opened;

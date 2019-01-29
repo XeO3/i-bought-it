@@ -3,5 +3,6 @@ import { IWhooingSection } from '@/models/IWhooingSection';
 export interface IUserState {
   userInfo: IWhooingUser | null;
   sectionList: IWhooingSection[];
+  loginDate: Date | null;
 }
 

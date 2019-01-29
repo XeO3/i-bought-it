@@ -18,6 +18,7 @@ import {
   WhooingAccountModel,
   IWhooingAccountModel,
 } from '@/models/WhooingAccountModel';
+import fns from 'date-fns';
 
 @Module({ dynamic: false, store, name: 'User' })
 export class User extends VuexModule implements IUserState {
@@ -25,11 +26,21 @@ export class User extends VuexModule implements IUserState {
   public sectionList: IWhooingSection[] = [];
   /** 유저 정보 */
   public userInfo: IWhooingUser | null = null;
+  /** 로그인 날짜 */
+  public loginDate: Date | null = null;
 
   /** 섹션 아이디 리스트 */
   get SectionIdList(): string[] {
     const list = this.sectionList.map((o) => o.section_id);
     return list;
+  }
+
+  get isLogin(): boolean {
+    return (
+      this.userInfo !== null &&
+      this.loginDate !== null &&
+      fns.isAfter(this.loginDate, fns.addDays(new Date(), -14))
+    );
   }
 
   @Mutation
@@ -40,6 +51,7 @@ export class User extends VuexModule implements IUserState {
   @Mutation
   public SET_USER(user: IWhooingUser) {
     this.userInfo = user;
+    this.loginDate = new Date();
   }
   @Mutation
   public SET_SECTIONLIST(sectionList: IWhooingSection[]) {

@@ -4,6 +4,7 @@ export interface LeftItem {
   click: LeftItemClick;
   link?: string;
   divider?: boolean;
+  isLogin?: boolean;
 }
 
 export enum LeftItemClick {
@@ -14,11 +15,11 @@ export enum LeftItemClick {
 
 const LeftItems: LeftItem[] = [
   { icon: 'home', text: 'Home', click: LeftItemClick.Link, link: 'home' },
-  { icon: 'dashboard', text: 'DashBoard', click: LeftItemClick.Link, link: 'dashboard' },
-  { divider: true, click: LeftItemClick.None },
-  { icon: 'settings', text: 'Settings', click: LeftItemClick.Link, link: 'settings'  },
   { icon: 'info', text: 'About', click: LeftItemClick.Link, link: 'about' },
   { divider: true, click: LeftItemClick.None },
+  { icon: 'dashboard', text: 'DashBoard', click: LeftItemClick.Link, link: 'dashboard', isLogin: true },
+  { icon: 'settings', text: 'Settings', click: LeftItemClick.Link, link: 'settings', isLogin: true  },
+  { divider: true, click: LeftItemClick.None, isLogin: true },
   {
     icon: 'open_in_new',
     text: 'Whooing 바로가기',
