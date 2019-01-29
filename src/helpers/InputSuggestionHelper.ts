@@ -46,7 +46,7 @@ export namespace InputSuggestionHelper {
       });
     }
     return list.sort((a, b) => {
-      return a.score > b.score ? 1 : a.score < b.score ? -1 : 0;
+      return a.score > b.score ? -1 : a.score < b.score ? 1 : 0;
     });
   }
 }
