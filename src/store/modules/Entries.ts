@@ -9,6 +9,8 @@ import store, { EntriesModule } from '@/store/store';
 import { IEntriesState, IEntrySection } from '@/models/IEntriesState';
 import { getWhooingEntries } from '@/api/GetWhooingEntries';
 import { WhoooingGetEntriesParams } from '@/models/IWhoooingGetEntriesPayload';
+import fns from 'date-fns';
+import { WhooingDate } from '@/utils/WhooingDate';
 
 @Module({ dynamic: false, store, name: 'Entries' })
 export class Entries extends VuexModule implements IEntriesState {
@@ -67,7 +69,7 @@ export namespace EntriesHelper {
     const entry = entries.sections.find(
       (item) => item.section_id === section_id,
     );
-    if (!entry) {
+    if (!entry || !entry.syncDate || fns.isBefore(entry.syncDate, fns.addHours(new Date(), -1))) {
       EntriesModule.Fetch_EntryItemAsync(section_id);
     }
     return entry;
