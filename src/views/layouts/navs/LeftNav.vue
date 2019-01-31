@@ -28,7 +28,7 @@ export default class LeftNav extends Vue {
   }
 
   get items() {
-    return LeftItems.filter(item=> !item.isLogin || this.isLogin)
+    return LeftItems.filter((item) => !item.isLogin || this.isLogin);
   }
 
   get opened(): boolean {

@@ -247,6 +247,3 @@ export default class Input extends Vue {
   }
 }
 </script>
-
-<style>
-</style>

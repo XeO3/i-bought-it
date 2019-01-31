@@ -48,6 +48,11 @@ export class Entries extends VuexModule implements IEntriesState {
   }
 
   @Action
+  public CLEAR_Entries() {
+    this.Set_Entries([]);
+  }
+
+  @Action
   public async Fetch_EntryItemAsync(section_id: string) {
     const param = new WhoooingGetEntriesParams(section_id);
     const res = await getWhooingEntries(param);
@@ -69,7 +74,11 @@ export namespace EntriesHelper {
     const entry = entries.sections.find(
       (item) => item.section_id === section_id,
     );
-    if (!entry || !entry.syncDate || fns.isBefore(entry.syncDate, fns.addHours(new Date(), -1))) {
+    if (
+      !entry ||
+      !entry.syncDate ||
+      fns.isBefore(entry.syncDate, fns.addHours(new Date(), -1))
+    ) {
       EntriesModule.Fetch_EntryItemAsync(section_id);
     }
     return entry;

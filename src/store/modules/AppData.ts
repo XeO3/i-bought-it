@@ -17,7 +17,7 @@ export class AppData extends VuexModule implements IAppDataState {
    * @param newDate 잔액정보 업데이트날짜
    */
   @Mutation
-  public Set_BalancesSyncDate(newDate: Date) {
+  public Set_BalancesSyncDate(newDate: Date | null) {
     this.balancesSyncDate = newDate;
   }
   /**
@@ -36,6 +36,13 @@ export class AppData extends VuexModule implements IAppDataState {
   public Push_Balance(balance: IBalanceItem) {
     this.balances.push(balance);
   }
+
+  @Action
+  public CLEAR_AppData() {
+    this.Set_Balances([]);
+    this.Set_BalancesSyncDate(null);
+  }
+
   /**
    * 잔액정보를 업데이트 합니다. 해당 잔액정보가 없을경우 잔액정보를 추가합니다.
    * @param balance 잔액 아이템

@@ -44,14 +44,13 @@ export class User extends VuexModule implements IUserState {
   }
 
   @Mutation
-  public CLEAR_USER() {
-    this.userInfo = null;
-    this.sectionList = [];
-  }
-  @Mutation
-  public SET_USER(user: IWhooingUser) {
+  public SET_USER(user: IWhooingUser | null) {
     this.userInfo = user;
-    this.loginDate = new Date();
+    if (user) {
+      this.loginDate = new Date();
+    } else {
+      this.loginDate = null;
+    }
   }
   @Mutation
   public SET_SECTIONLIST(sectionList: IWhooingSection[]) {
@@ -69,6 +68,12 @@ export class User extends VuexModule implements IUserState {
     if (section) {
       section.accounts = payload.accounts;
     }
+  }
+
+  @Action
+  public CLEAR_User() {
+    this.SET_SECTIONLIST([]);
+    this.SET_USER(null);
   }
 
   @Action({})

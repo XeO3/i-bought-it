@@ -34,6 +34,11 @@ export class App extends VuexModule implements IAppState {
     this.alerts.push(alert);
   }
 
+  @Action
+  public CLEAR_App() {
+    this.SET_SIDEBAR(false);
+  }
+
   @Action({ commit: 'SET_SIDEBAR' })
   public ToggleSideBar() {
     return !this.sidebar.opened;

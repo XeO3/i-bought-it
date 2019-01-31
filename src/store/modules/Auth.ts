@@ -5,7 +5,7 @@ import {
   Action,
   getModule,
 } from 'vuex-module-decorators';
-import store from '@/store/store';
+import store, { AppModule, AppDataModule, EntriesModule, SettingsModule, UserModule } from '@/store/store';
 import { IAuthState } from '../../models/IAuthState';
 
 @Module({ dynamic: false, store, name: 'Auth' })
@@ -22,16 +22,20 @@ export class Auth extends VuexModule implements IAuthState {
     this.tokenSecret = tokenSecret;
   }
 
-  @Mutation
+  @Action
   public CLEAR_AUTH() {
     this.SET_TOKEN('');
     this.SET_TOKEN_SECRET('');
   }
 
-  @Action({})
+  @Action
   public LogOut() {
-    // console.log('logout');
+    this.CLEAR_AUTH();
+    AppModule.CLEAR_App();
+    AppDataModule.CLEAR_AppData();
+    EntriesModule.CLEAR_Entries();
+    SettingsModule.CLEAR_Settings();
+    UserModule.CLEAR_User();
   }
 }
 
-// export const AuthModule = getModule(Auth);

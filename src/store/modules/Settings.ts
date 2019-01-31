@@ -15,9 +15,14 @@ export class Settings extends VuexModule implements ISettingsState {
   /** 섹션 설정 */
   public sections: ISettingsSection[] = [];
 
+  @Mutation
+  public Set_SettingsSections(sections: ISettingsSection[]) {
+    this.sections = sections;
+  }
+
   /** 섹션설정 추가 */
   @Mutation
-  public Push_SettingsSections(newSection: ISettingsSection) {
+  public Push_SettingsSection(newSection: ISettingsSection) {
     this.sections.push(newSection);
   }
 
@@ -39,6 +44,11 @@ export class Settings extends VuexModule implements ISettingsState {
   }): void {
     const section = SettingsHelper.Get_SettingSecion(this, payload.section_id);
     section.pinedList = payload.pinedList;
+  }
+
+  @Action
+  public CLEAR_Settings() {
+    this.Set_SettingsSections([]);
   }
 
   /** 대시보드 표시 항목 토글 */
@@ -78,7 +88,7 @@ export namespace SettingsHelper {
     } else {
       if (UserModule.sectionList.some((o) => o.section_id === section_id)) {
         const newSection = new SettingsSection(section_id);
-        settingsModule.Push_SettingsSections(newSection);
+        settingsModule.Push_SettingsSection(newSection);
         return newSection;
       }
     }

@@ -16,11 +16,9 @@
         <v-icon>person</v-icon>
       </v-btn>
       <v-card>
-        <v-card-title class="title text-xs-center">
-          {{ userName }}
-        </v-card-title>
+        <v-card-title class="title text-xs-center">{{ userName }}</v-card-title>
         <v-card-actions>
-          <v-btn flat color="green">Logout</v-btn>
+          <v-btn flat color="green" @click="Logout">Logout</v-btn>
         </v-card-actions>
       </v-card>
     </v-menu>
@@ -28,7 +26,7 @@
 </template>
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import { AppModule, UserModule } from '@/store/store';
+import { AppModule, UserModule, AuthModule } from '@/store/store';
 import LoginModal from '@/components/login/LoginModal.vue';
 
 @Component({
@@ -50,6 +48,10 @@ export default class Header extends Vue {
     if (UserModule.userInfo) {
       return UserModule.userInfo.username;
     }
+  }
+
+  private Logout(){
+    AuthModule.LogOut();
   }
 }
 </script>
