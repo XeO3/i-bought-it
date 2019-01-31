@@ -1,6 +1,6 @@
 {
-  "name": "i_bought_it",
-  "short_name": "i_bought_it",
+  "name": "이거샀어",
+  "short_name": "Ibi",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
@@ -13,7 +13,7 @@
       "type": "image/png"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "./pwa",
   "display": "standalone",
   "background_color": "#CFF2FF",
   "theme_color": "#4DBA87"

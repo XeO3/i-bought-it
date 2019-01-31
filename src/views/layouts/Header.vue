@@ -50,7 +50,7 @@ export default class Header extends Vue {
     }
   }
 
-  private Logout(){
+  private Logout() {
     AuthModule.LogOut();
   }
 }

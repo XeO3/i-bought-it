@@ -60,5 +60,7 @@ export default new Router({
         },
       ],
     },
+    { path: 'pwa', redirect: '/' },
+    { path: '*', redirect: '/' },
   ],
 });

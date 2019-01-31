@@ -4,7 +4,7 @@ module.exports = {
   transpileDependencies: ['vuex-module-decorators'],
 
   pwa: {
-    name: 'i-bought-it',
+    name: '이거샀어',
     themeColor: '#82E6F1',
     msTileColor: '#50E3C2'
   }
