@@ -1,67 +1,76 @@
 <template>
-  <v-layout align-start align-content-start row wrap>
-    <v-flex xs12>
-      <v-form>
+  <v-container fill-height>
+    <v-layout row wrap align-content-start>
+      <v-flex xs12>
+        <v-form>
+          <v-card>
+            <v-card-text>
+              <v-container pa-0 grid-list-lg>
+                <v-layout row wrap>
+                  <v-flex xs12 class="text-xs-center">
+                    <v-chip>{{sIdName}}</v-chip>
+                    <v-chip>{{date}}</v-chip>
+                  </v-flex>
+                  <v-flex xs12>
+                    <div class="text-xs-center">
+                      <InputAccountModal v-model="left" :sectionId="sId" left></InputAccountModal>
+                      <InputAccountModal v-model="right" :sectionId="sId" right></InputAccountModal>
+                    </div>
+                  </v-flex>
+                  <v-flex xs12 md6 offset-md1>
+                    <v-text-field v-model="item" label="아이템" required clearable></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 md4>
+                    <v-text-field
+                      v-model="money"
+                      label="금액"
+                      type="number"
+                      required
+                      reverse
+                      clearable
+                    ></v-text-field>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn color="blue darken-1" flat @click="ClearInput">clear</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-form>
+      </v-flex>
+      <v-flex xs12 mt-3 v-if="suggestionItems.length> 0 && !item">
         <v-card>
-          <v-card-text>
-            <v-container pa-0 grid-list-lg>
-              <v-layout row wrap>
-                <v-flex xs12 class="text-xs-center">
-                  <v-chip>{{sIdName}}</v-chip>
-                  <v-chip>{{date}}</v-chip>
-                </v-flex>
-                <v-flex xs12>
-                  <div class="text-xs-center">
-                    <InputAccountModal v-model="left" :sectionId="sId" left></InputAccountModal>
-                    <InputAccountModal v-model="right" :sectionId="sId" right></InputAccountModal>
-                  </div>
-                </v-flex>
-                <v-flex xs12 md6 offset-md1>
-                  <v-text-field v-model="item" label="아이템" required clearable></v-text-field>
-                </v-flex>
-                <v-flex xs12 md4>
-                  <v-text-field v-model="money" label="금액" type="number" required reverse clearable></v-text-field>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn color="blue darken-1" flat @click="ClearInput">clear</v-btn>
-          </v-card-actions>
+          <v-data-table
+            :headers="suggestionHeaders"
+            :items="suggestionItems"
+            hide-actions
+            :rowsPerPage="-1"
+            disable-initial-sort
+          >
+            <template slot="items" slot-scope="props">
+              <tr @click="AcceptProposal(props.item)">
+                <td class="px-2">{{ props.item.item }}</td>
+                <td class="px-2 text-xs-center">{{ GetAccountName(sId, props.item.left) }}</td>
+                <td class="px-2 text-xs-center">{{ GetAccountName(sId, props.item.right) }}</td>
+              </tr>
+            </template>
+          </v-data-table>
         </v-card>
-      </v-form>
-    </v-flex>
-    <v-flex xs12 mt-3 v-if="suggestionItems.length> 0 && !item">
-      <v-card>
-        <v-data-table
-          :headers="suggestionHeaders"
-          :items="suggestionItems"
-          hide-actions
-          :rowsPerPage="-1"
-          disable-initial-sort
-        >
-          <template slot="items" slot-scope="props">
-            <tr @click="AcceptProposal(props.item)">
-              <td class="px-2">{{ props.item.item }}</td>
-              <td class="px-2 text-xs-center">{{ GetAccountName(sId, props.item.left) }}</td>
-              <td class="px-2 text-xs-center">{{ GetAccountName(sId, props.item.right) }}</td>
-            </tr>
-          </template>
-        </v-data-table>
-      </v-card>
-    </v-flex>
-    <v-flex xs12 mt-3 class="text-xs-center">
-      <v-btn
-        large
-        color="success"
-        :disabled="!Inputtable || entryLoading"
-        :loading="entryLoading"
-        @click="PushEntry"
-      >입력
-        <v-icon right>send</v-icon>
-      </v-btn>
-    </v-flex>
-  </v-layout>
+      </v-flex>
+      <v-flex xs12 mt-3 class="text-xs-center">
+        <v-btn
+          large
+          color="success"
+          :disabled="!Inputtable || entryLoading"
+          :loading="entryLoading"
+          @click="PushEntry"
+        >입력
+          <v-icon right>send</v-icon>
+        </v-btn>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';

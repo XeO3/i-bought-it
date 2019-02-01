@@ -1,47 +1,48 @@
 <template>
-  <v-layout align-start align-content-start row wrap>
-    <v-flex xs12 sm12>
-      <v-card class="mb-2">
-        <v-toolbar color="teal" dark>
-          <v-toolbar-title>초기화면 표시 항목 선택</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-btn icon>
-            <v-icon>help</v-icon>
-          </v-btn>
-        </v-toolbar>
-        <v-expansion-panel>
-          <v-expansion-panel-content
-            v-for="(section, section_i) in sections"
-            :key="section.section_id"
-          >
-            <div slot="header">{{section_i+1}}. {{section.title}}</div>
-            <v-card>
-              <v-card-text>
-                <v-list subheader>
-                  <v-list-tile
-                    v-for="asset in section.accounts.assets.filter(o=> IsShowAccount(o))"
-                    :key="asset.account_id"
-                  >
-                    <v-list-tile-action>
-                      <v-checkbox
-                        :input-value="GetPinedList(section.section_id)"
-                        :value="asset.account_id"
-                        @change="val => SetPinedList(section.section_id, val)"
-                        :label="asset.title"
-                        ripple
-                      ></v-checkbox>
-                    </v-list-tile-action>
-                  </v-list-tile>
-                </v-list>
-              </v-card-text>
-            </v-card>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-
-        <v-divider></v-divider>
-      </v-card>
-    </v-flex>
-  </v-layout>
+  <v-container fill-height>
+    <v-layout row wrap align-start>
+      <v-flex xs12 sm12>
+        <v-card class="mb-2">
+          <v-toolbar color="teal" dark>
+            <v-toolbar-title>초기화면 표시 항목 선택</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn icon>
+              <v-icon>help</v-icon>
+            </v-btn>
+          </v-toolbar>
+          <v-expansion-panel>
+            <v-expansion-panel-content
+              v-for="(section, section_i) in sections"
+              :key="section.section_id"
+            >
+              <div slot="header">{{section_i+1}}. {{section.title}}</div>
+              <v-card>
+                <v-card-text>
+                  <v-list subheader>
+                    <v-list-tile
+                      v-for="asset in section.accounts.assets.filter(o=> IsShowAccount(o))"
+                      :key="asset.account_id"
+                    >
+                      <v-list-tile-action>
+                        <v-checkbox
+                          :input-value="GetPinedList(section.section_id)"
+                          :value="asset.account_id"
+                          @change="val => SetPinedList(section.section_id, val)"
+                          :label="asset.title"
+                          ripple
+                        ></v-checkbox>
+                      </v-list-tile-action>
+                    </v-list-tile>
+                  </v-list>
+                </v-card-text>
+              </v-card>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+          <v-divider></v-divider>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';

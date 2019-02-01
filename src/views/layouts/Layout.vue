@@ -1,6 +1,6 @@
 <template>
   <v-content>
-    <v-container fluid fill-height align-start pa-0 class="grey lighten-4">
+    <v-container fluid fill-height pa-0 class="grey lighten-4">
       <router-view></router-view>
     </v-container>
   </v-content>
