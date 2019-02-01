@@ -1,7 +1,7 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
 
 import { getWhooingBs } from '@/api/GetWhooingBs';
-import store, { UserModule } from '@/store/store';
+import store, { UserModule, AppDataModule } from '@/store/store';
 import { WhooingDate } from '@/utils/WhooingDate';
 import { IAppDataState } from '@/models/IAppDataState';
 import { BalanceItem } from '@/models/BalanceItem';
@@ -63,9 +63,9 @@ export class AppData extends VuexModule implements IAppDataState {
   @Mutation
   public Set_Balance(balance: IBalanceItem) {
     const item = AppDataHelper.Get_Balance(
-      this,
       balance.section_id,
       balance.account_id,
+      this,
     );
     item.money = balance.money;
   }
@@ -81,9 +81,9 @@ export class AppData extends VuexModule implements IAppDataState {
     addBalance: number;
   }) {
     const item = AppDataHelper.Get_Balance(
-      this,
       payload.key.section_id,
       payload.key.account_id,
+      this,
     );
     item.money += payload.addBalance;
   }
@@ -110,9 +110,9 @@ export class AppData extends VuexModule implements IAppDataState {
 
 export namespace AppDataHelper {
   export function Get_Balance(
-    appData: AppData,
     section_id: string,
     account_id: string,
+    appData: AppData = AppDataModule,
   ): IBalanceItem {
     const item = appData.balances.find(
       (b) => b.section_id === section_id && b.account_id === account_id,

@@ -18,6 +18,9 @@ export class PostWhooingEntriesData extends IPostData {
     formData.append('item', this.data.item || '');
     formData.append('money', this.data.money.toString() || '');
     formData.append('memo', this.data.memo || '');
+    if (this.data.entry_date) {
+      formData.append('entry_date', this.data.entry_date.toString());
+    }
     return formData;
   }
 }
@@ -25,6 +28,8 @@ export class PostWhooingEntriesData extends IPostData {
 export interface IPostWhooingEntriesData {
   /** 섹션의 고유번호 Example Value : s99 */
   section_id: string;
+  /** 거래가 일어난 날짜 Example Value : 20110812 */
+  entry_date?: number;
   /** 왼쪽의 계정 Example Value : expenses */
   l_account: string;
   /** 왼쪽의 항목 고유번호 Example Value : x20 */

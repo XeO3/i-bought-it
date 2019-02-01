@@ -81,9 +81,9 @@ export namespace DashboardBalaceHelper {
       };
       try {
         const balance = AppDataHelper.Get_Balance(
-          appData,
           section_id,
           account_id,
+          appData,
         );
         pushItem.money = balance.money;
       } finally {

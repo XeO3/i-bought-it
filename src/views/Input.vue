@@ -74,7 +74,7 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { UserModule, EntriesModule } from '@/store/store';
+import { UserModule, EntriesModule, AppDataModule } from '@/store/store';
 import { WhooingDate } from '@/utils/WhooingDate';
 import fns from 'date-fns';
 import { UserHelper } from '@/store/modules/User';
@@ -89,6 +89,8 @@ import {
   InputSuggestionHelper,
   IInputSeggestionItem,
 } from '@/helpers/InputSuggestionHelper';
+import { WhooingAccount } from '@/models/EnumWhooingAccount';
+import { EntriesInputHelper } from '@/helpers/EntriesInputHelper';
 
 @Component({
   components: {
@@ -198,6 +200,18 @@ export default class Input extends Vue {
       return false;
     }
   }
+
+  get InputItem() {
+    return {
+      sId: this.sId,
+      left: this.left,
+      right: this.right,
+      money: this.money,
+      item: this.item,
+      memo: this.memo,
+    };
+  }
+
   get suggestionItems() {
     return InputSuggestionHelper.get(this.sId, {
       item: this.item,
@@ -210,30 +224,9 @@ export default class Input extends Vue {
   public async PushEntry() {
     this.entryLoading = true;
     try {
-      const left = UserHelper.GetAccount(this.sId, this.left);
-      const right = UserHelper.GetAccount(this.sId, this.right);
-      if (left && right) {
-        const data: IPostWhooingEntriesData = {
-          section_id: this.sId,
-          l_account: left.account,
-          l_account_id: left.account_id,
-          r_account: right.account,
-          r_account_id: right.account_id,
-          item: this.item,
-          money: Number(this.money),
-          memo: this.memo,
-        };
-        const res = await postWhooingEntries(new PostWhooingEntriesData(data));
-        if (res.code === 200) {
-          const entry: IEntrySection = {
-            section_id: this.sId,
-            data: res.results,
-          };
-          EntriesModule.Push_EntryItem(entry);
-        } else {
-          throw Error('거래 입력 실패');
-        }
-      }
+      await EntriesInputHelper.PushEntryAsync(this.InputItem);
+    } catch (e) {
+      alert(e);
     } finally {
       this.entryLoading = false;
     }
