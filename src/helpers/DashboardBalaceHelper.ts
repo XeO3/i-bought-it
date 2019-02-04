@@ -90,7 +90,7 @@ export namespace DashboardBalaceHelper {
       )
     ) {
       const accountItem = UserHelper.GetAccount(section_id, account_id);
-      if(!accountItem){
+      if (!accountItem) {
         throw Error('계정정보가 없습니다.');
       }
       const pushItem: IDashboardBalanceItem = {

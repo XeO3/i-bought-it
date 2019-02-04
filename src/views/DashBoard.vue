@@ -75,12 +75,12 @@ export default class DashBoardVue extends Vue {
     this.$router.push({ name: 'input', query: { sId, right } });
   }
 
-  private GetDashboardItemClass(balanceItem:IDashboardBalanceItem){
+  private GetDashboardItemClass(balanceItem  :IDashboardBalanceItem) {
     return {
       'pt-2 pb-1 darken-1 white--text text-truncate': true,
       'purple': balanceItem.account === WhooingAccount.assets,
       'blue': balanceItem.account === WhooingAccount.liabilities,
-    }
+     ;}
   }
 }
 </script>
