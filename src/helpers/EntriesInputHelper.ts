@@ -6,6 +6,7 @@ import {
 import { postWhooingEntries } from '@/api/PostWhooingEntries';
 import { EntriesModule, AppDataModule } from '@/store/store';
 import { WhooingAccount } from '@/models/EnumWhooingAccount';
+import { WhooingDate } from '@/utils/WhooingDate';
 
 export namespace EntriesInputHelper {
   export async function PushEntryAsync(payload: {
@@ -31,26 +32,30 @@ export namespace EntriesInputHelper {
       data: entries,
     });
 
-    entries.forEach((item) => {
-      const section_id = payload.sId;
-      const money = item.money;
+    entries
+      .filter(
+        (item) => Math.floor(item.entry_date) <= WhooingDate.ConvertNumber(new Date()),
+      )
+      .forEach((item) => {
+        const section_id = payload.sId;
+        const money = item.money;
 
-      UpdateBalanceState({
-        section_id,
-        account: item.l_account,
-        account_id: item.l_account_id,
-        money,
-        position: 'left',
-      });
+        UpdateBalanceState({
+          section_id,
+          account: item.l_account,
+          account_id: item.l_account_id,
+          money,
+          position: 'left',
+        });
 
-      UpdateBalanceState({
-        section_id,
-        account: item.r_account,
-        account_id: item.r_account_id,
-        money,
-        position: 'right',
+        UpdateBalanceState({
+          section_id,
+          account: item.r_account,
+          account_id: item.r_account_id,
+          money,
+          position: 'right',
+        });
       });
-    });
   }
 
   function UpdateBalanceState({
