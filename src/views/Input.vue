@@ -8,8 +8,29 @@
               <v-container pa-0 grid-list-lg>
                 <v-layout row wrap>
                   <v-flex xs12 class="text-xs-center">
-                    <v-chip>{{sIdName}}</v-chip>
-                    <v-chip>{{date}}</v-chip>
+                    <v-menu offset-y>
+                      <v-chip slot="activator">{{sIdName}}</v-chip>
+                      <v-list>
+                        <v-list-tile
+                          v-for="section in sections"
+                          :key="section.section_id"
+                          @click="sId = section.section_id"
+                        >
+                          <v-list-tile-title>{{ section.title }}</v-list-tile-title>
+                        </v-list-tile>
+                      </v-list>
+                    </v-menu>
+                    <v-menu
+                      :close-on-content-click="false"
+                      v-model="menu.date"
+                      lazy
+                      transition="slide-y-transition"
+                      offset-y
+                      min-width="290px"
+                    >
+                      <v-chip slot="activator">{{date}}</v-chip>
+                      <v-date-picker v-model="date" @input="menu.date = false"></v-date-picker>
+                    </v-menu>
                   </v-flex>
                   <v-flex xs12>
                     <div class="text-xs-center">
@@ -91,6 +112,7 @@ import {
 } from '@/helpers/InputSuggestionHelper';
 import { WhooingAccount } from '@/models/EnumWhooingAccount';
 import { EntriesInputHelper } from '@/helpers/EntriesInputHelper';
+import { IWhooingSection } from '@/models/IWhooingSection';
 
 @Component({
   components: {
@@ -104,9 +126,22 @@ export default class Input extends Vue {
     { text: '오른쪽', value: 'right' },
   ];
   private entryLoading: boolean = false;
+  private menu = {
+    date: false,
+  };
+
+  get sections(): IWhooingSection[] {
+    return UserModule.sectionList;
+  }
 
   get sId(): string {
-    return this.$route.query.sId as string;
+    if (this.$route.query.sId) {
+      return this.$route.query.sId as string;
+    } else {
+      const sId = this.sections[0].section_id;
+      this.sId = sId;
+      return sId;
+    }
   }
   set sId(v) {
     this.$router.replace({
@@ -236,6 +271,7 @@ export default class Input extends Vue {
     this.right = '';
     this.item = '';
     this.money = '';
+    this.date = '';
   }
 
   public AcceptProposal(item: IInputSeggestionItem) {
