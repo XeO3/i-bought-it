@@ -11,10 +11,7 @@
             <v-layout row wrap>
               <v-flex v-for="account in section.accounts" :key="account.account_id" xs6 sm4 md3 lg2>
                 <v-card ripple @click="PushInput(section.section_id ,account.account_id)">
-                  <v-card-title
-                    :class="GetDashboardItemClass(account)"
-
-                  >{{account.title}}</v-card-title>
+                  <v-card-title :class="GetDashboardItemClass(account)">{{account.title}}</v-card-title>
                   <v-card-text class="text-xs-right body-2">{{account.money.toLocaleString()}}</v-card-text>
                 </v-card>
               </v-flex>
@@ -75,12 +72,12 @@ export default class DashBoardVue extends Vue {
     this.$router.push({ name: 'input', query: { sId, right } });
   }
 
-  private GetDashboardItemClass(balanceItem  :IDashboardBalanceItem) {
+  private GetDashboardItemClass(balanceItem: IDashboardBalanceItem) {
     return {
       'pt-2 pb-1 darken-1 white--text text-truncate': true,
       'purple': balanceItem.account === WhooingAccount.assets,
       'blue': balanceItem.account === WhooingAccount.liabilities,
-     ;}
+    };
   }
 }
 </script>
