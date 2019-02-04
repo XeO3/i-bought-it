@@ -102,6 +102,10 @@ export class AppData extends VuexModule implements IAppDataState {
           const newBalItem = new BalanceItem(sid, aa.account_id, aa.money);
           this.Upsert_Balance(newBalItem);
         });
+        res.results.liabilities.accounts.forEach((aa) => {
+          const newBalItem = new BalanceItem(sid, aa.account_id, aa.money);
+          this.Upsert_Balance(newBalItem);
+        });
       });
     });
     this.Set_BalancesSyncDate(now);

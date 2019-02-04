@@ -19,8 +19,24 @@
               <v-card>
                 <v-card-text>
                   <v-list subheader>
+                    <v-subheader>자산</v-subheader>
                     <v-list-tile
                       v-for="asset in section.accounts.assets.filter(o=> IsShowAccount(o))"
+                      :key="asset.account_id"
+                    >
+                      <v-list-tile-action>
+                        <v-checkbox
+                          :input-value="GetPinedList(section.section_id)"
+                          :value="asset.account_id"
+                          @change="val => SetPinedList(section.section_id, val)"
+                          :label="asset.title"
+                          ripple
+                        ></v-checkbox>
+                      </v-list-tile-action>
+                    </v-list-tile>
+                     <v-subheader>부채</v-subheader>
+                    <v-list-tile
+                      v-for="asset in section.accounts.liabilities.filter(o=> IsShowAccount(o))"
                       :key="asset.account_id"
                     >
                       <v-list-tile-action>

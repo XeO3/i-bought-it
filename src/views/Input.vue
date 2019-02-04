@@ -51,8 +51,8 @@
             <template slot="items" slot-scope="props">
               <tr @click="AcceptProposal(props.item)">
                 <td class="px-2">{{ props.item.item }}</td>
-                <td class="px-2 text-xs-center">{{ GetAccountName(sId, props.item.left) }}</td>
-                <td class="px-2 text-xs-center">{{ GetAccountName(sId, props.item.right) }}</td>
+                <td class="px-2">{{ GetAccountName(sId, props.item.left) }}</td>
+                <td class="px-2">{{ GetAccountName(sId, props.item.right) }}</td>
               </tr>
             </template>
           </v-data-table>

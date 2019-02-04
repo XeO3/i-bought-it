@@ -19,6 +19,7 @@ import {
   IWhooingAccountModel,
 } from '@/models/WhooingAccountModel';
 import fns from 'date-fns';
+import { WhooingAccount } from '@/models/EnumWhooingAccount';
 
 @Module({ dynamic: false, store, name: 'User' })
 export class User extends VuexModule implements IUserState {
@@ -108,25 +109,25 @@ export namespace UserHelper {
     section_id: string,
     account_id: string,
     user: User = UserModule,
-  ): (IWhooingAccountModel & { account: string }) | undefined {
+  ): (IWhooingAccountModel & { account: WhooingAccount }) | undefined {
     const section = GetSection(section_id, user);
     if (section && section.accounts) {
       const accounts = section.accounts;
       const list = [
         ...accounts.assets.map((o) => {
-          return { ...o, account: 'assets' };
+          return { ...o, account: WhooingAccount.assets };
         }),
         ...accounts.capital.map((o) => {
-          return { ...o, account: 'capital' };
+          return { ...o, account: WhooingAccount.capital };
         }),
         ...accounts.expenses.map((o) => {
-          return { ...o, account: 'expenses' };
+          return { ...o, account: WhooingAccount.expenses};
         }),
         ...accounts.income.map((o) => {
-          return { ...o, account: 'income' };
+          return { ...o, account: WhooingAccount.income };
         }),
         ...accounts.liabilities.map((o) => {
-          return { ...o, account: 'liabilities' };
+          return { ...o, account: WhooingAccount.liabilities };
         }),
       ];
       return list.find((item) => item.account_id === account_id);

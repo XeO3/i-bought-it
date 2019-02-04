@@ -12,7 +12,8 @@
               <v-flex v-for="account in section.accounts" :key="account.account_id" xs6 sm4 md3 lg2>
                 <v-card ripple @click="PushInput(section.section_id ,account.account_id)">
                   <v-card-title
-                    class="pt-2 pb-1 purple darken-1 white--text text-truncate"
+                    :class="GetDashboardItemClass(account)"
+
                   >{{account.title}}</v-card-title>
                   <v-card-text class="text-xs-right body-2">{{account.money.toLocaleString()}}</v-card-text>
                 </v-card>
@@ -42,6 +43,7 @@ import {
   DashboardBalaceHelper,
   IDashboardBalanceItem,
 } from '@/helpers/DashboardBalaceHelper.ts';
+import { WhooingAccount } from '@/models/EnumWhooingAccount';
 
 @Component
 export default class DashBoardVue extends Vue {
@@ -71,6 +73,14 @@ export default class DashBoardVue extends Vue {
 
   private PushInput(sId: string, right: string): void {
     this.$router.push({ name: 'input', query: { sId, right } });
+  }
+
+  private GetDashboardItemClass(balanceItem:IDashboardBalanceItem){
+    return {
+      'pt-2 pb-1 darken-1 white--text text-truncate': true,
+      'purple': balanceItem.account === WhooingAccount.assets,
+      'blue': balanceItem.account === WhooingAccount.liabilities,
+    }
   }
 }
 </script>

@@ -1,8 +1,10 @@
 import { Settings, SettingsHelper } from '@/store/modules/Settings';
-import { User } from '@/store/modules/User';
+import { User, UserHelper } from '@/store/modules/User';
 import { AppData, AppDataHelper } from '@/store/modules/AppData';
 import { SettingsModule, UserModule, AppDataModule } from '@/store/store';
 import { getWhooingSections } from '@/api/GetWhooingSections';
+import { WhooingAccountModel } from '@/models/WhooingAccountModel';
+import { WhooingAccount } from '@/models/EnumWhooingAccount';
 
 export interface IDashboardBalace {
   section_id: string;
@@ -12,6 +14,7 @@ export interface IDashboardBalace {
 
 export interface IDashboardBalanceItem {
   account_id: string;
+  account: WhooingAccount;
   title: string;
   money: number | null;
 }
@@ -49,6 +52,18 @@ export namespace DashboardBalaceHelper {
             sectionItem,
           );
         });
+
+        section.accounts.liabilities.forEach((liab) => {
+          const account_id = liab.account_id;
+          GetSection(
+            section_id,
+            account_id,
+            settings,
+            liab,
+            appData,
+            sectionItem,
+          );
+        });
       }
       if (sectionItem.accounts.length > 0) {
         list.push(sectionItem);
@@ -61,7 +76,7 @@ export namespace DashboardBalaceHelper {
     section_id: string,
     account_id: string,
     settings: Settings,
-    asset: import('d:/XeO3/project/IBoughtIt_v2/src/models/WhooingAccountModel').WhooingAccountModel,
+    asset: WhooingAccountModel,
     appData: AppData,
     sectionItem: IDashboardBalace,
   ) {
@@ -74,8 +89,13 @@ export namespace DashboardBalaceHelper {
         settings,
       )
     ) {
+      const accountItem = UserHelper.GetAccount(section_id, account_id);
+      if(!accountItem){
+        throw Error('계정정보가 없습니다.');
+      }
       const pushItem: IDashboardBalanceItem = {
         account_id,
+        account: accountItem.account,
         title: asset.title,
         money: null,
       };
