@@ -95,7 +95,12 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { UserModule, EntriesModule, AppDataModule } from '@/store/store';
+import {
+  UserModule,
+  EntriesModule,
+  AppDataModule,
+  AppModule,
+} from '@/store/store';
 import { WhooingDate } from '@/utils/WhooingDate';
 import fns from 'date-fns';
 import { UserHelper } from '@/store/modules/User';
@@ -113,6 +118,7 @@ import {
 import { WhooingAccount } from '@/models/EnumWhooingAccount';
 import { EntriesInputHelper } from '@/helpers/EntriesInputHelper';
 import { IWhooingSection } from '@/models/IWhooingSection';
+import { SnackbarModel } from '@/models/ISnackbarModel';
 
 @Component({
   components: {
@@ -146,7 +152,7 @@ export default class Input extends Vue {
   set sId(v) {
     this.$router.replace({
       name: 'input',
-      query: { ...this.$route.query, sId: v },
+      query: { sId: v },
     });
   }
   get sIdName() {
@@ -260,12 +266,17 @@ export default class Input extends Vue {
     this.entryLoading = true;
     try {
       await EntriesInputHelper.PushEntryAsync(this.InputItem);
+      AppModule.SET_SNACKBAR(
+        new SnackbarModel({ text: '입력성공', color: 'success' }),
+      );
+      this.ClearInput();
     } catch (e) {
       alert(e);
     } finally {
       this.entryLoading = false;
     }
   }
+
   public ClearInput() {
     this.left = '';
     this.right = '';

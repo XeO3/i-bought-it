@@ -9,9 +9,11 @@ import store from '@/store/store';
 import { AlertModel } from '@/models/AlertModel';
 import { IAppState } from '../../models/IAppState';
 import { AppProperties } from '@/config/AppProperties';
+import { ISnackbarModel } from '@/models/ISnackbarModel';
 
 @Module({ dynamic: false, store, name: 'App' })
 export class App extends VuexModule implements IAppState {
+  public snackbar: ISnackbarModel | null = null;
   public alerts: AlertModel[] = [];
   public sidebar = {
     opened: false,
@@ -34,9 +36,15 @@ export class App extends VuexModule implements IAppState {
     this.alerts.push(alert);
   }
 
+  @Mutation
+  public SET_SNACKBAR(snackbar: ISnackbarModel | null) {
+    this.snackbar = snackbar;
+  }
+
   @Action
   public CLEAR_App() {
     this.SET_SIDEBAR(false);
+    this.SET_SNACKBAR(null);
   }
 
   @Action({ commit: 'SET_SIDEBAR' })

@@ -18,7 +18,7 @@ const LeftItems: LeftItem[] = [
   { icon: 'info', text: 'About', click: LeftItemClick.Link, link: 'about' },
   { divider: true, click: LeftItemClick.None },
   { icon: 'dashboard', text: 'DashBoard', click: LeftItemClick.Link, link: 'dashboard', isLogin: true },
-  { icon: 'add_circle', text: 'input', click: LeftItemClick.Link, link: 'input', isLogin: true  },
+  { icon: 'add_circle', text: 'Input', click: LeftItemClick.Link, link: 'input', isLogin: true  },
   { icon: 'settings', text: 'Settings', click: LeftItemClick.Link, link: 'settings', isLogin: true  },
   { divider: true, click: LeftItemClick.None, isLogin: true },
   {
