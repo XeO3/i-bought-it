@@ -1,5 +1,5 @@
 # 이거샀어 I bought it
-<https://ibi.xeo3.net/>
+<https://ibi.xeo3.net/>  
 외출시 현금(혹은 교통카드 등)사용 내역을 후잉에 재빠르게 입력가능 하도록 도와주는 웹앱입니다.
 
 ## 특징  
