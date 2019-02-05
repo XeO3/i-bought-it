@@ -1,6 +1,6 @@
 # 이거샀어 I bought it
 <https://ibi.xeo3.net/>  
-외출시 현금(혹은 교통카드 등)사용 내역을 후잉에 재빠르게 입력가능 하도록 도와주는 웹앱입니다.
+외출시 사용 내역을  후잉에 재빠르게 입력가능 하도록 도와주는 웹앱입니다.
 
 ![input](https://firebasestorage.googleapis.com/v0/b/xeblo3.appspot.com/o/ibi_input.gif?alt=media&token=2153c5a1-6d02-45ff-8740-f9f5cc9ff555 "입력 데모")
 
