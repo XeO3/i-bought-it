@@ -2,17 +2,17 @@
   <v-container pt-0 fill-height>
     <v-layout v-if="dashboardData.length > 0" row wrap align-content-start>
       <v-flex xs12 class="my-2 text-xs-right">
-        <v-btn @click="Refresh" :disabled="isLoading" round>
+        <v-btn @click="Refresh" :disabled="isLoading" :loading="isLoading" round>
           <v-icon>refresh</v-icon>
           <span class="hidden-sm-and-down">새로고침</span>
         </v-btn>
       </v-flex>
       <v-flex v-for="(section) in dashboardData" :key="section.section_id" class="mb-5" xs12>
         <v-card>
-          <v-card-title
-            primary-title
-            class="grey darken-2 white--text py-3 text-truncate title"
-          ><v-icon left dark>widgets</v-icon>{{section.title}}</v-card-title>
+          <v-card-title primary-title class="grey darken-2 white--text py-3 text-truncate title">
+            <v-icon left dark>widgets</v-icon>
+            {{section.title}}
+          </v-card-title>
           <v-container grid-list-md pa-2>
             <v-layout row wrap>
               <v-flex v-for="account in section.accounts" :key="account.account_id" xs6 sm4 md3 lg2>
@@ -106,10 +106,10 @@ export default class DashBoardVue extends Vue {
   }
 
   private GetDashboardItemColor(balanceItem: IDashboardBalanceItem) {
-    if(balanceItem.account === WhooingAccount.assets){
+    if (balanceItem.account === WhooingAccount.assets) {
       return 'purple';
     }
-    if(balanceItem.account === WhooingAccount.liabilities){
+    if (balanceItem.account === WhooingAccount.liabilities) {
       return 'blue';
     }
   }

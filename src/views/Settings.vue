@@ -1,6 +1,12 @@
 <template>
-  <v-container fill-height>
-    <v-layout row wrap align-start>
+  <v-container pt-0 fill-height>
+    <v-layout row wrap align-content-start>
+      <v-flex xs12 class="my-2 text-xs-right">
+        <v-btn @click="Refresh" :disabled="isLoading" :loading="isLoading" round>
+          <v-icon>refresh</v-icon>
+          <span class="hidden-sm-and-down">새로고침</span>
+        </v-btn>
+      </v-flex>
       <v-flex xs12 sm12>
         <v-card class="mb-2">
           <v-toolbar color="teal" dark>
@@ -10,14 +16,14 @@
               <v-icon>help</v-icon>
             </v-btn>
           </v-toolbar>
-          <v-expansion-panel>
+          <v-expansion-panel v-if="!isLoading">
             <v-expansion-panel-content
               v-for="(section, section_i) in sections"
               :key="section.section_id"
             >
               <div slot="header">{{section_i+1}}. {{section.title}}</div>
               <v-card>
-                <v-card-text>
+                <v-card-text v-if="section.accounts">
                   <v-list subheader>
                     <v-subheader>자산</v-subheader>
                     <v-list-tile
@@ -34,7 +40,7 @@
                         ></v-checkbox>
                       </v-list-tile-action>
                     </v-list-tile>
-                     <v-subheader>부채</v-subheader>
+                    <v-subheader>부채</v-subheader>
                     <v-list-tile
                       v-for="asset in section.accounts.liabilities.filter(o=> IsShowAccount(o))"
                       :key="asset.account_id"
@@ -68,6 +74,8 @@ import { SettingsHelper } from '@/store/modules/Settings';
 
 @Component({})
 export default class SettingsVue extends Vue {
+  private isLoading: boolean = false;
+
   get sections() {
     return UserModule.sectionList;
   }
@@ -91,6 +99,13 @@ export default class SettingsVue extends Vue {
   }
   public SetPinedList(section_id: string, pinedList: string[]) {
     SettingsModule.Set_PinedList({ section_id, pinedList });
+  }
+
+  private async Refresh() {
+    this.isLoading = true;
+    await UserModule.FetchUserInfoAsync();
+    await UserModule.FetchSectionList();
+    this.isLoading = false;
   }
 }
 </script>
