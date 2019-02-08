@@ -5,7 +5,7 @@ interface Urls {
 }
 
 export default {
-  whooing: 'https://whooing.com/',
+  whooing: 'https://new.whooing.com/',
   whooingAppAuth: 'https://ibi-api.azurewebsites.net/whooing/app_auth/',
   whooingApi: 'https://ibi-api.azurewebsites.net/whooing/api/',
 } as Urls;

@@ -1,3 +1,5 @@
+import Urls from './Urls';
+
 export interface LeftItem {
   icon?: string;
   text?: string;
@@ -25,7 +27,7 @@ const LeftItems: LeftItem[] = [
     icon: 'open_in_new',
     text: 'Whooing 바로가기',
     click: LeftItemClick.NewTab,
-    link: 'https://whooing.com/',
+    link: Urls.whooing,
   },
 ];
 export default LeftItems;

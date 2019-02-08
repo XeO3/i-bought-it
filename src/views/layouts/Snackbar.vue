@@ -15,8 +15,8 @@ export default class Snackbar extends Vue {
   get snackbarItem() {
     return AppModule.snackbar;
   }
-  get snackbar(){
-    return this.snackbarItem !== null
+  get snackbar() {
+    return this.snackbarItem !== null;
   }
   set snackbar(v) {
     if (!v) {
