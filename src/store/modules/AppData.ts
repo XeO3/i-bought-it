@@ -37,6 +37,11 @@ export class AppData extends VuexModule implements IAppDataState {
     this.balances.push(balance);
   }
 
+  @Mutation
+  public Set_LoadingStart() {
+    this.balances.forEach((o) => (o.isLoading = true));
+  }
+
   @Action
   public CLEAR_AppData() {
     this.Set_Balances([]);
@@ -68,6 +73,7 @@ export class AppData extends VuexModule implements IAppDataState {
       this,
     );
     item.money = balance.money;
+    item.isLoading = false;
   }
 
   /**
@@ -93,6 +99,7 @@ export class AppData extends VuexModule implements IAppDataState {
    */
   @Action
   public async FetchWhooingBs() {
+    this.Set_LoadingStart();
     const sectionIds = UserModule.SectionIdList;
     const now = new Date();
     const today = WhooingDate.ConvertNumber(now);

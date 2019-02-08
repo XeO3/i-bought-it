@@ -17,6 +17,7 @@ export interface IDashboardBalanceItem {
   account: WhooingAccount;
   title: string;
   money: number | null;
+  isLoading: boolean;
 }
 
 export namespace DashboardBalaceHelper {
@@ -98,6 +99,7 @@ export namespace DashboardBalaceHelper {
         account: accountItem.account,
         title: asset.title,
         money: null,
+        isLoading: false,
       };
       try {
         const balance = AppDataHelper.Get_Balance(
@@ -106,6 +108,7 @@ export namespace DashboardBalaceHelper {
           appData,
         );
         pushItem.money = balance.money;
+        pushItem.isLoading = balance.isLoading;
       } finally {
         sectionItem.accounts.push(pushItem);
       }

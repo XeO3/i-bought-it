@@ -1,18 +1,41 @@
 <template>
-  <v-container grid-list-lg align-start fill-height>
-    <v-layout v-if="dashboardData.length > 0" row wrap>
-      <v-flex v-for="(section) in dashboardData" :key="section.section_id" xs12>
+  <v-container pt-0 fill-height>
+    <v-layout v-if="dashboardData.length > 0" row wrap align-content-start>
+      <v-flex xs12 class="my-2 text-xs-right">
+        <v-btn @click="Refresh" :disabled="isLoading" round>
+          <v-icon>refresh</v-icon>
+          <span class="hidden-sm-and-down">새로고침</span>
+        </v-btn>
+      </v-flex>
+      <v-flex v-for="(section) in dashboardData" :key="section.section_id" class="mb-5" xs12>
         <v-card>
           <v-card-title
             primary-title
-            class="secondary white--text py-3 text-truncate title"
-          >{{section.title}}</v-card-title>
-          <v-container fluid grid-list-md>
+            class="grey darken-2 white--text py-3 text-truncate title"
+          ><v-icon left dark>widgets</v-icon>{{section.title}}</v-card-title>
+          <v-container grid-list-md pa-2>
             <v-layout row wrap>
               <v-flex v-for="account in section.accounts" :key="account.account_id" xs6 sm4 md3 lg2>
-                <v-card ripple @click="PushInput(section.section_id ,account.account_id)">
-                  <v-card-title :class="GetDashboardItemClass(account)">{{account.title}}</v-card-title>
-                  <v-card-text class="text-xs-right body-2">{{account.money.toLocaleString()}}</v-card-text>
+                <v-card
+                  ripple
+                  dark
+                  @click="PushInput(section.section_id ,account.account_id)"
+                  :color="GetDashboardItemColor(account) + ' darken-1'"
+                >
+                  <v-card-title class="pb-0">
+                    {{account.title}}
+                    <v-spacer></v-spacer>
+                    <v-progress-circular
+                      v-if="account.isLoading"
+                      :size="13"
+                      :width="2"
+                      indeterminate
+                      dark
+                    ></v-progress-circular>
+                  </v-card-title>
+                  <v-card-text
+                    class="pt-0 text-xs-right headline"
+                  >{{account.money.toLocaleString()}}</v-card-text>
                 </v-card>
               </v-flex>
             </v-layout>
@@ -44,6 +67,8 @@ import { WhooingAccount } from '@/models/EnumWhooingAccount';
 
 @Component
 export default class DashBoardVue extends Vue {
+  private isLoading: boolean = false;
+
   get dashboardData() {
     return DashboardBalaceHelper.Get();
   }
@@ -68,16 +93,25 @@ export default class DashBoardVue extends Vue {
     }
   }
 
+  private Refresh() {
+    this.isLoading = true;
+    AppDataModule.FetchWhooingBs();
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1000);
+  }
+
   private PushInput(sId: string, right: string): void {
     this.$router.push({ name: 'input', query: { sId, right } });
   }
 
-  private GetDashboardItemClass(balanceItem: IDashboardBalanceItem) {
-    return {
-      'pt-2 pb-1 darken-1 white--text text-truncate': true,
-      'purple': balanceItem.account === WhooingAccount.assets,
-      'blue': balanceItem.account === WhooingAccount.liabilities,
-    };
+  private GetDashboardItemColor(balanceItem: IDashboardBalanceItem) {
+    if(balanceItem.account === WhooingAccount.assets){
+      return 'purple';
+    }
+    if(balanceItem.account === WhooingAccount.liabilities){
+      return 'blue';
+    }
   }
 }
 </script>
