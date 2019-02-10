@@ -38,5 +38,6 @@ export class WhoooingGetEntriesParams implements IWhoooingGetEntriesParams {
     this.section_id = section_id;
     this.start_date = WhooingDate.ConvertNumber(fns.addMonths(new Date(), -3));
     this.end_date = WhooingDate.ConvertNumber(new Date());
+    this.limit = 1000;
   }
 }
