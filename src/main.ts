@@ -8,6 +8,13 @@ import VueAnalytics from 'vue-analytics';
 Vue.use(VueAnalytics, {
   id: 'UA-134070425-1',
   router,
+  debug: {
+    sendHitTask: process.env.NODE_ENV === 'production',
+  },
+  autoTracking: {
+    transformQueryString: false,
+    skipSamePath: true,
+  },
 });
 
 Vue.config.productionTip = false;
