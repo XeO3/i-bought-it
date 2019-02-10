@@ -7,7 +7,7 @@
             <v-card-text>
               <v-container pa-0 grid-list-lg>
                 <v-layout row wrap>
-                  <v-flex xs12 class="text-xs-center">
+                  <v-flex xs12 class="text-xs-center" py-0>
                     <v-menu offset-y>
                       <v-chip slot="activator">{{sIdName}}</v-chip>
                       <v-list>
@@ -32,16 +32,38 @@
                       <v-date-picker v-model="date" @input="menu.date = false"></v-date-picker>
                     </v-menu>
                   </v-flex>
-                  <v-flex xs12>
+                  <v-flex xs12 py-0>
                     <div class="text-xs-center">
                       <InputAccountModal v-model="left" :sectionId="sId" left></InputAccountModal>
                       <InputAccountModal v-model="right" :sectionId="sId" right></InputAccountModal>
                     </div>
                   </v-flex>
-                  <v-flex xs12 md6 offset-md1>
-                    <v-text-field v-model="item" label="아이템" required clearable></v-text-field>
+                  <v-flex xs12 md6 offset-md1 py-0>
+                    <v-text-field
+                      v-model="item"
+                      :hint="showMemo ? '' : memo ? `메모: ${memo}` : 'Hint: 오른쪽 아이콘 클릭시 메모입력란이 표시됩니다.'"
+                      persistent-hint
+                      :append-outer-icon="showMemo ? '' : 'note_add'"
+                      @click:append-outer="showMemo = !showMemo"
+                      label="아이템"
+                      required
+                      clearable
+                    ></v-text-field>
+                    <v-expand-transition>
+                      <v-textarea
+                        v-show="showMemo"
+                        v-model="memo"
+                        label="메모"
+                        auto-grow
+                        rows="1"
+                        clearable
+                        @click:append-outer="showMemo = !showMemo"
+                        append-outer-icon="expand_less"
+                        box
+                      ></v-textarea>
+                    </v-expand-transition>
                   </v-flex>
-                  <v-flex xs12 md4>
+                  <v-flex xs12 md4 py-0>
                     <v-text-field
                       v-model="money"
                       label="금액"
@@ -56,11 +78,21 @@
             </v-card-text>
             <v-card-actions>
               <v-btn color="blue darken-1" flat @click="ClearInput">clear</v-btn>
+              <v-spacer></v-spacer>
+              <v-btn
+                large
+                color="success"
+                :disabled="!Inputtable || entryLoading"
+                :loading="entryLoading"
+                @click="PushEntry"
+              >입력
+                <v-icon right>send</v-icon>
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-form>
       </v-flex>
-      <v-flex xs12 mt-3 v-if="suggestionItems.length> 0 && !item">
+      <v-flex xs12 mt-3 v-if="suggestionItems.length> 0">
         <v-card>
           <v-data-table
             :headers="suggestionHeaders"
@@ -78,17 +110,6 @@
             </template>
           </v-data-table>
         </v-card>
-      </v-flex>
-      <v-flex xs12 mt-3 class="text-xs-center">
-        <v-btn
-          large
-          color="success"
-          :disabled="!Inputtable || entryLoading"
-          :loading="entryLoading"
-          @click="PushEntry"
-        >입력
-          <v-icon right>send</v-icon>
-        </v-btn>
       </v-flex>
     </v-layout>
   </v-container>
@@ -135,6 +156,7 @@ export default class Input extends Vue {
   private menu = {
     date: false,
   };
+  private showMemo: boolean = false;
 
   get sections(): IWhooingSection[] {
     return UserModule.sectionList;
@@ -283,6 +305,7 @@ export default class Input extends Vue {
     this.item = '';
     this.money = '';
     this.date = '';
+    this.memo = '';
   }
 
   public AcceptProposal(item: IInputSeggestionItem) {

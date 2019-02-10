@@ -19,8 +19,9 @@ export namespace InputSuggestionHelper {
     const entry = EntriesHelper.FindSection(section_id);
     if (entry) {
       entry.data.forEach((en) => {
+        const itemText = (payload.item || '').split('(')[0];
         if (
-          // (!payload.item || en.item === payload.item) &&
+          (!payload.item || en.item.indexOf(itemText) === 0) &&
           (!payload.right || en.r_account_id === payload.right) &&
           (!payload.left || en.l_account_id === payload.left)
         ) {
