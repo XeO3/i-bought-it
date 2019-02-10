@@ -3,7 +3,12 @@ import './plugins/vuetify';
 import App from './App.vue';
 import router from './router';
 import './registerServiceWorker';
-import store from '@/store/store';
+import store from './store/store';
+import VueAnalytics from 'vue-analytics';
+Vue.use(VueAnalytics, {
+  id: 'UA-134070425-1',
+  router,
+});
 
 Vue.config.productionTip = false;
 

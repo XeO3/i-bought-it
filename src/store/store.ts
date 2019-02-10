@@ -12,7 +12,6 @@ import { Entries } from './modules/Entries';
 
 Vue.use(Vuex);
 
-// Declare empty store first, dynamically register all modules later.
 const store = new Vuex.Store<IRootState>({
   strict: true,
   plugins: [createPersistedState()],
