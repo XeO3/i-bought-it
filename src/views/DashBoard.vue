@@ -12,6 +12,16 @@
           <v-card-title primary-title class="grey darken-2 white--text py-3 text-truncate title">
             <v-icon left dark>widgets</v-icon>
             {{section.title}}
+            <v-spacer></v-spacer>
+            <v-btn
+              class="ma-0"
+              dark
+              icon
+              small
+              :to="{name:'entries', query: { sId: section.section_id }}"
+            >
+              <v-icon>history</v-icon>
+            </v-btn>
           </v-card-title>
           <v-container grid-list-md pa-2>
             <v-layout row wrap>

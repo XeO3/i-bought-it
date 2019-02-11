@@ -5,8 +5,7 @@
     </v-toolbar-side-icon>
     <v-toolbar-title>
       <span class="title ml-3">
-        이거샀어!&nbsp;
-        <span class="text">for Whooing</span>
+        {{headerTitle}}
       </span>
     </v-toolbar-title>
     <v-spacer></v-spacer>
@@ -48,6 +47,10 @@ export default class Header extends Vue {
     if (UserModule.userInfo) {
       return UserModule.userInfo.username;
     }
+  }
+
+  get headerTitle(){
+    return AppModule.header.title;
   }
 
   private Logout() {

@@ -231,15 +231,6 @@ export default class Input extends Vue {
       query: { ...this.$route.query, item: v },
     });
   }
-  get tag(): string {
-    return this.$route.query.tag as string;
-  }
-  set tag(v) {
-    this.$router.replace({
-      name: 'input',
-      query: { ...this.$route.query, tag: v },
-    });
-  }
   get memo(): string {
     return this.$route.query.memo as string;
   }

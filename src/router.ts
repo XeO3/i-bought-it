@@ -6,7 +6,7 @@ import Layout from '@/views/layouts/Layout.vue';
 import Header from '@/views/layouts/Header.vue';
 import LeftNav from '@/views/layouts/navs/LeftNav.vue';
 import Settings from '@/views/Settings.vue';
-import { AuthModule, UserModule } from './store/store';
+import { AuthModule, UserModule, AppModule } from './store/store';
 
 Vue.use(Router);
 
@@ -25,41 +25,51 @@ const router = new Router({
         {
           path: '',
           name: 'home',
+          meta: { title: '이거샀어 for Whooing' },
           component: () =>
             import(/* webpackChunkName: "Home" */ './views/Home.vue'),
         },
         {
           path: 'about',
           name: 'about',
+          meta: { title: '이거샀어?' },
           component: () =>
             import(/* webpackChunkName: "About" */ './views/About.vue'),
         },
         {
           path: 'dashboard',
           name: 'dashboard',
+          meta: { title: '대시보드', requiresAuth: true },
           component: () =>
             import(/* webpackChunkName: "Dashboard" */ './views/DashBoard.vue'),
-          meta: { requiresAuth: true },
+        },
+        {
+          path: 'entries',
+          name: 'entries',
+          meta: { title: '거래내역', requiresAuth: true },
+          component: () =>
+            import(/* webpackChunkName: "Entries" */ './views/Entries.vue'),
         },
         {
           path: 'input',
           name: 'input',
+          meta: { title: '거래입력', requiresAuth: true },
           components: {
             default: () =>
               import(/* webpackChunkName: "Input" */ './views/Input.vue'),
           },
-          meta: { requiresAuth: true },
         },
         {
           path: 'settings',
           name: 'settings',
+          meta: { title: '환경설정', requiresAuth: true },
           component: () =>
             import(/* webpackChunkName: "Settings" */ './views/Settings.vue'),
-          meta: { requiresAuth: true },
         },
         {
           path: 'whooing/callback/:random',
           name: 'callback',
+          meta: { title: '로그인중...' },
           component: LoginCallBack,
         },
       ],
@@ -80,6 +90,10 @@ router.beforeEach((to, from, next) => {
     }
   }
   next();
+});
+
+router.afterEach((to, from) => {
+  AppModule.SET_HEADERTITLE(to.meta.title || '이거샀어!');
 });
 
 export default router;

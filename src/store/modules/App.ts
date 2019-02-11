@@ -18,6 +18,9 @@ export class App extends VuexModule implements IAppState {
   public sidebar = {
     opened: false,
   };
+  public header = {
+    title: '이거샀어!',
+  };
 
   get appId(): string {
     return AppProperties.appId;
@@ -39,6 +42,11 @@ export class App extends VuexModule implements IAppState {
   @Mutation
   public SET_SNACKBAR(snackbar: ISnackbarModel | null) {
     this.snackbar = snackbar;
+  }
+
+  @Mutation
+  public SET_HEADERTITLE(title: string) {
+    this.header.title = title;
   }
 
   @Action

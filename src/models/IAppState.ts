@@ -4,6 +4,9 @@ export interface IAppState {
   sidebar: {
     opened: boolean;
   };
+  header: {
+    title: string;
+  };
   alerts: AlertModel[];
   snackbar: ISnackbarModel | null;
 }
