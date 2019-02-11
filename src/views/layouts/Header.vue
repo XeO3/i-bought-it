@@ -4,9 +4,7 @@
       <v-icon>menu</v-icon>
     </v-toolbar-side-icon>
     <v-toolbar-title>
-      <span class="title ml-3">
-        {{headerTitle}}
-      </span>
+      <span class="title ml-3">{{headerTitle}}</span>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <login-modal v-if="!isLogin"></login-modal>
@@ -49,7 +47,7 @@ export default class Header extends Vue {
     }
   }
 
-  get headerTitle(){
+  get headerTitle() {
     return AppModule.header.title;
   }
 

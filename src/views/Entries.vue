@@ -12,9 +12,7 @@
                     <v-chip small>{{item.right.title}}</v-chip>
                   </v-list-tile-sub-title>
                   <v-list-tile-title>{{ item.item }}</v-list-tile-title>
-                  <v-list-tile-sub-title>
-                      {{item.memo}}
-                  </v-list-tile-sub-title>
+                  <v-list-tile-sub-title>{{item.memo}}</v-list-tile-sub-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
                   <v-list-tile-action-text>{{item.date}}</v-list-tile-action-text>
@@ -65,7 +63,7 @@ export default class EntriesVue extends Vue {
   get sIdName() {
     return UserHelper.GetSectionName(this.sId);
   }
- 
+
   get left(): string {
     return this.$route.query.left as string;
   }
