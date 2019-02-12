@@ -5,9 +5,10 @@
         <v-card>
           <v-list two-line>
             <template v-for="(item, index) in entriesData">
-              <v-list-tile :key="item.entry_id" ripple>
+              <v-list-tile :key="item.id">
                 <v-list-tile-content>
                   <v-list-tile-sub-title>
+                    <small>{{item.date}}</small>
                     <v-chip small>{{item.left.title}}</v-chip>
                     <v-chip small>{{item.right.title}}</v-chip>
                   </v-list-tile-sub-title>
@@ -15,10 +16,22 @@
                   <v-list-tile-sub-title>{{item.memo}}</v-list-tile-sub-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
-                  <v-list-tile-action-text>{{item.date}}</v-list-tile-action-text>
-                  <v-list-tile-action-text
-                    class="headline text--primary"
-                  >{{item.money.toLocaleString()}}</v-list-tile-action-text>
+                  <v-menu offset-y bottom left>
+                    <v-btn small icon slot="activator">
+                      <v-icon>more_vert</v-icon>
+                    </v-btn>
+                    <v-list>
+                      <!-- <v-list-tile  @click="item.active = true">
+                        <v-list-tile-title><v-icon left>call_split</v-icon>재입력</v-list-tile-title>
+                      </v-list-tile>-->
+                      <!-- <v-list-tile v-if="!item.deleted" @click="Delete(item)">
+                        <v-list-tile-title class="red--text text--darken-2">
+                          <v-icon color="red darken-2" left>delete</v-icon>삭제
+                        </v-list-tile-title>
+                      </v-list-tile> -->
+                    </v-list>
+                  </v-menu>
+                  <v-list-tile-action-text class="headline text--primary">{{item.money}}</v-list-tile-action-text>
                 </v-list-tile-action>
               </v-list-tile>
               <v-divider v-if="index + 1 < entriesData.length" :key="index"></v-divider>
@@ -41,6 +54,13 @@ import { WhooingDate } from '@/utils/WhooingDate';
 
 @Component
 export default class EntriesVue extends Vue {
+  public entriesHeaders = [
+    { text: '날자', value: 'date' },
+    { text: '아이템', value: 'item' },
+    { text: '왼쪽', value: 'leftText' },
+    { text: '오른쪽', value: 'rightText' },
+  ];
+
   get sections(): IWhooingSection[] {
     return UserModule.sectionList;
   }
@@ -114,16 +134,32 @@ export default class EntriesVue extends Vue {
     const entriesSection = EntriesHelper.FindSection(this.sId);
     if (entriesSection) {
       return entriesSection.data.map((o) => {
+        const left = UserHelper.GetAccount(this.sId, o.l_account_id) || {
+          title: '',
+        };
+        const right = UserHelper.GetAccount(this.sId, o.r_account_id) || {
+          title: '',
+        };
         return {
+          id: o.entry_id,
           date: fns.format(WhooingDate.ParseNumber(o.entry_date), 'YYYY-MM-DD'),
           item: o.item,
-          money: o.money,
+          money: o.money.toLocaleString(),
           memo: o.memo,
-          left: UserHelper.GetAccount(this.sId, o.l_account_id),
-          right: UserHelper.GetAccount(this.sId, o.r_account_id),
+          leftText: left.title,
+          rightText: right.title,
+          left,
+          right,
         };
       });
     }
+  }
+  public Delete({ id }: { id: number }) {
+    const entriesSection = EntriesHelper.FindSection(this.sId);
+     if (entriesSection) {
+       const data = entriesSection.data.filter(o=>o.entry_id !== id);
+       EntriesModule.Set_EntryItem({section_id: this.sId, data, syncDate : new Date() });
+     }
   }
 }
 </script>
