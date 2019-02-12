@@ -41,7 +41,7 @@ export class Entries extends VuexModule implements IEntriesState {
   public Push_EntryItem(payload: IEntrySection) {
     const section = EntriesHelper.FindSection(payload.section_id);
     if (section) {
-      section.data.push(...payload.data);
+      section.data = [...payload.data, ...section.data];
     } else {
       this.sections.push(payload);
     }
