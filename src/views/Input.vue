@@ -2,95 +2,85 @@
   <v-container fill-height>
     <v-layout row wrap align-content-start>
       <v-flex xs12>
-        <v-form>
-          <v-card>
-            <v-card-text>
-              <v-container pa-0 grid-list-lg>
-                <v-layout row wrap>
-                  <v-flex xs12 class="text-xs-center" py-0>
-                    <v-menu offset-y>
-                      <v-chip slot="activator">{{sIdName}}</v-chip>
-                      <v-list>
-                        <v-list-tile
-                          v-for="section in sections"
-                          :key="section.section_id"
-                          @click="sId = section.section_id"
-                        >
-                          <v-list-tile-title>{{ section.title }}</v-list-tile-title>
-                        </v-list-tile>
-                      </v-list>
-                    </v-menu>
-                    <v-menu
-                      :close-on-content-click="false"
-                      v-model="menu.date"
-                      lazy
-                      transition="slide-y-transition"
-                      offset-y
-                      min-width="290px"
-                    >
-                      <v-chip slot="activator">{{date}}</v-chip>
-                      <v-date-picker v-model="date" @input="menu.date = false"></v-date-picker>
-                    </v-menu>
-                  </v-flex>
-                  <v-flex xs12 py-0>
-                    <div class="text-xs-center">
-                      <InputAccountModal v-model="left" :sectionId="sId" left></InputAccountModal>
-                      <InputAccountModal v-model="right" :sectionId="sId" right></InputAccountModal>
-                    </div>
-                  </v-flex>
-                  <v-flex xs12 md6 offset-md1 py-0>
-                    <v-text-field
-                      v-model="item"
-                      :hint="showMemo ? '' : memo ? `메모: ${memo}` : 'Hint: 오른쪽 아이콘 클릭시 메모입력란이 표시됩니다.'"
-                      persistent-hint
-                      :append-outer-icon="showMemo ? '' : 'note_add'"
+        <v-card @keyup.capture.enter="PushEntry">
+          <v-card-actions>
+            <v-btn color="blue darken-1" flat @click="ClearInput">clear</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="success"
+              :disabled="!Inputtable || entryLoading"
+              :loading="entryLoading"
+              @click="PushEntry"
+            >입력
+              <v-icon right>send</v-icon>
+            </v-btn>
+          </v-card-actions>
+          <v-card-text>
+            <v-container pa-0 grid-list-lg>
+              <v-layout row wrap>
+                <v-flex xs12 class="text-xs-center" py-0>
+                  <v-menu offset-y>
+                    <v-chip slot="activator">{{sIdName}}</v-chip>
+                    <v-list>
+                      <v-list-tile
+                        v-for="section in sections"
+                        :key="section.section_id"
+                        @click="sId = section.section_id"
+                      >
+                        <v-list-tile-title>{{ section.title }}</v-list-tile-title>
+                      </v-list-tile>
+                    </v-list>
+                  </v-menu>
+                  <v-menu
+                    :close-on-content-click="false"
+                    v-model="menu.date"
+                    lazy
+                    transition="slide-y-transition"
+                    offset-y
+                    min-width="290px"
+                  >
+                    <v-chip slot="activator">{{date}}</v-chip>
+                    <v-date-picker v-model="date" @input="menu.date = false"></v-date-picker>
+                  </v-menu>
+                </v-flex>
+                <v-flex xs12 py-0>
+                  <div class="text-xs-center">
+                    <InputAccountModal v-model="left" :sectionId="sId" left></InputAccountModal>
+                    <InputAccountModal v-model="right" :sectionId="sId" right></InputAccountModal>
+                  </div>
+                </v-flex>
+                <v-flex xs12 md6 offset-md1 py-0>
+                  <v-text-field
+                    v-model="item"
+                    :hint="showMemo ? '' : memo ? `메모: ${memo}` : 'Hint: 오른쪽 아이콘 클릭시 메모입력란이 표시됩니다.'"
+                    persistent-hint
+                    :append-outer-icon="showMemo ? '' : 'note_add'"
+                    @click:append-outer="showMemo = !showMemo"
+                    label="아이템"
+                    required
+                    clearable
+                  ></v-text-field>
+                  <v-expand-transition>
+                    <v-textarea
+                      v-show="showMemo"
+                      v-model="memo"
+                      label="메모"
+                      auto-grow
+                      rows="1"
+                      clearable
                       @click:append-outer="showMemo = !showMemo"
-                      label="아이템"
-                      required
-                      clearable
-                    ></v-text-field>
-                    <v-expand-transition>
-                      <v-textarea
-                        v-show="showMemo"
-                        v-model="memo"
-                        label="메모"
-                        auto-grow
-                        rows="1"
-                        clearable
-                        @click:append-outer="showMemo = !showMemo"
-                        append-outer-icon="expand_less"
-                        box
-                      ></v-textarea>
-                    </v-expand-transition>
-                  </v-flex>
-                  <v-flex xs12 md4 py-0>
-                    <v-text-field
-                      v-model="money"
-                      label="금액"
-                      type="number"
-                      required
-                      reverse
-                      clearable
-                    ></v-text-field>
-                  </v-flex>
-                </v-layout>
-              </v-container>
-            </v-card-text>
-            <v-card-actions>
-              <v-btn color="blue darken-1" flat @click="ClearInput">clear</v-btn>
-              <v-spacer></v-spacer>
-              <v-btn
-                large
-                color="success"
-                :disabled="!Inputtable || entryLoading"
-                :loading="entryLoading"
-                @click="PushEntry"
-              >입력
-                <v-icon right>send</v-icon>
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-form>
+                      append-outer-icon="expand_less"
+                      box
+                    ></v-textarea>
+                  </v-expand-transition>
+                </v-flex>
+                <v-flex xs12 md4 py-0>
+                  <v-text-field v-model="money" label="금액" type="number" required reverse clearable></v-text-field>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-card-text>
+        </v-card>
       </v-flex>
       <v-flex xs12 mt-3 v-if="suggestionItems.length> 0">
         <v-card>
@@ -98,7 +88,6 @@
             :headers="suggestionHeaders"
             :items="suggestionItems"
             hide-actions
-            
             disable-initial-sort
           >
             <template slot="items" slot-scope="props">
@@ -276,6 +265,9 @@ export default class Input extends Vue {
   }
 
   public async PushEntry() {
+    if(!this.Inputtable){
+      return;
+    }
     this.entryLoading = true;
     try {
       await EntriesInputHelper.PushEntryAsync(this.InputItem);

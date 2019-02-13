@@ -4,38 +4,40 @@
       <v-flex xs12>
         <v-card>
           <v-list two-line>
-            <template v-for="(item, index) in entriesData">
-              <v-list-tile :key="item.id">
-                <v-list-tile-content>
-                  <v-list-tile-sub-title>
-                    <small>{{item.date}}</small>
-                    <v-chip small>{{item.left.title}}</v-chip>
-                    <v-chip small>{{item.right.title}}</v-chip>
-                  </v-list-tile-sub-title>
-                  <v-list-tile-title>{{ item.item }}</v-list-tile-title>
-                  <v-list-tile-sub-title>{{item.memo}}</v-list-tile-sub-title>
-                </v-list-tile-content>
-                <v-list-tile-action>
-                  <v-menu offset-y bottom left>
-                    <v-btn small icon slot="activator">
-                      <v-icon>more_vert</v-icon>
-                    </v-btn>
-                    <v-list>
-                      <!-- <v-list-tile  @click="item.active = true">
+            <v-slide-x-transition group hide-on-leave>
+              <div v-for="(item, index) in entriesData" :key="item.id">
+                <v-list-tile :key="item.id">
+                  <v-list-tile-content>
+                    <v-list-tile-sub-title>
+                      <small>{{item.date}}</small>
+                      <v-chip small>{{item.left.title}}</v-chip>
+                      <v-chip small>{{item.right.title}}</v-chip>
+                    </v-list-tile-sub-title>
+                    <v-list-tile-title>{{ item.item }}</v-list-tile-title>
+                    <v-list-tile-sub-title>{{item.memo}}</v-list-tile-sub-title>
+                  </v-list-tile-content>
+                  <v-list-tile-action>
+                    <v-menu offset-y bottom left>
+                      <v-btn small icon slot="activator">
+                        <v-icon>more_vert</v-icon>
+                      </v-btn>
+                      <v-list>
+                        <!-- <v-list-tile  @click="item.active = true">
                         <v-list-tile-title><v-icon left>call_split</v-icon>재입력</v-list-tile-title>
-                      </v-list-tile>-->
-                      <!-- <v-list-tile v-if="!item.deleted" @click="Delete(item)">
-                        <v-list-tile-title class="red--text text--darken-2">
-                          <v-icon color="red darken-2" left>delete</v-icon>삭제
-                        </v-list-tile-title>
-                      </v-list-tile> -->
-                    </v-list>
-                  </v-menu>
-                  <v-list-tile-action-text class="headline text--primary">{{item.money}}</v-list-tile-action-text>
-                </v-list-tile-action>
-              </v-list-tile>
-              <v-divider v-if="index + 1 < entriesData.length" :key="index"></v-divider>
-            </template>
+                        </v-list-tile>-->
+                        <v-list-tile v-if="!item.deleted" @click="Delete(item)">
+                          <v-list-tile-title class="red--text text--darken-2">
+                            <v-icon color="red darken-2" left>delete</v-icon>삭제
+                          </v-list-tile-title>
+                        </v-list-tile>
+                      </v-list>
+                    </v-menu>
+                    <v-list-tile-action-text class="headline text--primary">{{item.money}}</v-list-tile-action-text>
+                  </v-list-tile-action>
+                </v-list-tile>
+                <v-divider v-if="index + 1 < entriesData.length" :key="index"></v-divider>
+              </div>
+            </v-slide-x-transition>
           </v-list>
         </v-card>
       </v-flex>
@@ -47,10 +49,13 @@
 import fns from 'date-fns';
 import { Component, Vue } from 'vue-property-decorator';
 import { IWhooingSection } from '@/models/IWhooingSection';
-import { UserModule, EntriesModule } from '@/store/store';
+import { UserModule, EntriesModule, AppModule } from '@/store/store';
 import { UserHelper } from '@/store/modules/User';
 import { EntriesHelper } from '@/store/modules/Entries';
 import { WhooingDate } from '@/utils/WhooingDate';
+import { DeleteWhooingEntries } from '@/api/DeleteWhooingEntries';
+import { AppDataHelper } from '@/store/modules/AppData';
+import { SnackbarModel } from '@/models/ISnackbarModel';
 
 @Component
 export default class EntriesVue extends Vue {
@@ -60,6 +65,10 @@ export default class EntriesVue extends Vue {
     { text: '왼쪽', value: 'leftText' },
     { text: '오른쪽', value: 'rightText' },
   ];
+
+  private temp: any = {
+    entriesData: null,
+  };
 
   get sections(): IWhooingSection[] {
     return UserModule.sectionList;
@@ -131,9 +140,13 @@ export default class EntriesVue extends Vue {
   }
 
   get entriesData() {
+    if (this.temp.entriesData) {
+      return this.temp.entriesData;
+    }
+
     const entriesSection = EntriesHelper.FindSection(this.sId);
     if (entriesSection) {
-      return entriesSection.data.map((o) => {
+      const result = entriesSection.data.map((o) => {
         const left = UserHelper.GetAccount(this.sId, o.l_account_id) || {
           title: '',
         };
@@ -152,14 +165,30 @@ export default class EntriesVue extends Vue {
           right,
         };
       });
+      this.temp.entriesData = result;
+      return result;
     }
   }
-  public Delete({ id }: { id: number }) {
-    const entriesSection = EntriesHelper.FindSection(this.sId);
-     if (entriesSection) {
-       const data = entriesSection.data.filter(o=>o.entry_id !== id);
-       EntriesModule.Set_EntryItem({section_id: this.sId, data, syncDate : new Date() });
-     }
+
+  public async Delete({ id }: { id: number }) {
+    try {
+      await DeleteWhooingEntries(id);
+
+      const entriesSection = EntriesHelper.FindSection(this.sId);
+      if (entriesSection) {
+        const data = entriesSection.data.filter((o) => o.entry_id !== id);
+        EntriesModule.Set_EntryItem({
+          section_id: this.sId,
+          data,
+          syncDate: new Date(),
+        });
+        this.temp.entriesData = null;
+      }
+    } catch (e) {
+      AppModule.SET_SNACKBAR(
+        new SnackbarModel({ text: '삭제실패', color: 'red' }),
+      );
+    }
   }
 }
 </script>

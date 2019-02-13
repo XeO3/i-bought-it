@@ -83,6 +83,4 @@ export namespace EntriesHelper {
     }
     return entry;
   }
-
-  
 }
