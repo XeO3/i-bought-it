@@ -2,7 +2,7 @@
 <https://ibi.xeo3.net/>  
 외출시 사용 내역을  후잉에 재빠르게 입력가능 하도록 도와주는 웹앱입니다.
 
-![input](https://firebasestorage.googleapis.com/v0/b/xeblo3.appspot.com/o/ibi_input.gif?alt=media&token=2153c5a1-6d02-45ff-8740-f9f5cc9ff555 "입력 데모")
+![input](https://firebasestorage.googleapis.com/v0/b/xeblo3.appspot.com/o/ibi_input.gif?alt=media&token=45806523-d5f5-44ad-9150-da9c619d67ac "입력 데모")
 
 ## 특징  
 모바일우선  
