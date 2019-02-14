@@ -46,6 +46,9 @@
                 <v-flex xs12 py-0>
                   <div class="text-xs-center">
                     <InputAccountModal v-model="left" :sectionId="sId" left></InputAccountModal>
+                    <v-btn small icon @click="SwapLeftRight">
+                      <v-icon>swap_horiz</v-icon>
+                    </v-btn>
                     <InputAccountModal v-model="right" :sectionId="sId" right></InputAccountModal>
                   </div>
                 </v-flex>
@@ -265,7 +268,7 @@ export default class Input extends Vue {
   }
 
   public async PushEntry() {
-    if(!this.Inputtable){
+    if (!this.Inputtable) {
       return;
     }
     this.entryLoading = true;
@@ -275,8 +278,11 @@ export default class Input extends Vue {
         new SnackbarModel({ text: '입력성공', color: 'success' }),
       );
       this.ClearInput();
+      this.$router.push({ name: 'dashboard' });
     } catch (e) {
-      alert(e);
+      AppModule.SET_SNACKBAR(
+        new SnackbarModel({ text: '입력실패', color: 'red' }),
+      );
     } finally {
       this.entryLoading = false;
     }
@@ -299,6 +305,20 @@ export default class Input extends Vue {
 
   public GetAccountName(section_id: string, account_id: string) {
     return UserHelper.GetAccountName(section_id, account_id);
+  }
+
+  public SwapLeftRight() {
+    const left = UserHelper.GetAccount(this.sId, this.left);
+    const right = UserHelper.GetAccount(this.sId, this.right);
+
+    this.left = '';
+    this.right = '';
+    if (left && left.account !== WhooingAccount.expenses) {
+      this.right = left.account_id;
+    }
+    if (right && right.account !== WhooingAccount.income) {
+      this.left = right.account_id;
+    }
   }
 }
 </script>

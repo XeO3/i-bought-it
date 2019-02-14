@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" scrollable max-width="90%">
+  <v-dialog v-model="dialog" scrollable max-width="600">
     <v-chip
       slot="activator"
       :color="selectedAccount ? GetAccountColor(selectedAccount.account): 'default'"

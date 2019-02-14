@@ -19,9 +19,9 @@ const LeftItems: LeftItem[] = [
   { icon: 'home', text: 'Home', click: LeftItemClick.Link, link: 'home' },
   { icon: 'info', text: 'About', click: LeftItemClick.Link, link: 'about' },
   { divider: true, click: LeftItemClick.None },
-  { icon: 'dashboard', text: 'DashBoard', click: LeftItemClick.Link, link: 'dashboard', isLogin: true },
-  { icon: 'add_circle', text: 'Input', click: LeftItemClick.Link, link: 'input', isLogin: true  },
-  { icon: 'settings', text: 'Settings', click: LeftItemClick.Link, link: 'settings', isLogin: true  },
+  { icon: 'dashboard', text: '대시보드', click: LeftItemClick.Link, link: 'dashboard', isLogin: true },
+  { icon: 'add_circle', text: '거래입력', click: LeftItemClick.Link, link: 'input', isLogin: true  },
+  { icon: 'settings', text: '환경설정', click: LeftItemClick.Link, link: 'settings', isLogin: true  },
   { divider: true, click: LeftItemClick.None, isLogin: true },
   {
     icon: 'open_in_new',
