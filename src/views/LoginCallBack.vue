@@ -32,7 +32,7 @@ export default class LoginCallBack extends Vue {
       } catch (e) {
         this.FailLogin();
       } finally {
-        this.$router.push('/');
+        this.$router.replace('/');
       }
     }
   }
