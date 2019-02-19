@@ -5,7 +5,7 @@
         <v-card>
           <v-list two-line>
             <v-slide-x-transition group hide-on-leave>
-              <div v-for="(item, index) in entriesData" :key="item.id">
+              <div v-for="(item, index) in entriesData.filter((o, i)=> i<50)" :key="item.id">
                 <v-list-tile :key="item.id">
                   <v-list-tile-content>
                     <v-list-tile-sub-title>

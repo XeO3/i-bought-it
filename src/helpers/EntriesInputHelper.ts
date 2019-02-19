@@ -63,7 +63,7 @@ export namespace EntriesInputHelper {
     account,
     account_id,
     money,
-    position: type,
+    position,
   }: {
     section_id: string;
     account: WhooingAccount;
@@ -75,14 +75,13 @@ export namespace EntriesInputHelper {
       case WhooingAccount.assets:
         AppDataModule.Add_Balance({
           key: { section_id, account_id },
-          addBalance: Number(money) * (type === 'left' ? 1 : -1),
+          addBalance: Number(money) * (position === 'left' ? 1 : -1),
         });
         break;
       case WhooingAccount.liabilities:
-      case WhooingAccount.capital:
         AppDataModule.Add_Balance({
           key: { section_id, account_id },
-          addBalance: Number(money) * (type === 'left' ? -1 : 1),
+          addBalance: Number(money) * (position === 'left' ? -1 : 1),
         });
         break;
     }
