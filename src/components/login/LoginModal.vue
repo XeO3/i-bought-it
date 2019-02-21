@@ -27,12 +27,7 @@
         <v-btn color="green darken-1" flat @click="dialog = false">close</v-btn>
       </v-card-actions>
     </v-card>
-    <form
-      action="https://old.whooing.com/app_auth/authorize"
-      method="post"
-      ref="formWhooingLogin"
-      :target="states.isCallback ? '_self': '_blank'"
-    >
+    <form action="https://old.whooing.com/app_auth/authorize" method="post" ref="formWhooingLogin">
       <input type="hidden" name="token" v-model="token">
       <input v-if="states.isCallback" type="hidden" name="callbackuri" v-model="reutrnUrl">
     </form>
