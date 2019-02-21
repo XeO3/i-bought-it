@@ -27,7 +27,7 @@
         <v-btn color="green darken-1" flat @click="dialog = false">close</v-btn>
       </v-card-actions>
     </v-card>
-    <form action="https://old.whooing.com/app_auth/authorize" method="post" ref="formWhooingLogin">
+    <form action="https://old.whooing.com/app_auth/authorize" method="post" ref="formWhooingLogin" :target="states.isCallback ? '_self': '_blank'">
       <input type="hidden" name="token" v-model="token">
       <input v-if="states.isCallback" type="hidden" name="callbackuri" v-model="reutrnUrl">
     </form>
@@ -59,6 +59,7 @@ export default class LoginModal extends Vue {
   public form = {
     pin: '',
   };
+  private popup: Window | null = null;
 
   public async getLoginHtml() {
     const res = await getWhooingAppToken(
@@ -66,16 +67,16 @@ export default class LoginModal extends Vue {
     );
     this.token = res.token;
     this.$nextTick(() => {
-      if (!this.states.isCallback) {
-        window.open(
-          '',
-          'formpopup',
-          'width=400,height=400,resizeable,scrollbars',
-        );
-        (this.$refs.formWhooingLogin as HTMLFormElement).target = 'formpopup';
-      }
       (this.$refs.formWhooingLogin as HTMLFormElement).submit();
     });
+  }
+
+ 
+
+  public destroy() {
+    if (this.popup) {
+      this.popup.close();
+    }
   }
 }
 </script>
