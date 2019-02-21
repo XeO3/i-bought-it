@@ -7,7 +7,7 @@
       <v-card-title class="headline">로그인</v-card-title>
       <v-card-text v-if="states.isCallback">
         <p>이거샀어 서비스를 이용하시기위해서는 후잉 로그인이 필요합니다.</p>
-        <v-btn @click="getLoginHtml" color="primary" block>Whoing로그인</v-btn>
+        <v-btn @click="Submit" color="primary" block>Whoing로그인</v-btn>
       </v-card-text>
       <v-card-text v-else>
         <p>iOS에서 PWA를 이용하시는경우 코드 직접입력을 이용해주세요.</p>
@@ -18,7 +18,7 @@
           color="success"
           block
         >로그인</v-btn>
-        <v-btn v-else @click="getLoginHtml" color="primary" block>인증코드 발급</v-btn>
+        <v-btn v-else @click="Submit" color="primary" block>인증코드 발급</v-btn>
         <v-text-field label="인증코드" v-model="form.pin"></v-text-field>
       </v-card-text>
       <v-card-actions>
@@ -27,7 +27,12 @@
         <v-btn color="green darken-1" flat @click="dialog = false">close</v-btn>
       </v-card-actions>
     </v-card>
-    <form action="https://old.whooing.com/app_auth/authorize" method="post" ref="formWhooingLogin" :target="states.isCallback ? '_self': '_blank'">
+    <form
+      action="https://old.whooing.com/app_auth/authorize"
+      method="post"
+      ref="formWhooingLogin"
+      :target="states.isCallback ? '_self': '_blank'"
+    >
       <input type="hidden" name="token" v-model="token">
       <input v-if="states.isCallback" type="hidden" name="callbackuri" v-model="reutrnUrl">
     </form>
@@ -38,13 +43,13 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { getWhooingAppToken } from '@/api/GetWhooingAppToken';
 import { GetWhooingAppTokenData } from '@/models/GetWhooingAppTokenData';
-import { AppModule } from '@/store/store';
+import { AppModule, AuthModule } from '@/store/store';
 import Urls from '@/config/Urls';
 
 @Component({})
 export default class LoginModal extends Vue {
   public dialog: boolean = false;
-  public token: string = '';
+
   public authUrl: string = Urls.whooingAppAuth;
   public reutrnUrl: string =
     window.location.origin +
@@ -61,7 +66,15 @@ export default class LoginModal extends Vue {
   };
   private popup: Window | null = null;
 
-  public async getLoginHtml() {
+  get token(): string {
+    return AuthModule.token;
+  }
+
+  set token(v: string) {
+    AuthModule.SET_TOKEN(v);
+  }
+
+  public async Submit() {
     const res = await getWhooingAppToken(
       new GetWhooingAppTokenData(AppModule.appId, AppModule.appSecret),
     );
@@ -70,8 +83,6 @@ export default class LoginModal extends Vue {
       (this.$refs.formWhooingLogin as HTMLFormElement).submit();
     });
   }
-
- 
 
   public destroy() {
     if (this.popup) {
