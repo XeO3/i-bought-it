@@ -12,13 +12,8 @@
       <v-card-text v-else>
         <p>iOS에서 PWA를 이용하시는경우 코드 직접입력을 이용해주세요.</p>
         <p>아래 링크에서 발급받은 후 인증코드를 직접 입력해 주세요.</p>
-        <v-btn
-          v-if="form.pin"
-          @click="$router.push({name:'callback', query:{token:token, pin:form.pin}})"
-          color="success"
-          block
-        >로그인</v-btn>
-        <v-btn v-else @click="Submit" color="primary" block>인증코드 발급</v-btn>
+        <v-btn v-if="form.pin" @click="ManualLogin" color="success" block>로그인</v-btn>
+        <v-btn v-else @click="Submit" color="primary" block>인증코드 발급페이지</v-btn>
         <v-text-field label="인증코드" v-model="form.pin"></v-text-field>
       </v-card-text>
       <v-card-actions>
@@ -29,7 +24,7 @@
     </v-card>
     <form action="https://old.whooing.com/app_auth/authorize" method="post" ref="formWhooingLogin">
       <input type="hidden" name="token" v-model="token">
-      <input v-if="states.isCallback" type="hidden" name="callbackuri" v-model="reutrnUrl">
+      <input type="hidden" name="callbackuri" v-model="reutrnUrl">
     </form>
   </v-dialog>
 </template>
@@ -46,12 +41,17 @@ export default class LoginModal extends Vue {
   public dialog: boolean = false;
 
   public authUrl: string = Urls.whooingAppAuth;
-  public reutrnUrl: string =
-    window.location.origin +
-    '/whooing/callback/' +
-    Math.random()
-      .toString(36)
-      .substring(7);
+  get reutrnUrl(): string {
+    return (
+      window.location.origin +
+      '/whooing/callback/' +
+      (this.states.isCallback
+        ? Math.random()
+            .toString(36)
+            .substring(7)
+        : 'showCode')
+    );
+  }
   public states = {
     isLoading: false,
     isCallback: true,
@@ -76,6 +76,20 @@ export default class LoginModal extends Vue {
     this.token = res.token;
     this.$nextTick(() => {
       (this.$refs.formWhooingLogin as HTMLFormElement).submit();
+    });
+  }
+
+  public ManualLogin() {
+    var code = this.form.pin.split('_');
+    const query = {
+      pin: code[0],
+      token: code[1] || this.token,
+    };
+
+    this.$router.push({
+      name: 'callback',
+      params: { random: 'login' },
+      query,
     });
   }
 
