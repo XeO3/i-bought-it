@@ -1,9 +1,20 @@
 <template>
-  <div>유저정보를 불러오는중입니다..</div>
+  <v-container align-center>
+    <v-layout row wrap class="text-xs-center">
+      <v-flex v-if="isManual">
+        <h2>수동 인증</h2>
+        <p>아래 코드를 복사해서 로그인 코드 입력란에 직접 입력해주세요.</p>
+        {{pin}}_{{token}}
+      </v-flex>
+      <v-flex xs12 v-else>
+        <p>유저정보를 불러오는중입니다..</p>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import { getWhooingAccessToken } from '@/api/GetWhooingAccessToken';
 import { GetWhooingAccessTokenData } from '@/models/GetWhooingAccessTokenData';
 import { AlertModel, AlertType } from '@/models/AlertModel';
@@ -14,6 +25,9 @@ import { AppData } from '@/store/modules/AppData';
 
 @Component({})
 export default class LoginCallBack extends Vue {
+  @Prop({ type: String })
+  public random!: string;
+
   get token(): string {
     return this.$route.query.token as string;
   }
@@ -21,17 +35,30 @@ export default class LoginCallBack extends Vue {
     return this.$route.query.pin as string;
   }
 
+  get isManual() {
+    return this.random === 'showCode';
+  }
+
   public created() {
-    this.getAccessToken();
+    if (!this.isManual) {
+      this.getAccessToken();
+    }
+  }
+
+  @Watch('random')
+  public onChangeRandom(newVal: string) {
+    if (!this.isManual) {
+      this.getAccessToken();
+    }
   }
 
   public async getAccessToken() {
     if (this.token && this.pin) {
       try {
         await this.LoginAsync();
+        this.$router.replace('/dashboard');
       } catch (e) {
         this.FailLogin();
-      } finally {
         this.$router.replace('/');
       }
     }

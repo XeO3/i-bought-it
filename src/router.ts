@@ -69,6 +69,7 @@ const router = new Router({
         {
           path: 'whooing/callback/:random',
           name: 'callback',
+          props: true,
           meta: { title: '로그인중...' },
           component: LoginCallBack,
         },
