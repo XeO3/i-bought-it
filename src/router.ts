@@ -27,28 +27,28 @@ const router = new Router({
           name: 'home',
           meta: { title: '이거샀어 for Whooing' },
           component: () =>
-            import(/* webpackChunkName: "Home" */ './views/Home.vue'),
+            import('./views/Home.vue'),
         },
         {
           path: 'about',
           name: 'about',
           meta: { title: '이거샀어?' },
           component: () =>
-            import(/* webpackChunkName: "About" */ './views/About.vue'),
+            import('./views/About.vue'),
         },
         {
           path: 'dashboard',
           name: 'dashboard',
           meta: { title: '대시보드', requiresAuth: true },
           component: () =>
-            import(/* webpackChunkName: "Dashboard" */ './views/DashBoard.vue'),
+            import('./views/DashBoard.vue'),
         },
         {
           path: 'entries',
           name: 'entries',
           meta: { title: '거래내역', requiresAuth: true },
           component: () =>
-            import(/* webpackChunkName: "Entries" */ './views/Entries.vue'),
+            import('./views/Entries.vue'),
         },
         {
           path: 'input',
@@ -56,7 +56,7 @@ const router = new Router({
           meta: { title: '거래입력', requiresAuth: true },
           components: {
             default: () =>
-              import(/* webpackChunkName: "Input" */ './views/Input.vue'),
+              import('./views/Input.vue'),
           },
         },
         {
@@ -64,7 +64,7 @@ const router = new Router({
           name: 'settings',
           meta: { title: '환경설정', requiresAuth: true },
           component: () =>
-            import(/* webpackChunkName: "Settings" */ './views/Settings.vue'),
+            import('./views/Settings.vue'),
         },
         {
           path: 'whooing/callback/:random',
