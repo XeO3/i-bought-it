@@ -80,7 +80,7 @@ export default class LoginModal extends Vue {
   }
 
   public ManualLogin() {
-    var code = this.form.pin.split('_');
+    const code = this.form.pin.split('_');
     const query = {
       pin: code[0],
       token: code[1] || this.token,
