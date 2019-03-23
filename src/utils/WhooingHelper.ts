@@ -1,5 +1,5 @@
-import sha1 from 'js-sha1';
-import { AppModule, AuthModule } from '@/store/store';
+import sha1 from "js-sha1";
+import { AppModule, AuthModule } from "@/store/store";
 
 export namespace Whooing {
   export function ApiKey(): string {
@@ -18,7 +18,7 @@ function CreateApiKey(
   token: string,
   tokenSecret: string,
 ): string {
-  const signiture = sha1(appSecret + '|' + tokenSecret);
+  const signiture = sha1(appSecret + "|" + tokenSecret);
   const nounce = Math.random()
     .toString(36)
     .substring(7);
@@ -30,6 +30,6 @@ function CreateApiKey(
     `nounce=${nounce}`,
     `timestapme=${timestapme}`,
   ];
-  const result = list.join(',');
+  const result = list.join(",");
   return result;
 }

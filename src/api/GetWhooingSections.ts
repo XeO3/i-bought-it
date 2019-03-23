@@ -1,8 +1,8 @@
-import axios from 'axios';
-import { IWhooingSection } from '@/models/IWhooingSection';
-import { IWhooingResponseModel } from '@/models/IWhooingResponseModel';
-import { Whooing } from '@/utils/WhooingHelper';
-import Urls from '@/config/Urls';
+import axios from "axios";
+import { IWhooingSection } from "@/models/IWhooingSection";
+import { IWhooingResponseModel } from "@/models/IWhooingResponseModel";
+import { Whooing } from "@/utils/WhooingHelper";
+import Urls from "@/config/Urls";
 
 /**
  * 후잉 유저 정보
@@ -10,11 +10,11 @@ import Urls from '@/config/Urls';
 export async function getWhooingSections(): Promise<
   IWhooingResponseModel<IWhooingSection[]>
 > {
-  const url = Urls.whooingApi + 'sections.json_array';
+  const url = Urls.whooingApi + "sections.json_array";
   const key = Whooing.ApiKey();
   const res = await axios.get<IWhooingResponseModel<IWhooingSection[]>>(url, {
     headers: {
-      'X-API-KEY': key,
+      "X-API-KEY": key,
     },
   });
   return res.data;

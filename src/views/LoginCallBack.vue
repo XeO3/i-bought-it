@@ -14,14 +14,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
-import { getWhooingAccessToken } from '@/api/GetWhooingAccessToken';
-import { GetWhooingAccessTokenData } from '@/models/GetWhooingAccessTokenData';
-import { AlertModel, AlertType } from '@/models/AlertModel';
+import { Component, Vue, Prop, Watch } from "vue-property-decorator";
+import { getWhooingAccessToken } from "@/api/GetWhooingAccessToken";
+import { GetWhooingAccessTokenData } from "@/models/GetWhooingAccessTokenData";
+import { AlertModel, AlertType } from "@/models/AlertModel";
 
-import { AuthModule, UserModule, AppDataModule } from '@/store/store';
-import { AppModule } from '@/store/store';
-import { AppData } from '@/store/modules/AppData';
+import { AuthModule, UserModule, AppDataModule } from "@/store/store";
+import { AppModule } from "@/store/store";
+import { AppData } from "@/store/modules/AppData";
 
 @Component({})
 export default class LoginCallBack extends Vue {
@@ -36,7 +36,7 @@ export default class LoginCallBack extends Vue {
   }
 
   get isManual() {
-    return this.random === 'showCode';
+    return this.random === "showCode";
   }
 
   public created() {
@@ -45,7 +45,7 @@ export default class LoginCallBack extends Vue {
     }
   }
 
-  @Watch('random')
+  @Watch("random")
   public onChangeRandom(newVal: string) {
     if (!this.isManual) {
       this.getAccessToken();
@@ -56,10 +56,10 @@ export default class LoginCallBack extends Vue {
     if (this.token && this.pin) {
       try {
         await this.LoginAsync();
-        this.$router.replace('/dashboard');
+        this.$router.replace("/dashboard");
       } catch (e) {
         this.FailLogin();
-        this.$router.replace('/');
+        this.$router.replace("/");
       }
     }
   }
@@ -81,9 +81,9 @@ export default class LoginCallBack extends Vue {
   }
 
   private FailLogin() {
-    alert('유저정보를 불러오는중 에러가 발생했습니다.');
+    alert("유저정보를 불러오는중 에러가 발생했습니다.");
     const newAlert = new AlertModel();
-    newAlert.message = '유저정보를 불러오는중 에러가 발생했습니다.';
+    newAlert.message = "유저정보를 불러오는중 에러가 발생했습니다.";
     newAlert.type = AlertType.error;
     newAlert.dismissible = true;
     AppModule.ADD_ALERT(newAlert);

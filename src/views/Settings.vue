@@ -67,10 +67,10 @@
   </v-container>
 </template>
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
-import { UserModule, SettingsModule } from '@/store/store';
-import { WhooingAccountModel } from '@/models/WhooingAccountModel';
-import { SettingsHelper } from '@/store/modules/Settings';
+import { Component, Vue, Prop } from "vue-property-decorator";
+import { UserModule, SettingsModule } from "@/store/store";
+import { WhooingAccountModel } from "@/models/WhooingAccountModel";
+import { SettingsHelper } from "@/store/modules/Settings";
 
 @Component({})
 export default class SettingsVue extends Vue {
@@ -81,7 +81,7 @@ export default class SettingsVue extends Vue {
   }
 
   public IsShowAccount(account: WhooingAccountModel): boolean {
-    if (account.type === 'group') {
+    if (account.type === "group") {
       return false;
     }
     if (WhooingAccountModel.IsClosed(account)) {

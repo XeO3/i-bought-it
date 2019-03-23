@@ -6,9 +6,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import LeftNav from '@/views/layouts/navs/LeftNav.vue';
-import { AppModule } from '@/store/store';
+import { Component, Vue } from "vue-property-decorator";
+import LeftNav from "@/views/layouts/navs/LeftNav.vue";
+import { AppModule } from "@/store/store";
 
 @Component
 export default class Snackbar extends Vue {

@@ -1,8 +1,8 @@
-import axios from 'axios';
-import { WhooingFrequentItem } from '@/models/WhooingFrequentItem';
-import { Whooing } from '@/utils/WhooingHelper';
-import { IWhooingResponseModel } from '@/models/IWhooingResponseModel';
-import Urls from '@/config/Urls';
+import axios from "axios";
+import { WhooingFrequentItem } from "@/models/WhooingFrequentItem";
+import { Whooing } from "@/utils/WhooingHelper";
+import { IWhooingResponseModel } from "@/models/IWhooingResponseModel";
+import Urls from "@/config/Urls";
 
 /**
  * 후잉 유저 정보
@@ -16,7 +16,7 @@ export async function getWhooingFrequentItems(
     url,
     {
       headers: {
-        'X-API-KEY': key,
+        "X-API-KEY": key,
       },
     },
   );

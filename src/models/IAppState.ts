@@ -1,5 +1,5 @@
-import { AlertModel } from '@/models/AlertModel';
-import { ISnackbarModel } from './ISnackbarModel';
+import { AlertModel } from "@/models/AlertModel";
+import { ISnackbarModel } from "./ISnackbarModel";
 export interface IAppState {
   sidebar: {
     opened: boolean;

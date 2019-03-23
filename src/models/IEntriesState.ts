@@ -1,4 +1,4 @@
-import { WhooingEntryModel } from './WhooingEntryModel';
+import { WhooingEntryModel } from "./WhooingEntryModel";
 
 export interface IEntriesState {
   sections: IEntrySection[];

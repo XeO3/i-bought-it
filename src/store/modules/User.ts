@@ -5,23 +5,23 @@ import {
   Action,
   getModule,
   MutationAction,
-} from 'vuex-module-decorators';
-import store, { UserModule } from '@/store/store';
-import { IWhooingUser } from '@/models/WhooingUserModel';
-import { getWhooingUser } from '@/api/GetWhooingUser';
-import { IWhooingSection } from '@/models/IWhooingSection';
-import { IWhooingSectionAccounts } from '@/models/WhooingAccountTypeModel';
-import { IUserState } from '@/models/IUserState';
-import { getWhooingSections } from '@/api/GetWhooingSections';
-import { getWhooingAccounts } from '@/api/GetWhooingAccounts';
+} from "vuex-module-decorators";
+import store, { UserModule } from "@/store/store";
+import { IWhooingUser } from "@/models/WhooingUserModel";
+import { getWhooingUser } from "@/api/GetWhooingUser";
+import { IWhooingSection } from "@/models/IWhooingSection";
+import { IWhooingSectionAccounts } from "@/models/WhooingAccountTypeModel";
+import { IUserState } from "@/models/IUserState";
+import { getWhooingSections } from "@/api/GetWhooingSections";
+import { getWhooingAccounts } from "@/api/GetWhooingAccounts";
 import {
   WhooingAccountModel,
   IWhooingAccountModel,
-} from '@/models/WhooingAccountModel';
-import fns from 'date-fns';
-import { WhooingAccount } from '@/models/EnumWhooingAccount';
+} from "@/models/WhooingAccountModel";
+import fns from "date-fns";
+import { WhooingAccount } from "@/models/EnumWhooingAccount";
 
-@Module({ dynamic: false, store, name: 'User' })
+@Module({ dynamic: false, store, name: "User" })
 export class User extends VuexModule implements IUserState {
   /** 섹션 정보 리스트 */
   public sectionList: IWhooingSection[] = [];

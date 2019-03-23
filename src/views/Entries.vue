@@ -46,24 +46,24 @@
 </template>
 
 <script lang="ts">
-import fns from 'date-fns';
-import { Component, Vue } from 'vue-property-decorator';
-import { IWhooingSection } from '@/models/IWhooingSection';
-import { UserModule, EntriesModule, AppModule } from '@/store/store';
-import { UserHelper } from '@/store/modules/User';
-import { EntriesHelper } from '@/store/modules/Entries';
-import { WhooingDate } from '@/utils/WhooingDate';
-import { DeleteWhooingEntries } from '@/api/DeleteWhooingEntries';
-import { AppDataHelper } from '@/store/modules/AppData';
-import { SnackbarModel } from '@/models/ISnackbarModel';
+import fns from "date-fns";
+import { Component, Vue } from "vue-property-decorator";
+import { IWhooingSection } from "@/models/IWhooingSection";
+import { UserModule, EntriesModule, AppModule } from "@/store/store";
+import { UserHelper } from "@/store/modules/User";
+import { EntriesHelper } from "@/store/modules/Entries";
+import { WhooingDate } from "@/utils/WhooingDate";
+import { DeleteWhooingEntries } from "@/api/DeleteWhooingEntries";
+import { AppDataHelper } from "@/store/modules/AppData";
+import { SnackbarModel } from "@/models/ISnackbarModel";
 
 @Component
 export default class EntriesVue extends Vue {
   public entriesHeaders = [
-    { text: '날자', value: 'date' },
-    { text: '아이템', value: 'item' },
-    { text: '왼쪽', value: 'leftText' },
-    { text: '오른쪽', value: 'rightText' },
+    { text: "날자", value: "date" },
+    { text: "아이템", value: "item" },
+    { text: "왼쪽", value: "leftText" },
+    { text: "오른쪽", value: "rightText" },
   ];
 
   private temp: any = {
@@ -85,7 +85,7 @@ export default class EntriesVue extends Vue {
   }
   set sId(v) {
     this.$router.replace({
-      name: 'entries',
+      name: "entries",
       query: { sId: v },
     });
   }
@@ -98,7 +98,7 @@ export default class EntriesVue extends Vue {
   }
   set left(v) {
     this.$router.replace({
-      name: 'entries',
+      name: "entries",
       query: { ...this.$route.query, left: v },
     });
   }
@@ -107,7 +107,7 @@ export default class EntriesVue extends Vue {
   }
   set right(v) {
     this.$router.replace({
-      name: 'entries',
+      name: "entries",
       query: { ...this.$route.query, right: v },
     });
   }
@@ -116,7 +116,7 @@ export default class EntriesVue extends Vue {
   }
   set money(v) {
     this.$router.replace({
-      name: 'entries',
+      name: "entries",
       query: { ...this.$route.query, money: v },
     });
   }
@@ -125,7 +125,7 @@ export default class EntriesVue extends Vue {
   }
   set item(v) {
     this.$router.replace({
-      name: 'entries',
+      name: "entries",
       query: { ...this.$route.query, item: v },
     });
   }
@@ -134,7 +134,7 @@ export default class EntriesVue extends Vue {
   }
   set memo(v) {
     this.$router.replace({
-      name: 'entries',
+      name: "entries",
       query: { ...this.$route.query, memo: v },
     });
   }
@@ -148,14 +148,14 @@ export default class EntriesVue extends Vue {
     if (entriesSection) {
       const result = entriesSection.data.map((o) => {
         const left = UserHelper.GetAccount(this.sId, o.l_account_id) || {
-          title: '',
+          title: "",
         };
         const right = UserHelper.GetAccount(this.sId, o.r_account_id) || {
-          title: '',
+          title: "",
         };
         return {
           id: o.entry_id,
-          date: fns.format(WhooingDate.ParseNumber(o.entry_date), 'YYYY-MM-DD'),
+          date: fns.format(WhooingDate.ParseNumber(o.entry_date), "YYYY-MM-DD"),
           item: o.item,
           money: o.money.toLocaleString(),
           memo: o.memo,
@@ -186,7 +186,7 @@ export default class EntriesVue extends Vue {
       }
     } catch (e) {
       AppModule.SET_SNACKBAR(
-        new SnackbarModel({ text: '삭제실패', color: 'red' }),
+        new SnackbarModel({ text: "삭제실패", color: "red" }),
       );
     }
   }

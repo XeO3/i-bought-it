@@ -1,4 +1,4 @@
-import { IWhooingSectionAccounts } from './WhooingAccountTypeModel';
+import { IWhooingSectionAccounts } from "./WhooingAccountTypeModel";
 
 export interface IWhooingSection {
   section_id: string;

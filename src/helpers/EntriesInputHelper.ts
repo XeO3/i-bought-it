@@ -1,7 +1,7 @@
 import { UserHelper } from "@/store/modules/User";
 import {
   IPostWhooingEntriesData,
-  PostWhooingEntriesData
+  PostWhooingEntriesData,
 } from "@/models/PostWhooingEntriesData";
 import { postWhooingEntries } from "@/api/PostWhooingEntries";
 import { EntriesModule, AppDataModule } from "@/store/store";
@@ -29,15 +29,15 @@ export namespace EntriesInputHelper {
     const entries = res.results;
     EntriesModule.Push_EntryItem({
       section_id: payload.sId,
-      data: entries
+      data: entries,
     });
 
     entries
       .filter(
-        item =>
-          Math.floor(item.entry_date) <= WhooingDate.ConvertNumber(new Date())
+        (item) =>
+          Math.floor(item.entry_date) <= WhooingDate.ConvertNumber(new Date()),
       )
-      .forEach(item => {
+      .forEach((item) => {
         const section_id = payload.sId;
         const money = item.money;
 
@@ -46,7 +46,7 @@ export namespace EntriesInputHelper {
           account: item.l_account,
           account_id: item.l_account_id,
           money,
-          position: "left"
+          position: "left",
         });
 
         UpdateBalanceState({
@@ -54,7 +54,7 @@ export namespace EntriesInputHelper {
           account: item.r_account,
           account_id: item.r_account_id,
           money,
-          position: "right"
+          position: "right",
         });
       });
   }
@@ -64,7 +64,7 @@ export namespace EntriesInputHelper {
     account,
     account_id,
     money,
-    position
+    position,
   }: {
     section_id: string;
     account: WhooingAccount;
@@ -76,13 +76,13 @@ export namespace EntriesInputHelper {
       case WhooingAccount.assets:
         AppDataModule.Add_Balance({
           key: { section_id, account_id },
-          addBalance: Number(money) * (position === "left" ? 1 : -1)
+          addBalance: Number(money) * (position === "left" ? 1 : -1),
         });
         break;
       case WhooingAccount.liabilities:
         AppDataModule.Add_Balance({
           key: { section_id, account_id },
-          addBalance: Number(money) * (position === "left" ? -1 : 1)
+          addBalance: Number(money) * (position === "left" ? -1 : 1),
         });
         break;
     }

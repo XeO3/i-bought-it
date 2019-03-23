@@ -1,4 +1,4 @@
-import { ISettingsSection } from './ISettingsSection';
+import { ISettingsSection } from "./ISettingsSection";
 
 export interface ISettingsState {
   sections: ISettingsSection[];

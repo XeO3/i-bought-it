@@ -1,4 +1,4 @@
-import { ValueLabelModel } from './ValueLabelModel';
+import { ValueLabelModel } from "./ValueLabelModel";
 export class SettingsMemuItemModel extends ValueLabelModel {
   constructor(
     public value: string,
@@ -12,9 +12,9 @@ export class SettingsMemuItemModel extends ValueLabelModel {
 }
 
 enum AccountsType {
-    assets= 'assets',
-    liabilities= 'liabilities',
-    capital= 'capital',
-    expenses= 'expenses',
-    income= 'income',
+    assets= "assets",
+    liabilities= "liabilities",
+    capital= "capital",
+    expenses= "expenses",
+    income= "income",
 }

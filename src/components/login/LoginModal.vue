@@ -30,11 +30,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
-import { getWhooingAppToken } from '@/api/GetWhooingAppToken';
-import { GetWhooingAppTokenData } from '@/models/GetWhooingAppTokenData';
-import { AppModule, AuthModule } from '@/store/store';
-import Urls from '@/config/Urls';
+import { Component, Vue, Prop } from "vue-property-decorator";
+import { getWhooingAppToken } from "@/api/GetWhooingAppToken";
+import { GetWhooingAppTokenData } from "@/models/GetWhooingAppTokenData";
+import { AppModule, AuthModule } from "@/store/store";
+import Urls from "@/config/Urls";
 
 @Component({})
 export default class LoginModal extends Vue {
@@ -44,12 +44,12 @@ export default class LoginModal extends Vue {
   get reutrnUrl(): string {
     return (
       window.location.origin +
-      '/whooing/callback/' +
+      "/whooing/callback/" +
       (this.states.isCallback
         ? Math.random()
             .toString(36)
             .substring(7)
-        : 'showCode')
+        : "showCode")
     );
   }
   public states = {
@@ -57,7 +57,7 @@ export default class LoginModal extends Vue {
     isCallback: true,
   };
   public form = {
-    pin: '',
+    pin: "",
   };
   private popup: Window | null = null;
 
@@ -80,15 +80,15 @@ export default class LoginModal extends Vue {
   }
 
   public ManualLogin() {
-    const code = this.form.pin.split('_');
+    const code = this.form.pin.split("_");
     const query = {
       pin: code[0],
       token: code[1] || this.token,
     };
 
     this.$router.push({
-      name: 'callback',
-      params: { random: 'login' },
+      name: "callback",
+      params: { random: "login" },
       query,
     });
   }

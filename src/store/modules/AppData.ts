@@ -1,13 +1,13 @@
-import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
+import { VuexModule, Module, Mutation, Action } from "vuex-module-decorators";
 
-import { getWhooingBs } from '@/api/GetWhooingBs';
-import store, { UserModule, AppDataModule } from '@/store/store';
-import { WhooingDate } from '@/utils/WhooingDate';
-import { IAppDataState } from '@/models/IAppDataState';
-import { BalanceItem } from '@/models/BalanceItem';
-import { IBalanceItem } from '@/models/IBalanceItem';
+import { getWhooingBs } from "@/api/GetWhooingBs";
+import store, { UserModule, AppDataModule } from "@/store/store";
+import { WhooingDate } from "@/utils/WhooingDate";
+import { IAppDataState } from "@/models/IAppDataState";
+import { BalanceItem } from "@/models/BalanceItem";
+import { IBalanceItem } from "@/models/IBalanceItem";
 
-@Module({ dynamic: false, store, name: 'AppData' })
+@Module({ dynamic: false, store, name: "AppData" })
 export class AppData extends VuexModule implements IAppDataState {
   public balancesSyncDate: Date | null = null;
   public balances: IBalanceItem[] = [];

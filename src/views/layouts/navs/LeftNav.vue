@@ -17,9 +17,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
-import LeftItems, { LeftItem, LeftItemClick } from '@/config/LeftItems';
-import { AppModule, UserModule } from '@/store/store';
+import { Component, Vue, Prop } from "vue-property-decorator";
+import LeftItems, { LeftItem, LeftItemClick } from "@/config/LeftItems";
+import { AppModule, UserModule } from "@/store/store";
 
 @Component({})
 export default class LeftNav extends Vue {
@@ -42,7 +42,7 @@ export default class LeftNav extends Vue {
     switch (item.click) {
       case LeftItemClick.NewTab:
         this.opened = false;
-        const win = window.open(item.link, '_blank');
+        const win = window.open(item.link, "_blank");
         if (win instanceof Window) {
           win.focus();
         }

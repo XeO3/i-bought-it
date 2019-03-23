@@ -37,11 +37,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import { UserModule } from '@/store/store';
-import { UserHelper } from '@/store/modules/User';
-import { WhooingAccountModel } from '@/models/WhooingAccountModel';
-import { WhooingAccount } from '@/models/EnumWhooingAccount';
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { UserModule } from "@/store/store";
+import { UserHelper } from "@/store/modules/User";
+import { WhooingAccountModel } from "@/models/WhooingAccountModel";
+import { WhooingAccount } from "@/models/EnumWhooingAccount";
 
 @Component
 export default class InputAccountModal extends Vue {
@@ -58,11 +58,11 @@ export default class InputAccountModal extends Vue {
 
   get typeText() {
     if (this.left) {
-      return '왼쪽';
+      return "왼쪽";
     } else if (this.right) {
-      return '오른쪽';
+      return "오른쪽";
     } else {
-      return '항목';
+      return "항목";
     }
   }
 
@@ -75,28 +75,28 @@ export default class InputAccountModal extends Vue {
     if (section && section.accounts) {
       return section.accounts;
     }
-    throw Error('accounts가 유효하지 않습니다.');
+    throw Error("accounts가 유효하지 않습니다.");
   }
 
   get accountData() {
     const data = [
       {
-        account: 'assets',
-        label: '자산',
+        account: "assets",
+        label: "자산",
         accounts: this.accounts.assets.filter(
           (account) => !WhooingAccountModel.IsClosed(account),
         ),
       },
       {
-        account: 'liabilities',
-        label: '부채',
+        account: "liabilities",
+        label: "부채",
         accounts: this.accounts.liabilities.filter(
           (account) => !WhooingAccountModel.IsClosed(account),
         ),
       },
       {
-        account: 'capital',
-        label: '순자산',
+        account: "capital",
+        label: "순자산",
         accounts: this.accounts.capital.filter(
           (account) => !WhooingAccountModel.IsClosed(account),
         ),
@@ -104,8 +104,8 @@ export default class InputAccountModal extends Vue {
     ];
     if (!this.right) {
       data.push({
-        account: 'expenses',
-        label: '비용',
+        account: "expenses",
+        label: "비용",
         accounts: this.accounts.expenses.filter(
           (account) => !WhooingAccountModel.IsClosed(account),
         ),
@@ -113,8 +113,8 @@ export default class InputAccountModal extends Vue {
     }
     if (!this.left) {
       data.push({
-        account: 'income',
-        label: '수입',
+        account: "income",
+        label: "수입",
         accounts: this.accounts.income.filter(
           (account) => !WhooingAccountModel.IsClosed(account),
         ),
@@ -127,35 +127,35 @@ export default class InputAccountModal extends Vue {
   public GetAccountColor(account: WhooingAccount) {
     switch (account) {
       case WhooingAccount.assets:
-        return 'purple lighten-1';
+        return "purple lighten-1";
       case WhooingAccount.liabilities:
-        return 'blue lighten-1';
+        return "blue lighten-1";
       case WhooingAccount.capital:
-        return 'yellow darken-4';
+        return "yellow darken-4";
       case WhooingAccount.income:
-        return 'green lighten-1';
+        return "green lighten-1";
       case WhooingAccount.expenses:
-        return 'orange darken-4';
+        return "orange darken-4";
     }
   }
 
   public GetSuffix(account: WhooingAccount) {
     switch (account) {
       case WhooingAccount.assets:
-        return this.left ? '+' : this.right ? '-' : '';
+        return this.left ? "+" : this.right ? "-" : "";
       case WhooingAccount.liabilities:
-        return this.left ? '-' : this.right ? '+' : '';
+        return this.left ? "-" : this.right ? "+" : "";
       case WhooingAccount.capital:
-        return this.left ? '-' : this.right ? '+' : '';
+        return this.left ? "-" : this.right ? "+" : "";
       case WhooingAccount.income:
-        return '';
+        return "";
       case WhooingAccount.expenses:
-        return '';
+        return "";
     }
   }
 
   public Commit(accountItem: WhooingAccountModel) {
-    this.$emit('input', accountItem.account_id);
+    this.$emit("input", accountItem.account_id);
     this.dialog = false;
   }
 }

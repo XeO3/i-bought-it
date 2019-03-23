@@ -1,4 +1,4 @@
-import { IBalanceItem } from './IBalanceItem';
+import { IBalanceItem } from "./IBalanceItem";
 
 export interface IAppDataState {
   balances: IBalanceItem[];

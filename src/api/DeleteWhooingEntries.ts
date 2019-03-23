@@ -1,7 +1,7 @@
-import axios from 'axios';
-import Urls from '@/config/Urls';
-import { IWhooingResponseModel } from '@/models/IWhooingResponseModel';
-import { Whooing } from '@/utils/WhooingHelper';
+import axios from "axios";
+import Urls from "@/config/Urls";
+import { IWhooingResponseModel } from "@/models/IWhooingResponseModel";
+import { Whooing } from "@/utils/WhooingHelper";
 
 /**
  * 후잉 거래 삭제
@@ -9,11 +9,11 @@ import { Whooing } from '@/utils/WhooingHelper';
 export async function DeleteWhooingEntries(
   entry_ids: number | number[],
 ): Promise<IWhooingResponseModel<void>> {
-  const url = Urls.whooingApi + 'entries/' + entry_ids;
+  const url = Urls.whooingApi + "entries/" + entry_ids;
   const key = Whooing.ApiKey();
   const res = await axios.delete(url, {
     headers: {
-      'X-API-KEY': key,
+      "X-API-KEY": key,
     },
   });
   if (res.data.code === 200) {

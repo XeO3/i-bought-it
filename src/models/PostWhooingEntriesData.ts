@@ -1,4 +1,4 @@
-import { IPostData } from './IPostData';
+import { IPostData } from "./IPostData";
 /**
  * 후잉 거래 입력용 데이터
  */
@@ -10,16 +10,16 @@ export class PostWhooingEntriesData extends IPostData {
   }
   public GetFormData(): FormData {
     const formData = new FormData();
-    formData.append('section_id', this.data.section_id || '');
-    formData.append('l_account', this.data.l_account || '');
-    formData.append('l_account_id', this.data.l_account_id || '');
-    formData.append('r_account', this.data.r_account || '');
-    formData.append('r_account_id', this.data.r_account_id || '');
-    formData.append('item', this.data.item || '');
-    formData.append('money', this.data.money.toString() || '');
-    formData.append('memo', this.data.memo || '');
+    formData.append("section_id", this.data.section_id || "");
+    formData.append("l_account", this.data.l_account || "");
+    formData.append("l_account_id", this.data.l_account_id || "");
+    formData.append("r_account", this.data.r_account || "");
+    formData.append("r_account_id", this.data.r_account_id || "");
+    formData.append("item", this.data.item || "");
+    formData.append("money", this.data.money.toString() || "");
+    formData.append("memo", this.data.memo || "");
     if (this.data.entry_date) {
-      formData.append('entry_date', this.data.entry_date.toString());
+      formData.append("entry_date", this.data.entry_date.toString());
     }
     return formData;
   }

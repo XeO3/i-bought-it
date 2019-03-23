@@ -1,15 +1,15 @@
-import Vue from 'vue';
-import './plugins/vuetify';
-import App from './App.vue';
-import router from './router';
-import './registerServiceWorker';
-import store from './store/store';
-import VueAnalytics from 'vue-analytics';
+import Vue from "vue";
+import "./plugins/vuetify";
+import App from "./App.vue";
+import router from "./router";
+import "./registerServiceWorker";
+import store from "./store/store";
+import VueAnalytics from "vue-analytics";
 Vue.use(VueAnalytics, {
-  id: 'UA-134070425-1',
+  id: "UA-134070425-1",
   router,
   debug: {
-    sendHitTask: process.env.NODE_ENV === 'production',
+    sendHitTask: process.env.NODE_ENV === "production",
   },
   autoTracking: {
     transformQueryString: false,
@@ -23,4 +23,4 @@ new Vue({
   router,
   store,
   render: (h) => h(App),
-}).$mount('#app');
+}).$mount("#app");

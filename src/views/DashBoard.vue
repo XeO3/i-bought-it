@@ -65,15 +65,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { AppDataModule, UserModule, SettingsModule } from '@/store/store';
-import dateFns from 'date-fns';
-import { IWhooingSection } from '@/models/IWhooingSection';
+import { Component, Vue } from "vue-property-decorator";
+import { AppDataModule, UserModule, SettingsModule } from "@/store/store";
+import dateFns from "date-fns";
+import { IWhooingSection } from "@/models/IWhooingSection";
 import {
   DashboardBalaceHelper,
   IDashboardBalanceItem,
-} from '@/helpers/DashboardBalaceHelper.ts';
-import { WhooingAccount } from '@/models/EnumWhooingAccount';
+} from "@/helpers/DashboardBalaceHelper.ts";
+import { WhooingAccount } from "@/models/EnumWhooingAccount";
 
 @Component
 export default class DashBoardVue extends Vue {
@@ -112,15 +112,15 @@ export default class DashBoardVue extends Vue {
   }
 
   private PushInput(sId: string, right: string): void {
-    this.$router.push({ name: 'input', query: { sId, right } });
+    this.$router.push({ name: "input", query: { sId, right } });
   }
 
   private GetDashboardItemColor(balanceItem: IDashboardBalanceItem) {
     if (balanceItem.account === WhooingAccount.assets) {
-      return 'purple';
+      return "purple";
     }
     if (balanceItem.account === WhooingAccount.liabilities) {
-      return 'blue';
+      return "blue";
     }
   }
 }

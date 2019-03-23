@@ -112,7 +112,7 @@ import {
   UserModule,
   EntriesModule,
   AppDataModule,
-  AppModule
+  AppModule,
 } from "@/store/store";
 import { WhooingDate } from "@/utils/WhooingDate";
 import fns from "date-fns";
@@ -121,12 +121,12 @@ import InputAccountModal from "@/components/InputAccountModal.vue";
 import { postWhooingEntries } from "@/api/PostWhooingEntries";
 import {
   PostWhooingEntriesData,
-  IPostWhooingEntriesData
+  IPostWhooingEntriesData,
 } from "@/models/PostWhooingEntriesData";
 import { IEntrySection } from "@/models/IEntriesState";
 import {
   InputSuggestionHelper,
-  IInputSeggestionItem
+  IInputSeggestionItem,
 } from "@/helpers/InputSuggestionHelper";
 import { WhooingAccount } from "@/models/EnumWhooingAccount";
 import { EntriesInputHelper } from "@/helpers/EntriesInputHelper";
@@ -135,18 +135,18 @@ import { SnackbarModel } from "@/models/ISnackbarModel";
 
 @Component({
   components: {
-    InputAccountModal
-  }
+    InputAccountModal,
+  },
 })
-export default class Input extends Vue {
+export default class InputVue extends Vue {
   public suggestionHeaders = [
     { text: "아이템", value: "item" },
     { text: "왼쪽", value: "left" },
-    { text: "오른쪽", value: "right" }
+    { text: "오른쪽", value: "right" },
   ];
   private entryLoading: boolean = false;
   private menu = {
-    date: false
+    date: false,
   };
   private showMemo: boolean = false;
 
@@ -166,7 +166,7 @@ export default class Input extends Vue {
   set sId(v) {
     this.$router.replace({
       name: "input",
-      query: { sId: v }
+      query: { sId: v },
     });
   }
   get sIdName() {
@@ -184,7 +184,7 @@ export default class Input extends Vue {
   set date(v) {
     this.$router.replace({
       name: "input",
-      query: { ...this.$route.query, date: v }
+      query: { ...this.$route.query, date: v },
     });
   }
   get left(): string {
@@ -193,7 +193,7 @@ export default class Input extends Vue {
   set left(v) {
     this.$router.replace({
       name: "input",
-      query: { ...this.$route.query, left: v }
+      query: { ...this.$route.query, left: v },
     });
   }
   get right(): string {
@@ -202,7 +202,7 @@ export default class Input extends Vue {
   set right(v) {
     this.$router.replace({
       name: "input",
-      query: { ...this.$route.query, right: v }
+      query: { ...this.$route.query, right: v },
     });
   }
   get money(): string {
@@ -211,7 +211,7 @@ export default class Input extends Vue {
   set money(v) {
     this.$router.replace({
       name: "input",
-      query: { ...this.$route.query, money: v }
+      query: { ...this.$route.query, money: v },
     });
   }
   get item(): string {
@@ -220,7 +220,7 @@ export default class Input extends Vue {
   set item(v) {
     this.$router.replace({
       name: "input",
-      query: { ...this.$route.query, item: v }
+      query: { ...this.$route.query, item: v },
     });
   }
   get memo(): string {
@@ -229,7 +229,7 @@ export default class Input extends Vue {
   set memo(v) {
     this.$router.replace({
       name: "input",
-      query: { ...this.$route.query, memo: v }
+      query: { ...this.$route.query, memo: v },
     });
   }
   get Inputtable() {
@@ -255,7 +255,7 @@ export default class Input extends Vue {
       money: this.money,
       item: this.item,
       memo: this.memo,
-      date: new Date(this.date)
+      date: new Date(this.date),
     };
   }
 
@@ -264,7 +264,7 @@ export default class Input extends Vue {
       item: this.item,
       left: this.left,
       right: this.right,
-      money: this.money
+      money: this.money,
     });
   }
 
@@ -276,13 +276,13 @@ export default class Input extends Vue {
     try {
       await EntriesInputHelper.PushEntryAsync(this.InputItem);
       AppModule.SET_SNACKBAR(
-        new SnackbarModel({ text: "입력성공", color: "success" })
+        new SnackbarModel({ text: "입력성공", color: "success" }),
       );
       this.ClearInput();
       this.$router.push({ name: "dashboard" });
     } catch (e) {
       AppModule.SET_SNACKBAR(
-        new SnackbarModel({ text: "입력실패", color: "red" })
+        new SnackbarModel({ text: "입력실패", color: "red" }),
       );
     } finally {
       this.entryLoading = false;

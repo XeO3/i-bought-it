@@ -4,15 +4,15 @@ import {
   Mutation,
   Action,
   getModule,
-} from 'vuex-module-decorators';
-import store, { EntriesModule } from '@/store/store';
-import { IEntriesState, IEntrySection } from '@/models/IEntriesState';
-import { getWhooingEntries } from '@/api/GetWhooingEntries';
-import { WhoooingGetEntriesParams } from '@/models/IWhoooingGetEntriesPayload';
-import fns from 'date-fns';
-import { WhooingDate } from '@/utils/WhooingDate';
+} from "vuex-module-decorators";
+import store, { EntriesModule } from "@/store/store";
+import { IEntriesState, IEntrySection } from "@/models/IEntriesState";
+import { getWhooingEntries } from "@/api/GetWhooingEntries";
+import { WhoooingGetEntriesParams } from "@/models/IWhoooingGetEntriesPayload";
+import fns from "date-fns";
+import { WhooingDate } from "@/utils/WhooingDate";
 
-@Module({ dynamic: false, store, name: 'Entries' })
+@Module({ dynamic: false, store, name: "Entries" })
 export class Entries extends VuexModule implements IEntriesState {
   public sections: IEntrySection[] = [];
 

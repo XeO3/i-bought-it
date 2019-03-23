@@ -1,5 +1,5 @@
-import { WhooingDate } from '@/utils/WhooingDate';
-import fns from 'date-fns';
+import { WhooingDate } from "@/utils/WhooingDate";
+import fns from "date-fns";
 export interface IWhoooingGetEntriesParams {
   section_id: string;
   start_date: number;

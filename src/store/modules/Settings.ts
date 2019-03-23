@@ -4,13 +4,13 @@ import {
   Mutation,
   Action,
   getModule,
-} from 'vuex-module-decorators';
-import store, { UserModule, SettingsModule } from '@/store/store';
-import { ISettingsState } from '@/models/ISettingsState';
-import { ISettingsSection } from '@/models/ISettingsSection';
-import { SettingsSection } from '@/models/SettingsSection';
+} from "vuex-module-decorators";
+import store, { UserModule, SettingsModule } from "@/store/store";
+import { ISettingsState } from "@/models/ISettingsState";
+import { ISettingsSection } from "@/models/ISettingsSection";
+import { SettingsSection } from "@/models/SettingsSection";
 
-@Module({ dynamic: false, store, name: 'Settings' })
+@Module({ dynamic: false, store, name: "Settings" })
 export class Settings extends VuexModule implements ISettingsState {
   /** 섹션 설정 */
   public sections: ISettingsSection[] = [];

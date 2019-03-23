@@ -1,9 +1,9 @@
-import axios from 'axios';
-import store from '@/store/store';
-import { IWhooingResponseModel } from '@/models/IWhooingResponseModel';
-import { IWhooingSectionAccounts } from '@/models/WhooingAccountTypeModel';
-import { Whooing } from '@/utils/WhooingHelper';
-import Urls from '@/config/Urls';
+import axios from "axios";
+import store from "@/store/store";
+import { IWhooingResponseModel } from "@/models/IWhooingResponseModel";
+import { IWhooingSectionAccounts } from "@/models/WhooingAccountTypeModel";
+import { Whooing } from "@/utils/WhooingHelper";
+import Urls from "@/config/Urls";
 
 /**
  * 후잉 항목 정보
@@ -19,7 +19,7 @@ export async function getWhooingAccounts(
     url,
     {
       headers: {
-        'X-API-KEY': key,
+        "X-API-KEY": key,
       },
     },
   );

@@ -1,4 +1,4 @@
-import { SettingsMemuItemModel } from './SettingsMemuItemModel';
+import { SettingsMemuItemModel } from "./SettingsMemuItemModel";
 export class SettingsDataModel {
   constructor(
     public sectionId: string,

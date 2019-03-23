@@ -1,10 +1,10 @@
-import { Settings, SettingsHelper } from '@/store/modules/Settings';
-import { User, UserHelper } from '@/store/modules/User';
-import { AppData, AppDataHelper } from '@/store/modules/AppData';
-import { SettingsModule, UserModule, AppDataModule } from '@/store/store';
-import { getWhooingSections } from '@/api/GetWhooingSections';
-import { WhooingAccountModel } from '@/models/WhooingAccountModel';
-import { WhooingAccount } from '@/models/EnumWhooingAccount';
+import { Settings, SettingsHelper } from "@/store/modules/Settings";
+import { User, UserHelper } from "@/store/modules/User";
+import { AppData, AppDataHelper } from "@/store/modules/AppData";
+import { SettingsModule, UserModule, AppDataModule } from "@/store/store";
+import { getWhooingSections } from "@/api/GetWhooingSections";
+import { WhooingAccountModel } from "@/models/WhooingAccountModel";
+import { WhooingAccount } from "@/models/EnumWhooingAccount";
 
 export interface IDashboardBalace {
   section_id: string;
@@ -92,7 +92,7 @@ export namespace DashboardBalaceHelper {
     ) {
       const accountItem = UserHelper.GetAccount(section_id, account_id);
       if (!accountItem) {
-        throw Error('계정정보가 없습니다.');
+        throw Error("계정정보가 없습니다.");
       }
       const pushItem: IDashboardBalanceItem = {
         account_id,

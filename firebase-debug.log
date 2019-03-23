@@ -1,0 +1,65 @@
+[debug] [2019-03-23T12:50:50.913Z] ----------------------------------------------------------------------
+[debug] [2019-03-23T12:50:50.915Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\bangl\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2019-03-23T12:50:50.915Z] CLI Version:   6.5.0
+[debug] [2019-03-23T12:50:50.915Z] Platform:      win32
+[debug] [2019-03-23T12:50:50.915Z] Node Version:  v10.15.3
+[debug] [2019-03-23T12:50:50.916Z] Time:          Sat Mar 23 2019 21:50:50 GMT+0900 (GMT+09:00)
+[debug] [2019-03-23T12:50:50.916Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-03-23T12:50:50.932Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-03-23T12:50:50.933Z] > authorizing via signed-in user
+[debug] [2019-03-23T12:50:50.933Z] [iam] checking project boughtit-1318 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-03-23T12:50:50.935Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-03-23T12:50:50.935Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-03-23T12:50:51.110Z] <<< HTTP RESPONSE 200
+[debug] [2019-03-23T12:50:51.115Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/boughtit-1318:testIamPermissions  
+
+[debug] [2019-03-23T12:50:51.852Z] <<< HTTP RESPONSE 200
+[debug] [2019-03-23T12:50:51.853Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/boughtit-1318  
+ 
+[debug] [2019-03-23T12:50:52.647Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'boughtit-1318'...
+[info] 
+[info] i  deploying hosting
+[debug] [2019-03-23T12:50:52.650Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/boughtit-1318/versions  
+
+[debug] [2019-03-23T12:50:57.628Z] <<< HTTP RESPONSE 200
+[info] i  hosting[boughtit-1318]: beginning deploy...
+[info] i  hosting[boughtit-1318]: found 19 files in dist
+[debug] [2019-03-23T12:50:57.649Z] [hosting] hash cache [ZGlzdA] load error: lines is not defined
+[debug] [2019-03-23T12:50:58.173Z] [hosting] hash cache [ZGlzdA] stored for 19 files
+[debug] [2019-03-23T12:50:58.173Z] [hosting][hash queue][FINAL]
+[debug] [2019-03-23T12:50:58.173Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/boughtit-1318/versions/5b19a51cdd07dd6b:populateFiles  
+ <request body omitted>
+[debug] [2019-03-23T12:50:59.719Z] <<< HTTP RESPONSE 200
+[debug] [2019-03-23T12:50:59.723Z] [hosting][populate queue][FINAL]
+[debug] [2019-03-23T12:50:59.723Z] [hosting] uploads queued: 8
+[debug] [2019-03-23T12:51:03.029Z] [hosting][upload queue][FINAL]
+[info] +  hosting[boughtit-1318]: file upload complete
+[debug] [2019-03-23T12:51:03.029Z] [hosting] deploy completed after 5400ms
+[debug] [2019-03-23T12:51:03.151Z] [
+  {
+    "config": {
+      "public": "dist",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "site": "boughtit-1318"
+    },
+    "site": "boughtit-1318",
+    "version": "sites/boughtit-1318/versions/5b19a51cdd07dd6b"
+  }
+]
+[info] i  hosting[boughtit-1318]: finalizing version...
+[debug] [2019-03-23T12:51:03.152Z] >>> HTTP REQUEST PATCH https://firebasehosting.googleapis.com/v1beta1/sites/boughtit-1318/versions/5b19a51cdd07dd6b?updateMask=status  
+

@@ -1,10 +1,10 @@
-import axios from 'axios';
-import { PostWhooingEntriesData } from '@/models/PostWhooingEntriesData';
-import { WhooingEntryModel } from '@/models/WhooingEntryModel';
-import store from '@/store/store';
-import { IWhooingResponseModel } from '@/models/IWhooingResponseModel';
-import { Whooing } from '@/utils/WhooingHelper';
-import Urls from '@/config/Urls';
+import axios from "axios";
+import { PostWhooingEntriesData } from "@/models/PostWhooingEntriesData";
+import { WhooingEntryModel } from "@/models/WhooingEntryModel";
+import store from "@/store/store";
+import { IWhooingResponseModel } from "@/models/IWhooingResponseModel";
+import { Whooing } from "@/utils/WhooingHelper";
+import Urls from "@/config/Urls";
 
 /**
  * 후잉 거래 입력
@@ -12,7 +12,7 @@ import Urls from '@/config/Urls';
 export async function postWhooingEntries(
   data: PostWhooingEntriesData,
 ): Promise<IWhooingResponseModel<WhooingEntryModel[]>> {
-  const url = Urls.whooingApi + 'entries';
+  const url = Urls.whooingApi + "entries";
   const formData = data.GetFormData();
   const apikey = Whooing.ApiKey();
   const res = await axios.post<IWhooingResponseModel<WhooingEntryModel[]>>(
@@ -20,7 +20,7 @@ export async function postWhooingEntries(
     formData,
     {
       headers: {
-        'X-API-KEY': apikey,
+        "X-API-KEY": apikey,
       },
     },
   );

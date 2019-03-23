@@ -1,4 +1,4 @@
-import { WhooingAccountModel } from './WhooingAccountModel';
+import { WhooingAccountModel } from "./WhooingAccountModel";
 export interface IWhooingSectionAccounts {
   /** 자산 */
   assets: WhooingAccountModel[];

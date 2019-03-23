@@ -1,4 +1,4 @@
-import { ISettingsSection } from './ISettingsSection';
+import { ISettingsSection } from "./ISettingsSection";
 export class SettingsSection implements ISettingsSection {
   public section_id: string;
   public pinedList: string[] = [];

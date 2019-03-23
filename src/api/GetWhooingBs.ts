@@ -1,8 +1,8 @@
-import axios from 'axios';
-import { IWhooingResponseModel } from '@/models/IWhooingResponseModel';
-import { Whooing } from '@/utils/WhooingHelper';
-import { IWhooingBs } from '@/models/WooingBs';
-import Urls from '@/config/Urls';
+import axios from "axios";
+import { IWhooingResponseModel } from "@/models/IWhooingResponseModel";
+import { Whooing } from "@/utils/WhooingHelper";
+import { IWhooingBs } from "@/models/WooingBs";
+import Urls from "@/config/Urls";
 
 /**
  * 후잉 잔액 정보가져오기
@@ -13,11 +13,11 @@ export async function getWhooingBs(
   section_id: string,
   end_date: number,
 ): Promise<IWhooingResponseModel<IWhooingBs>> {
-  const url = Urls.whooingApi + 'bs.json_array';
+  const url = Urls.whooingApi + "bs.json_array";
   const key = Whooing.ApiKey();
   const res = await axios.get<IWhooingResponseModel<IWhooingBs>>(url, {
     headers: {
-      'X-API-KEY': key,
+      "X-API-KEY": key,
     },
     params: {
       section_id,

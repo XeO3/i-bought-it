@@ -19,8 +19,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import Urls from '@/config/Urls';
+import { Component, Vue } from "vue-property-decorator";
+import Urls from "@/config/Urls";
 
 @Component
 export default class Home extends Vue {

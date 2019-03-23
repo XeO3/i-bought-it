@@ -1,6 +1,6 @@
-import axios from 'axios';
-import { GetWhooingAccessTokenData } from '@/models/GetWhooingAccessTokenData';
-import Urls from '@/config/Urls';
+import axios from "axios";
+import { GetWhooingAccessTokenData } from "@/models/GetWhooingAccessTokenData";
+import Urls from "@/config/Urls";
 
 /**
  * 후잉 엑서스 토큰 발급
@@ -9,7 +9,7 @@ import Urls from '@/config/Urls';
 export async function getWhooingAccessToken(
   data: GetWhooingAccessTokenData,
 ): Promise<IWhooingAccessToken> {
-  const url = Urls.whooingAppAuth + 'access_token';
+  const url = Urls.whooingAppAuth + "access_token";
   const formData = data.GetFormData();
   const res = await axios.post<IWhooingAccessToken>(url, formData);
   return res.data;

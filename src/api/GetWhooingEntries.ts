@@ -1,10 +1,10 @@
-import axios from 'axios';
-import { PostWhooingEntriesData } from '@/models/PostWhooingEntriesData';
-import { WhooingEntryModel } from '@/models/WhooingEntryModel';
-import { IWhooingResponseModel } from '@/models/IWhooingResponseModel';
-import { Whooing } from '@/utils/WhooingHelper';
-import Urls from '@/config/Urls';
-import { IWhoooingGetEntriesParams } from '@/models/IWhoooingGetEntriesPayload';
+import axios from "axios";
+import { PostWhooingEntriesData } from "@/models/PostWhooingEntriesData";
+import { WhooingEntryModel } from "@/models/WhooingEntryModel";
+import { IWhooingResponseModel } from "@/models/IWhooingResponseModel";
+import { Whooing } from "@/utils/WhooingHelper";
+import Urls from "@/config/Urls";
+import { IWhoooingGetEntriesParams } from "@/models/IWhoooingGetEntriesPayload";
 
 /**
  * 후잉 거래 입력
@@ -12,11 +12,11 @@ import { IWhoooingGetEntriesParams } from '@/models/IWhoooingGetEntriesPayload';
 export async function getWhooingEntries(
   params: IWhoooingGetEntriesParams,
 ): Promise<IWhooingResponseModel<IWhooingEntriesResults>> {
-  const url = Urls.whooingApi + 'entries.json_array';
+  const url = Urls.whooingApi + "entries.json_array";
   const key = Whooing.ApiKey();
   const res = await axios.get<IWhooingResponseModel<IWhooingEntriesResults>>(url, {
     headers: {
-      'X-API-KEY': key,
+      "X-API-KEY": key,
     },
     params,
   });

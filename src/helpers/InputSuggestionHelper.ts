@@ -1,6 +1,6 @@
-import { EntriesHelper } from '@/store/modules/Entries';
-import fns from 'date-fns';
-import { WhooingEntryModel } from '@/models/WhooingEntryModel';
+import { EntriesHelper } from "@/store/modules/Entries";
+import fns from "date-fns";
+import { WhooingEntryModel } from "@/models/WhooingEntryModel";
 
 export interface IInputSeggestionItem {
   item: string;
@@ -19,7 +19,7 @@ export namespace InputSuggestionHelper {
     const entry = EntriesHelper.FindSection(section_id);
     if (entry) {
       entry.data.forEach((en) => {
-        const itemText = (payload.item || '').split('(')[0];
+        const itemText = (payload.item || "").split("(")[0];
         if (
           (!payload.item || en.item.indexOf(itemText) === 0) &&
           (!payload.right || en.r_account_id === payload.right) &&

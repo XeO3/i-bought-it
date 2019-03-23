@@ -4,14 +4,14 @@ import {
   Mutation,
   Action,
   getModule,
-} from 'vuex-module-decorators';
-import store from '@/store/store';
-import { AlertModel } from '@/models/AlertModel';
-import { IAppState } from '../../models/IAppState';
-import { AppProperties } from '@/config/AppProperties';
-import { ISnackbarModel } from '@/models/ISnackbarModel';
+} from "vuex-module-decorators";
+import store from "@/store/store";
+import { AlertModel } from "@/models/AlertModel";
+import { IAppState } from "../../models/IAppState";
+import { AppProperties } from "@/config/AppProperties";
+import { ISnackbarModel } from "@/models/ISnackbarModel";
 
-@Module({ dynamic: false, store, name: 'App' })
+@Module({ dynamic: false, store, name: "App" })
 export class App extends VuexModule implements IAppState {
   public snackbar: ISnackbarModel | null = null;
   public alerts: AlertModel[] = [];
@@ -19,7 +19,7 @@ export class App extends VuexModule implements IAppState {
     opened: false,
   };
   public header = {
-    title: '이거샀어!',
+    title: "이거샀어!",
   };
 
   get appId(): string {
@@ -55,15 +55,15 @@ export class App extends VuexModule implements IAppState {
     this.SET_SNACKBAR(null);
   }
 
-  @Action({ commit: 'SET_SIDEBAR' })
+  @Action({ commit: "SET_SIDEBAR" })
   public ToggleSideBar() {
     return !this.sidebar.opened;
   }
-  @Action({ commit: 'SET_SIDEBAR' })
+  @Action({ commit: "SET_SIDEBAR" })
   public OpenSideBar() {
     return true;
   }
-  @Action({ commit: 'SET_SIDEBAR' })
+  @Action({ commit: "SET_SIDEBAR" })
   public CloseSideBar() {
     return false;
   }

@@ -1,4 +1,4 @@
-import { WhooingDate } from '@/utils/WhooingDate';
+import { WhooingDate } from "@/utils/WhooingDate";
 
 export interface IWhooingAccountModel {
   account_id: string;

@@ -22,9 +22,9 @@
   </v-toolbar>
 </template>
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
-import { AppModule, UserModule, AuthModule } from '@/store/store';
-import LoginModal from '@/components/login/LoginModal.vue';
+import { Vue, Component } from "vue-property-decorator";
+import { AppModule, UserModule, AuthModule } from "@/store/store";
+import LoginModal from "@/components/login/LoginModal.vue";
 
 @Component({
   components: {

@@ -1,4 +1,4 @@
-import { WhooingAccount } from './EnumWhooingAccount';
+import { WhooingAccount } from "./EnumWhooingAccount";
 
 export class WhooingEntryModel {
   constructor(

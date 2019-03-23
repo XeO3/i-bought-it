@@ -1,18 +1,18 @@
-import axios from 'axios';
-import { IWhooingUser } from '@/models/WhooingUserModel';
-import { Whooing } from '@/utils/WhooingHelper';
-import { IWhooingResponseModel } from '@/models/IWhooingResponseModel';
-import Urls from '@/config/Urls';
+import axios from "axios";
+import { IWhooingUser } from "@/models/WhooingUserModel";
+import { Whooing } from "@/utils/WhooingHelper";
+import { IWhooingResponseModel } from "@/models/IWhooingResponseModel";
+import Urls from "@/config/Urls";
 
 /**
  * 후잉 유저 정보
  */
 export async function getWhooingUser(): Promise<IWhooingResponseModel<IWhooingUser>> {
-  const url = Urls.whooingApi + 'user.json';
+  const url = Urls.whooingApi + "user.json";
   const key = Whooing.ApiKey();
   const res = await axios.get<IWhooingResponseModel<IWhooingUser>>(url, {
     headers: {
-      'X-API-KEY': key,
+      "X-API-KEY": key,
     },
   });
   if (res.data.code === 200) {

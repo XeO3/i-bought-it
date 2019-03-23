@@ -1,12 +1,12 @@
 export enum WhooingAccount {
   /** 자산 */
-  assets = 'assets',
+  assets = "assets",
   /** 부채 */
-  liabilities = 'liabilities',
+  liabilities = "liabilities",
   /** 순자산 */
-  capital = 'capital',
+  capital = "capital",
   /** 수입 */
-  income = 'income',
+  income = "income",
   /** 비용 */
-  expenses = 'expenses',
+  expenses = "expenses",
 }

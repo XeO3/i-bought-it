@@ -1,5 +1,5 @@
 
-declare module 'vue-analytics' {
+declare module "vue-analytics" {
     const value: any;
     export default value;
   }
