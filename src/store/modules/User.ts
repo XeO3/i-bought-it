@@ -40,7 +40,7 @@ export class User extends VuexModule implements IUserState {
     return (
       this.userInfo !== null &&
       this.loginDate !== null &&
-      fns.isAfter(this.loginDate, fns.addDays(new Date(), -14))
+      fns.isAfter(this.loginDate, fns.addDays(new Date(), -150))
     );
   }
 
