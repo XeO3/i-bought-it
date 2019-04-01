@@ -30,11 +30,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
 import { getWhooingAppToken } from "@/api/GetWhooingAppToken";
+import Urls from "@/config/Urls";
 import { GetWhooingAppTokenData } from "@/models/GetWhooingAppTokenData";
 import { AppModule, AuthModule } from "@/store/store";
-import Urls from "@/config/Urls";
+import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({})
 export default class LoginModal extends Vue {

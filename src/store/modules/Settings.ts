@@ -1,14 +1,14 @@
+import { ISettingsSection } from "@/models/ISettingsSection";
+import { ISettingsState } from "@/models/ISettingsState";
+import { SettingsSection } from "@/models/SettingsSection";
+import store, { SettingsModule, UserModule } from "@/store/store";
 import {
-  VuexModule,
-  Module,
-  Mutation,
   Action,
   getModule,
+  Module,
+  Mutation,
+  VuexModule,
 } from "vuex-module-decorators";
-import store, { UserModule, SettingsModule } from "@/store/store";
-import { ISettingsState } from "@/models/ISettingsState";
-import { ISettingsSection } from "@/models/ISettingsSection";
-import { SettingsSection } from "@/models/SettingsSection";
 
 @Module({ dynamic: false, store, name: "Settings" })
 export class Settings extends VuexModule implements ISettingsState {

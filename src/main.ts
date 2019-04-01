@@ -1,10 +1,10 @@
 import Vue from "vue";
-import "./plugins/vuetify";
-import App from "./App.vue";
-import router from "./router";
-import "./registerServiceWorker";
-import store from "./store/store";
 import VueAnalytics from "vue-analytics";
+import App from "./App.vue";
+import "./plugins/vuetify";
+import "./registerServiceWorker";
+import router from "./router";
+import store from "./store/store";
 Vue.use(VueAnalytics, {
   id: "UA-134070425-1",
   router,

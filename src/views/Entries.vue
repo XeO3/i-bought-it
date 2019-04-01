@@ -46,16 +46,16 @@
 </template>
 
 <script lang="ts">
+import { DeleteWhooingEntries } from "@/api/DeleteWhooingEntries";
+import { SnackbarModel } from "@/models/ISnackbarModel";
+import { IWhooingSection } from "@/models/IWhooingSection";
+import { AppDataHelper } from "@/store/modules/AppData";
+import { EntriesHelper } from "@/store/modules/Entries";
+import { UserHelper } from "@/store/modules/User";
+import { AppModule, EntriesModule, UserModule } from "@/store/store";
+import { WhooingDate } from "@/utils/WhooingDate";
 import fns from "date-fns";
 import { Component, Vue } from "vue-property-decorator";
-import { IWhooingSection } from "@/models/IWhooingSection";
-import { UserModule, EntriesModule, AppModule } from "@/store/store";
-import { UserHelper } from "@/store/modules/User";
-import { EntriesHelper } from "@/store/modules/Entries";
-import { WhooingDate } from "@/utils/WhooingDate";
-import { DeleteWhooingEntries } from "@/api/DeleteWhooingEntries";
-import { AppDataHelper } from "@/store/modules/AppData";
-import { SnackbarModel } from "@/models/ISnackbarModel";
 
 @Component
 export default class EntriesVue extends Vue {

@@ -1,15 +1,15 @@
+import { AppProperties } from "@/config/AppProperties";
+import { AlertModel } from "@/models/AlertModel";
+import { ISnackbarModel } from "@/models/ISnackbarModel";
+import store from "@/store/store";
 import {
-  VuexModule,
-  Module,
-  Mutation,
   Action,
   getModule,
+  Module,
+  Mutation,
+  VuexModule,
 } from "vuex-module-decorators";
-import store from "@/store/store";
-import { AlertModel } from "@/models/AlertModel";
 import { IAppState } from "../../models/IAppState";
-import { AppProperties } from "@/config/AppProperties";
-import { ISnackbarModel } from "@/models/ISnackbarModel";
 
 @Module({ dynamic: false, store, name: "App" })
 export class App extends VuexModule implements IAppState {

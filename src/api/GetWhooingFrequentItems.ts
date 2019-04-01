@@ -1,8 +1,8 @@
-import axios from "axios";
+import Urls from "@/config/Urls";
+import { IWhooingResponseModel } from "@/models/IWhooingResponseModel";
 import { WhooingFrequentItem } from "@/models/WhooingFrequentItem";
 import { Whooing } from "@/utils/WhooingHelper";
-import { IWhooingResponseModel } from "@/models/IWhooingResponseModel";
-import Urls from "@/config/Urls";
+import axios from "axios";
 
 /**
  * 후잉 유저 정보

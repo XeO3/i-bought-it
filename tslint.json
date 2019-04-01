@@ -8,7 +8,6 @@
     "indent": [true, "spaces", 2],
     "interface-name": false,
     "quotemark": [true, "double"],
-    "ordered-imports": false,
     "object-literal-sort-keys": false,
     "no-consecutive-blank-lines": false,
     "no-namespace": false,

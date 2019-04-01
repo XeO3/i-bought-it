@@ -1,14 +1,14 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import { getModule } from "vuex-module-decorators";
 import createPersistedState from "vuex-persistedstate";
 import { IRootState } from "../models/IRootState";
 import { App } from "./modules/App";
-import { getModule } from "vuex-module-decorators";
-import { Auth } from "./modules/Auth";
-import { User } from "./modules/User";
-import { Settings } from "./modules/Settings";
 import { AppData } from "./modules/AppData";
+import { Auth } from "./modules/Auth";
 import { Entries } from "./modules/Entries";
+import { Settings } from "./modules/Settings";
+import { User } from "./modules/User";
 
 Vue.use(Vuex);
 

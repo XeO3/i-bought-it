@@ -14,14 +14,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 import { getWhooingAccessToken } from "@/api/GetWhooingAccessToken";
-import { GetWhooingAccessTokenData } from "@/models/GetWhooingAccessTokenData";
 import { AlertModel, AlertType } from "@/models/AlertModel";
+import { GetWhooingAccessTokenData } from "@/models/GetWhooingAccessTokenData";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 
-import { AuthModule, UserModule, AppDataModule } from "@/store/store";
-import { AppModule } from "@/store/store";
 import { AppData } from "@/store/modules/AppData";
+import { AppDataModule, AuthModule, UserModule } from "@/store/store";
+import { AppModule } from "@/store/store";
 
 @Component({})
 export default class LoginCallBack extends Vue {

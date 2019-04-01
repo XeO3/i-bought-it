@@ -65,15 +65,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { AppDataModule, UserModule, SettingsModule } from "@/store/store";
-import dateFns from "date-fns";
-import { IWhooingSection } from "@/models/IWhooingSection";
 import {
   DashboardBalaceHelper,
   IDashboardBalanceItem,
 } from "@/helpers/DashboardBalaceHelper.ts";
 import { WhooingAccount } from "@/models/EnumWhooingAccount";
+import { IWhooingSection } from "@/models/IWhooingSection";
+import { AppDataModule, SettingsModule, UserModule } from "@/store/store";
+import dateFns from "date-fns";
+import { Component, Vue } from "vue-property-decorator";
 
 @Component
 export default class DashBoardVue extends Vue {

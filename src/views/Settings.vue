@@ -67,10 +67,10 @@
   </v-container>
 </template>
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
-import { UserModule, SettingsModule } from "@/store/store";
 import { WhooingAccountModel } from "@/models/WhooingAccountModel";
 import { SettingsHelper } from "@/store/modules/Settings";
+import { SettingsModule, UserModule } from "@/store/store";
+import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({})
 export default class SettingsVue extends Vue {

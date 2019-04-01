@@ -1,11 +1,11 @@
-import { VuexModule, Module, Mutation, Action } from "vuex-module-decorators";
+import { Action, Module, Mutation, VuexModule } from "vuex-module-decorators";
 
 import { getWhooingBs } from "@/api/GetWhooingBs";
-import store, { UserModule, AppDataModule } from "@/store/store";
-import { WhooingDate } from "@/utils/WhooingDate";
-import { IAppDataState } from "@/models/IAppDataState";
 import { BalanceItem } from "@/models/BalanceItem";
+import { IAppDataState } from "@/models/IAppDataState";
 import { IBalanceItem } from "@/models/IBalanceItem";
+import store, { AppDataModule, UserModule } from "@/store/store";
+import { WhooingDate } from "@/utils/WhooingDate";
 
 @Module({ dynamic: false, store, name: "AppData" })
 export class AppData extends VuexModule implements IAppDataState {

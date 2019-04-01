@@ -1,16 +1,16 @@
+import { getWhooingEntries } from "@/api/GetWhooingEntries";
+import { IEntriesState, IEntrySection } from "@/models/IEntriesState";
+import { WhoooingGetEntriesParams } from "@/models/IWhoooingGetEntriesPayload";
+import store, { EntriesModule } from "@/store/store";
+import { WhooingDate } from "@/utils/WhooingDate";
+import fns from "date-fns";
 import {
-  VuexModule,
-  Module,
-  Mutation,
   Action,
   getModule,
+  Module,
+  Mutation,
+  VuexModule,
 } from "vuex-module-decorators";
-import store, { EntriesModule } from "@/store/store";
-import { IEntriesState, IEntrySection } from "@/models/IEntriesState";
-import { getWhooingEntries } from "@/api/GetWhooingEntries";
-import { WhoooingGetEntriesParams } from "@/models/IWhoooingGetEntriesPayload";
-import fns from "date-fns";
-import { WhooingDate } from "@/utils/WhooingDate";
 
 @Module({ dynamic: false, store, name: "Entries" })
 export class Entries extends VuexModule implements IEntriesState {

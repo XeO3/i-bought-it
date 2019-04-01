@@ -1,13 +1,13 @@
+import router from "@/router";
+import store, { AppDataModule, AppModule, EntriesModule, SettingsModule, UserModule } from "@/store/store";
 import {
-  VuexModule,
-  Module,
-  Mutation,
   Action,
   getModule,
+  Module,
+  Mutation,
+  VuexModule,
 } from "vuex-module-decorators";
-import store, { AppModule, AppDataModule, EntriesModule, SettingsModule, UserModule } from "@/store/store";
 import { IAuthState } from "../../models/IAuthState";
-import router from "@/router";
 
 @Module({ dynamic: false, store, name: "Auth" })
 export class Auth extends VuexModule implements IAuthState {

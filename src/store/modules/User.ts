@@ -1,25 +1,22 @@
-import {
-  VuexModule,
-  Module,
-  Mutation,
-  Action,
-  getModule,
-  MutationAction,
-} from "vuex-module-decorators";
-import store, { UserModule } from "@/store/store";
-import { IWhooingUser } from "@/models/WhooingUserModel";
-import { getWhooingUser } from "@/api/GetWhooingUser";
-import { IWhooingSection } from "@/models/IWhooingSection";
-import { IWhooingSectionAccounts } from "@/models/WhooingAccountTypeModel";
-import { IUserState } from "@/models/IUserState";
-import { getWhooingSections } from "@/api/GetWhooingSections";
 import { getWhooingAccounts } from "@/api/GetWhooingAccounts";
+import { getWhooingSections } from "@/api/GetWhooingSections";
+import { getWhooingUser } from "@/api/GetWhooingUser";
+import { WhooingAccount } from "@/models/EnumWhooingAccount";
+import { IUserState } from "@/models/IUserState";
+import { IWhooingSection } from "@/models/IWhooingSection";
 import {
-  WhooingAccountModel,
   IWhooingAccountModel,
 } from "@/models/WhooingAccountModel";
+import { IWhooingSectionAccounts } from "@/models/WhooingAccountTypeModel";
+import { IWhooingUser } from "@/models/WhooingUserModel";
+import store, { UserModule } from "@/store/store";
 import fns from "date-fns";
-import { WhooingAccount } from "@/models/EnumWhooingAccount";
+import {
+  Action,
+  Module,
+  Mutation,
+  VuexModule,
+} from "vuex-module-decorators";
 
 @Module({ dynamic: false, store, name: "User" })
 export class User extends VuexModule implements IUserState {
@@ -135,7 +132,6 @@ export namespace UserHelper {
   }
   export function GetSectionName(
     section_id: string,
-    user: User = UserModule,
   ): string | undefined {
     const section = GetSection(section_id);
     if (section) {

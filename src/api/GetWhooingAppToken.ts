@@ -1,6 +1,6 @@
-import axios from "axios";
-import { GetWhooingAppTokenData } from "@/models/GetWhooingAppTokenData";
 import Urls from "@/config/Urls";
+import { GetWhooingAppTokenData } from "@/models/GetWhooingAppTokenData";
+import axios from "axios";
 
 /**
  * 후잉 토큰 얻기

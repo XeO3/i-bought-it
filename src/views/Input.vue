@@ -11,7 +11,8 @@
               :disabled="!Inputtable || entryLoading"
               :loading="entryLoading"
               @click="PushEntry"
-            >입력
+            >
+              입력
               <v-icon right>send</v-icon>
             </v-btn>
           </v-card-actions>
@@ -90,6 +91,7 @@
           <v-data-table
             :headers="suggestionHeaders"
             :items="suggestionItems"
+            item-key="key"
             hide-actions
             disable-initial-sort
           >
@@ -107,31 +109,29 @@
   </v-container>
 </template>
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
+import { postWhooingEntries } from "@/api/PostWhooingEntries";
+import InputAccountModal from "@/components/InputAccountModal.vue";
+import { EntriesInputHelper } from "@/helpers/EntriesInputHelper";
+import { InputSuggestionHelper } from "@/helpers/InputSuggestionHelper";
+import { WhooingAccount } from "@/models/EnumWhooingAccount";
+import { IEntrySection } from "@/models/IEntriesState";
+import { IInputSeggestionItem } from "@/models/IInputSeggestionItem";
+import { SnackbarModel } from "@/models/ISnackbarModel";
+import { IWhooingSection } from "@/models/IWhooingSection";
 import {
-  UserModule,
-  EntriesModule,
+  IPostWhooingEntriesData,
+  PostWhooingEntriesData,
+} from "@/models/PostWhooingEntriesData";
+import { UserHelper } from "@/store/modules/User";
+import {
   AppDataModule,
   AppModule,
+  EntriesModule,
+  UserModule,
 } from "@/store/store";
 import { WhooingDate } from "@/utils/WhooingDate";
 import fns from "date-fns";
-import { UserHelper } from "@/store/modules/User";
-import InputAccountModal from "@/components/InputAccountModal.vue";
-import { postWhooingEntries } from "@/api/PostWhooingEntries";
-import {
-  PostWhooingEntriesData,
-  IPostWhooingEntriesData,
-} from "@/models/PostWhooingEntriesData";
-import { IEntrySection } from "@/models/IEntriesState";
-import {
-  InputSuggestionHelper,
-  IInputSeggestionItem,
-} from "@/helpers/InputSuggestionHelper";
-import { WhooingAccount } from "@/models/EnumWhooingAccount";
-import { EntriesInputHelper } from "@/helpers/EntriesInputHelper";
-import { IWhooingSection } from "@/models/IWhooingSection";
-import { SnackbarModel } from "@/models/ISnackbarModel";
+import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({
   components: {
@@ -149,6 +149,11 @@ export default class InputVue extends Vue {
     date: false,
   };
   private showMemo: boolean = false;
+  private temp: {
+    suggestionItems: Array<{ key: string; data: IInputSeggestionItem[] }>;
+  } = {
+    suggestionItems: [],
+  };
 
   get sections(): IWhooingSection[] {
     return UserModule.sectionList;
@@ -260,12 +265,23 @@ export default class InputVue extends Vue {
   }
 
   get suggestionItems() {
-    return InputSuggestionHelper.get(this.sId, {
+    const key = `${this.item ? this.item.split("(")[0] : ""}|${this.left ||
+      ""}|${this.right || ""}`;
+    const item = this.temp.suggestionItems.find((o) => o.key === key);
+    if (item) {
+      return item.data;
+    }
+    const newItem = InputSuggestionHelper.get(this.sId, {
       item: this.item,
       left: this.left,
       right: this.right,
       money: this.money,
     });
+    if (newItem.length > 0 && key !== "||") {
+      this.temp.suggestionItems = [{ key, data: newItem }];
+    }
+
+    return newItem;
   }
 
   public async PushEntry() {

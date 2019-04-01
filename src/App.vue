@@ -8,8 +8,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
 import Snackbar from "@/views/layouts/Snackbar.vue";
+import { Component, Vue } from "vue-property-decorator";
 
 @Component({ components: { Snackbar } })
 export default class App extends Vue {}

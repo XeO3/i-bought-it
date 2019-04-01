@@ -3,15 +3,15 @@ import Router from "vue-router";
 
 import AboutVue from "@/views/About.vue";
 import DashBoardVue from "@/views/DashBoard.vue";
-import LoginCallBack from "@/views/LoginCallBack.vue";
-import Layout from "@/views/layouts/Layout.vue";
-import Header from "@/views/layouts/Header.vue";
-import LeftNav from "@/views/layouts/navs/LeftNav.vue";
-import Settings from "@/views/Settings.vue";
-import InputVue from "@/views/Input.vue";
-import HomeVue from "@/views/Home.vue";
 import EntriesVue from "@/views/Entries.vue";
-import { AuthModule, UserModule, AppModule } from "./store/store";
+import HomeVue from "@/views/Home.vue";
+import InputVue from "@/views/Input.vue";
+import Header from "@/views/layouts/Header.vue";
+import Layout from "@/views/layouts/Layout.vue";
+import LeftNav from "@/views/layouts/navs/LeftNav.vue";
+import LoginCallBack from "@/views/LoginCallBack.vue";
+import Settings from "@/views/Settings.vue";
+import { AppModule, AuthModule, UserModule } from "./store/store";
 
 Vue.use(Router);
 

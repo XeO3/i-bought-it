@@ -1,14 +1,6 @@
+import { IInputSeggestionItem } from "@/models/IInputSeggestionItem";
+import { InputSeggestionItem } from "@/models/InputSeggestionItem";
 import { EntriesHelper } from "@/store/modules/Entries";
-import fns from "date-fns";
-import { WhooingEntryModel } from "@/models/WhooingEntryModel";
-
-export interface IInputSeggestionItem {
-  item: string;
-  left: string;
-  right: string;
-  score: number;
-  data: WhooingEntryModel[];
-}
 
 export namespace InputSuggestionHelper {
   export function get(
@@ -35,13 +27,15 @@ export namespace InputSuggestionHelper {
             item.data.push(en);
             item.score += 1;
           } else {
-            list.push({
-              item: en.item,
-              left: en.l_account_id,
-              right: en.r_account_id,
-              score: 1,
-              data: [en],
-            });
+            list.push(
+              new InputSeggestionItem(
+                en.item,
+                en.l_account_id,
+                en.r_account_id,
+                1,
+                [en],
+              ),
+            );
           }
         }
       });

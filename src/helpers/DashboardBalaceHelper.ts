@@ -1,10 +1,10 @@
+import { getWhooingSections } from "@/api/GetWhooingSections";
+import { WhooingAccount } from "@/models/EnumWhooingAccount";
+import { WhooingAccountModel } from "@/models/WhooingAccountModel";
+import { AppData, AppDataHelper } from "@/store/modules/AppData";
 import { Settings, SettingsHelper } from "@/store/modules/Settings";
 import { User, UserHelper } from "@/store/modules/User";
-import { AppData, AppDataHelper } from "@/store/modules/AppData";
-import { SettingsModule, UserModule, AppDataModule } from "@/store/store";
-import { getWhooingSections } from "@/api/GetWhooingSections";
-import { WhooingAccountModel } from "@/models/WhooingAccountModel";
-import { WhooingAccount } from "@/models/EnumWhooingAccount";
+import { AppDataModule, SettingsModule, UserModule } from "@/store/store";
 
 export interface IDashboardBalace {
   section_id: string;
