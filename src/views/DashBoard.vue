@@ -54,12 +54,18 @@
       </v-flex>
     </v-layout>
     <template v-else>
-      <p>
-        <code>Settings</code>화면에서 초기화면 표시 항목을 선택해주세요.
-      </p>
-      <p class="text-xs-center">
-        <v-btn replace to="settings">설정 바로가기</v-btn>
-      </p>
+      <v-container align-center>
+        <v-layout row wrap class="text-xs-center">
+          <v-flex xs12>
+            <code>Settings</code>화면에서 초기화면 표시 항목을 선택해주세요.
+          </v-flex>
+          <v-flex xs12>
+            <p class="text-xs-center">
+              <v-btn replace to="settings">설정 바로가기</v-btn>
+            </p>
+          </v-flex>
+        </v-layout>
+      </v-container>
     </template>
   </v-container>
 </template>
