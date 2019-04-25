@@ -79,7 +79,13 @@
                   </v-expand-transition>
                 </v-flex>
                 <v-flex xs12 md4 py-0>
-                  <v-text-field v-model="money" label="금액" type="number" required reverse clearable></v-text-field>
+                  <v-text-field v-model="money" label="금액" type="number" required reverse clearable>
+                    <template v-slot:append-outer>
+                      <v-calc flat icon @input="val=>money=val">
+                        <v-icon>exposure</v-icon>
+                      </v-calc>
+                    </template>
+                  </v-text-field>
                 </v-flex>
               </v-layout>
             </v-container>

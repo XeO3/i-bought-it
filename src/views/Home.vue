@@ -13,6 +13,8 @@
           외출시 현금(혹은 교통카드 등)사용 내역을
           <a :href="whooingUrl" target="_blank" rel="noopener">후잉가계부</a>로 재빠르게 입력가능 하도록 도와주는 웹앱입니다.
         </p>
+        
+       
       </v-flex>
     </v-layout>
   </v-container>
