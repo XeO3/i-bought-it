@@ -1,6 +1,6 @@
 {
-  "name": "이거샀어",
-  "short_name": "Ibi",
+  "name": "이거샀어! - 모바일 간편 후잉 입력기",
+  "short_name": "이거샀어!",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
