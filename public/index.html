@@ -6,18 +6,158 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
     <title>이거샀어! I bought it for Whooing</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Material+Icons"
+    />
   </head>
 
   <body>
+    <style>
+      body {
+        margin: 0;
+      }
+      .hidden {
+        display: none;
+      }
+
+      .loading-page {
+        position: fixed;
+        padding-top: 20%;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        background-color: #d5dce1;
+      }
+
+      .lds-grid {
+        display: inline-block;
+        position: relative;
+        width: 64px;
+        height: 64px;
+      }
+      .lds-grid div {
+        position: absolute;
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: #fff;
+        animation: lds-grid 1.2s linear infinite;
+      }
+      .lds-grid div:nth-child(1) {
+        top: 6px;
+        left: 6px;
+        animation-delay: 0s;
+      }
+      .lds-grid div:nth-child(2) {
+        top: 6px;
+        left: 26px;
+        animation-delay: -0.4s;
+      }
+      .lds-grid div:nth-child(3) {
+        top: 6px;
+        left: 45px;
+        animation-delay: -0.8s;
+      }
+      .lds-grid div:nth-child(4) {
+        top: 26px;
+        left: 6px;
+        animation-delay: -0.4s;
+      }
+      .lds-grid div:nth-child(5) {
+        top: 26px;
+        left: 26px;
+        animation-delay: -0.8s;
+      }
+      .lds-grid div:nth-child(6) {
+        top: 26px;
+        left: 45px;
+        animation-delay: -1.2s;
+      }
+      .lds-grid div:nth-child(7) {
+        top: 45px;
+        left: 6px;
+        animation-delay: -0.8s;
+      }
+      .lds-grid div:nth-child(8) {
+        top: 45px;
+        left: 26px;
+        animation-delay: -1.2s;
+      }
+      .lds-grid div:nth-child(9) {
+        top: 45px;
+        left: 45px;
+        animation-delay: -1.6s;
+      }
+      @keyframes lds-grid {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+    </style>
+
     <noscript>
-      <strong
-        >We're sorry but i_bought_it doesn't work properly without JavaScript
-        enabled. Please enable it to continue.</strong
-      >
+      <strong>
+        We're sorry but "I bought it" doesn't work properly without JavaScript
+        enabled. Please enable it to continue.
+      </strong>
     </noscript>
-    <div id="app"></div>
+    <div id="app">
+      <div class="loading-page">
+        <div id="index-loading-message">
+          <h1>Loading...</h1>
+          <p>잠시만 기다려 주세요</p>
+          <div class="lds-grid">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+        <div class="hidden" id="index-error-message">
+          <h1>앗! 이런..</h1>
+          <p>페이지를 불러오는중에 에러가 발생했습니다.</p>
+          <p>
+            [이거샀어! 리셋하기] 버튼을 눌러서 재시도해보세요. <br />
+            리셋후에도 에러가 발생하는경우
+            <a href="https://github.com/XeO3/i-bought-it/issues">깃허브</a> 혹은
+            <a href="https://whooing.com/#forum/developer/ko/all/0/_/66224"
+              >후잉</a
+            >에 글을 남겨주시면 확인후 수정하겠습니다.
+          </p>
+          <button onclick="reset()" type="button">이거샀어! 리셋하기</button>
+        </div>
+      </div>
+    </div>
     <!-- built files will be auto injected -->
   </body>
+  <script>
+    const loading = document.getElementById("index-loading-message");
+    if (loading) {
+      const err = document.getElementById("index-error-message");
+      if (err && loading) {
+        loading.classList.add("hidden");
+        err.classList.remove("hidden");
+      }
+    }
+    function reset() {
+      try {
+        localStorage.removeItem("vuex");
+      } catch (err) {}
+      location.reload(true);
+    }
+  </script>
 </html>
