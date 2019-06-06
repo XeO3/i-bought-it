@@ -22,7 +22,7 @@
         <v-btn color="green darken-1" flat @click="dialog = false">close</v-btn>
       </v-card-actions>
     </v-card>
-    <form action="https://old.whooing.com/app_auth/authorize" method="post" ref="formWhooingLogin">
+    <form action="https://whooing.com/app_auth/authorize" method="post" ref="formWhooingLogin">
       <input type="hidden" name="token" v-model="token">
       <input type="hidden" name="callbackuri" v-model="reutrnUrl">
     </form>
