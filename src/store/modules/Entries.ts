@@ -12,7 +12,7 @@ import {
   VuexModule,
 } from "vuex-module-decorators";
 
-@Module({ dynamic: false, store, name: "Entries" })
+@Module({ store, name: "Entries" })
 export class Entries extends VuexModule implements IEntriesState {
   public sections: IEntrySection[] = [];
 

@@ -7,7 +7,7 @@ import { IBalanceItem } from "@/models/IBalanceItem";
 import store, { AppDataModule, UserModule } from "@/store/store";
 import { WhooingDate } from "@/utils/WhooingDate";
 
-@Module({ dynamic: false, store, name: "AppData" })
+@Module({ store, name: "AppData" })
 export class AppData extends VuexModule implements IAppDataState {
   public balancesSyncDate: Date | null = null;
   public balances: IBalanceItem[] = [];

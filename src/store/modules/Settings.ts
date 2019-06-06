@@ -10,7 +10,7 @@ import {
   VuexModule,
 } from "vuex-module-decorators";
 
-@Module({ dynamic: false, store, name: "Settings" })
+@Module({ store, name: "Settings" })
 export class Settings extends VuexModule implements ISettingsState {
   /** 섹션 설정 */
   public sections: ISettingsSection[] = [];

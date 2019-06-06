@@ -4,21 +4,14 @@ import { getWhooingUser } from "@/api/GetWhooingUser";
 import { WhooingAccount } from "@/models/EnumWhooingAccount";
 import { IUserState } from "@/models/IUserState";
 import { IWhooingSection } from "@/models/IWhooingSection";
-import {
-  IWhooingAccountModel,
-} from "@/models/WhooingAccountModel";
+import { IWhooingAccountModel } from "@/models/WhooingAccountModel";
 import { IWhooingSectionAccounts } from "@/models/WhooingAccountTypeModel";
 import { IWhooingUser } from "@/models/WhooingUserModel";
 import store, { UserModule } from "@/store/store";
 import fns from "date-fns";
-import {
-  Action,
-  Module,
-  Mutation,
-  VuexModule,
-} from "vuex-module-decorators";
+import { Action, Module, Mutation, VuexModule } from "vuex-module-decorators";
 
-@Module({ dynamic: false, store, name: "User" })
+@Module({ store, name: "User" })
 export class User extends VuexModule implements IUserState {
   /** 섹션 정보 리스트 */
   public sectionList: IWhooingSection[] = [];
@@ -118,7 +111,7 @@ export namespace UserHelper {
           return { ...o, account: WhooingAccount.capital };
         }),
         ...accounts.expenses.map((o) => {
-          return { ...o, account: WhooingAccount.expenses};
+          return { ...o, account: WhooingAccount.expenses };
         }),
         ...accounts.income.map((o) => {
           return { ...o, account: WhooingAccount.income };
@@ -130,9 +123,7 @@ export namespace UserHelper {
       return list.find((item) => item.account_id === account_id);
     }
   }
-  export function GetSectionName(
-    section_id: string,
-  ): string | undefined {
+  export function GetSectionName(section_id: string): string | undefined {
     const section = GetSection(section_id);
     if (section) {
       return section.title;

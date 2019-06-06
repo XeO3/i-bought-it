@@ -1,5 +1,11 @@
 import router from "@/router";
-import store, { AppDataModule, AppModule, EntriesModule, SettingsModule, UserModule } from "@/store/store";
+import store, {
+  AppDataModule,
+  AppModule,
+  EntriesModule,
+  SettingsModule,
+  UserModule,
+} from "@/store/store";
 import {
   Action,
   getModule,
@@ -9,7 +15,7 @@ import {
 } from "vuex-module-decorators";
 import { IAuthState } from "../../models/IAuthState";
 
-@Module({ dynamic: false, store, name: "Auth" })
+@Module({ store, name: "Auth" })
 export class Auth extends VuexModule implements IAuthState {
   public token = "";
   public tokenSecret = "";
@@ -40,4 +46,3 @@ export class Auth extends VuexModule implements IAuthState {
     router.replace("/logout");
   }
 }
-

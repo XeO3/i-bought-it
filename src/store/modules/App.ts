@@ -11,7 +11,7 @@ import {
 } from "vuex-module-decorators";
 import { IAppState } from "../../models/IAppState";
 
-@Module({ dynamic: false, store, name: "App" })
+@Module({ store, name: "App" })
 export class App extends VuexModule implements IAppState {
   public snackbar: ISnackbarModel | null = null;
   public alerts: AlertModel[] = [];
