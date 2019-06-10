@@ -29,6 +29,17 @@ const router = new Router({
       children: [
         {
           path: "",
+          name: "index",
+          component: HomeVue,
+          beforeEnter: (to, from, next) => {
+            if (UserModule.isLogin) {
+              next({ name: "dashboard" });
+            }
+            next();
+          },
+        },
+        {
+          path: "home",
           name: "home",
           meta: { title: "이거샀어 for Whooing" },
           component: HomeVue,
