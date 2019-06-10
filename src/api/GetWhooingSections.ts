@@ -1,6 +1,7 @@
 import Urls from "@/config/Urls";
 import { IWhooingResponseModel } from "@/models/IWhooingResponseModel";
 import { IWhooingSection } from "@/models/IWhooingSection";
+import { AuthModule } from "@/store/store";
 import { Whooing } from "@/utils/WhooingHelper";
 import axios from "axios";
 
@@ -17,6 +18,9 @@ export async function getWhooingSections(): Promise<
       "X-API-KEY": key,
     },
   });
+  if (res.data.code === 405) {
+    AuthModule.SET_TOKENEXPIRATION(true);
+  }
   return res.data;
 }
 

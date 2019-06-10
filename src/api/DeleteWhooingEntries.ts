@@ -1,5 +1,6 @@
 import Urls from "@/config/Urls";
 import { IWhooingResponseModel } from "@/models/IWhooingResponseModel";
+import { AuthModule } from "@/store/store";
 import { Whooing } from "@/utils/WhooingHelper";
 import axios from "axios";
 
@@ -19,7 +20,10 @@ export async function DeleteWhooingEntries(
   if (res.data.code === 200) {
     return res.data;
   } else {
-    throw new Error(`유저정보 불러오기 실패(${res.data.code})`);
+    if (res.data.code === 405) {
+      AuthModule.SET_TOKENEXPIRATION(true);
+    }
+    throw new Error(`거래내역 삭제 실패 (${res.data.code})`);
   }
 }
 

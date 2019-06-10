@@ -1,7 +1,7 @@
 import Urls from "@/config/Urls";
 import { IWhooingResponseModel } from "@/models/IWhooingResponseModel";
 import { IWhooingSectionAccounts } from "@/models/WhooingAccountTypeModel";
-import store from "@/store/store";
+import store, { AuthModule } from "@/store/store";
 import { Whooing } from "@/utils/WhooingHelper";
 import axios from "axios";
 
@@ -23,6 +23,9 @@ export async function getWhooingAccounts(
       },
     },
   );
+  if (res.data.code === 405) {
+    AuthModule.SET_TOKENEXPIRATION(true);
+  }
   return res.data;
 }
 

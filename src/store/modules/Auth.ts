@@ -19,14 +19,21 @@ import { IAuthState } from "../../models/IAuthState";
 export class Auth extends VuexModule implements IAuthState {
   public token = "";
   public tokenSecret = "";
+  /** 인증토큰 만료 */
+  public tokenExpiration = false;
 
   @Mutation
   public SET_TOKEN(token: string) {
     this.token = token;
+    this.tokenExpiration = false;
   }
   @Mutation
   public SET_TOKEN_SECRET(tokenSecret: string) {
     this.tokenSecret = tokenSecret;
+  }
+  @Mutation
+  public SET_TOKENEXPIRATION(tokenExpiration: boolean) {
+    this.tokenExpiration = tokenExpiration;
   }
 
   @Action

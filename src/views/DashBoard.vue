@@ -74,6 +74,7 @@
 import {
   DashboardBalaceHelper,
   IDashboardBalanceItem,
+  IDashboardBalace,
 } from "@/helpers/DashboardBalaceHelper.ts";
 import { WhooingAccount } from "@/models/EnumWhooingAccount";
 import { IWhooingSection } from "@/models/IWhooingSection";
@@ -85,9 +86,8 @@ import { Component, Vue } from "vue-property-decorator";
 export default class DashBoardVue extends Vue {
   private isLoading: boolean = false;
 
-  get dashboardData() {
-    return DashboardBalaceHelper.Get();
-  }
+  public dashboardData: IDashboardBalace[] | null = null;
+
   get lastSyncDate() {
     return AppDataModule.balancesSyncDate;
   }
@@ -98,7 +98,7 @@ export default class DashBoardVue extends Vue {
     );
   }
 
-  public created() {
+  public async created() {
     if (
       dateFns.isBefore(
         this.lastSyncDate || new Date(),
@@ -107,6 +107,7 @@ export default class DashBoardVue extends Vue {
     ) {
       AppDataModule.FetchWhooingBs();
     }
+    this.dashboardData = DashboardBalaceHelper.Get();
   }
 
   private Refresh() {

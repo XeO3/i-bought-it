@@ -3,6 +3,7 @@ import { IWhooingResponseModel } from "@/models/IWhooingResponseModel";
 import { IWhoooingGetEntriesParams } from "@/models/IWhoooingGetEntriesPayload";
 import { PostWhooingEntriesData } from "@/models/PostWhooingEntriesData";
 import { WhooingEntryModel } from "@/models/WhooingEntryModel";
+import { AuthModule } from "@/store/store";
 import { Whooing } from "@/utils/WhooingHelper";
 import axios from "axios";
 
@@ -14,12 +15,18 @@ export async function getWhooingEntries(
 ): Promise<IWhooingResponseModel<IWhooingEntriesResults>> {
   const url = Urls.whooingApi + "entries.json_array";
   const key = Whooing.ApiKey();
-  const res = await axios.get<IWhooingResponseModel<IWhooingEntriesResults>>(url, {
-    headers: {
-      "X-API-KEY": key,
+  const res = await axios.get<IWhooingResponseModel<IWhooingEntriesResults>>(
+    url,
+    {
+      headers: {
+        "X-API-KEY": key,
+      },
+      params,
     },
-    params,
-  });
+  );
+  if (res.data.code === 405) {
+    AuthModule.SET_TOKENEXPIRATION(true);
+  }
   return res.data;
 }
 

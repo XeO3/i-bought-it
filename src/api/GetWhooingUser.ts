@@ -1,13 +1,16 @@
 import Urls from "@/config/Urls";
 import { IWhooingResponseModel } from "@/models/IWhooingResponseModel";
 import { IWhooingUser } from "@/models/WhooingUserModel";
+import { AuthModule } from "@/store/store";
 import { Whooing } from "@/utils/WhooingHelper";
 import axios from "axios";
 
 /**
  * 후잉 유저 정보
  */
-export async function getWhooingUser(): Promise<IWhooingResponseModel<IWhooingUser>> {
+export async function getWhooingUser(): Promise<
+  IWhooingResponseModel<IWhooingUser>
+> {
   const url = Urls.whooingApi + "user.json";
   const key = Whooing.ApiKey();
   const res = await axios.get<IWhooingResponseModel<IWhooingUser>>(url, {
@@ -18,10 +21,12 @@ export async function getWhooingUser(): Promise<IWhooingResponseModel<IWhooingUs
   if (res.data.code === 200) {
     return res.data;
   } else {
+    if (res.data.code === 405) {
+      AuthModule.SET_TOKENEXPIRATION(true);
+    }
     throw new Error(`유저정보 불러오기 실패(${res.data.code})`);
   }
 }
-
 
 // let sampleData = {
 //   'code': 200,

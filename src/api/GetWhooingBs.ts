@@ -1,6 +1,7 @@
 import Urls from "@/config/Urls";
 import { IWhooingResponseModel } from "@/models/IWhooingResponseModel";
 import { IWhooingBs } from "@/models/WooingBs";
+import { AuthModule } from "@/store/store";
 import { Whooing } from "@/utils/WhooingHelper";
 import axios from "axios";
 
@@ -24,7 +25,14 @@ export async function getWhooingBs(
       end_date,
     },
   });
-  return res.data;
+  if (res.data.code === 200) {
+    return res.data;
+  } else {
+    if (res.data.code === 405) {
+      AuthModule.SET_TOKENEXPIRATION(true);
+    }
+    throw new Error("후잉 잔액 정보가져오기 실패");
+  }
 }
 
 // result example

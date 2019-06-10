@@ -75,9 +75,10 @@ export default class LoginCallBack extends Vue {
     );
     AuthModule.SET_TOKEN(res.token);
     AuthModule.SET_TOKEN_SECRET(res.token_secret);
-    await UserModule.FetchUserInfoAsync();
-    await UserModule.FetchSectionList();
-    AppDataModule.FetchWhooingBs();
+    const p1 = UserModule.FetchUserInfoAsync();
+    const p2 = UserModule.FetchSectionList();
+    await Promise.all([p1, p2]);
+    await AppDataModule.FetchWhooingBs();
   }
 
   private FailLogin() {

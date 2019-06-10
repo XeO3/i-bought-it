@@ -2,7 +2,7 @@
   <v-container>
     <v-layout wrap row>
       <v-flex xs12>
-        <v-card>
+        <v-card v-if="entriesData">
           <v-list two-line>
             <v-slide-x-transition group hide-on-leave>
               <div v-for="(item, index) in entriesData.filter((o, i)=> i<50)" :key="item.id">

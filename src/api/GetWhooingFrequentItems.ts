@@ -1,6 +1,7 @@
 import Urls from "@/config/Urls";
 import { IWhooingResponseModel } from "@/models/IWhooingResponseModel";
 import { WhooingFrequentItem } from "@/models/WhooingFrequentItem";
+import { AuthModule } from "@/store/store";
 import { Whooing } from "@/utils/WhooingHelper";
 import axios from "axios";
 
@@ -20,6 +21,9 @@ export async function getWhooingFrequentItems(
       },
     },
   );
+  if (res.data.code === 405) {
+    AuthModule.SET_TOKENEXPIRATION(true);
+  }
   return res.data;
 }
 

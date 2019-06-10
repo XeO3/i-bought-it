@@ -5,4 +5,3 @@ export interface IUserState {
   sectionList: IWhooingSection[];
   loginDate: Date | null;
 }
-

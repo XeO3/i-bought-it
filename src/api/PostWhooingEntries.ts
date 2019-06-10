@@ -2,7 +2,7 @@ import Urls from "@/config/Urls";
 import { IWhooingResponseModel } from "@/models/IWhooingResponseModel";
 import { PostWhooingEntriesData } from "@/models/PostWhooingEntriesData";
 import { WhooingEntryModel } from "@/models/WhooingEntryModel";
-import store from "@/store/store";
+import { AuthModule } from "@/store/store";
 import { Whooing } from "@/utils/WhooingHelper";
 import axios from "axios";
 
@@ -24,6 +24,9 @@ export async function postWhooingEntries(
       },
     },
   );
+  if (res.data.code === 405) {
+    AuthModule.SET_TOKENEXPIRATION(true);
+  }
   return res.data;
 }
 
