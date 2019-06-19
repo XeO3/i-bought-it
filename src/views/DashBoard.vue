@@ -73,8 +73,8 @@
 <script lang="ts">
 import {
   DashboardBalaceHelper,
-  IDashboardBalanceItem,
   IDashboardBalace,
+  IDashboardBalanceItem,
 } from "@/helpers/DashboardBalaceHelper.ts";
 import { WhooingAccount } from "@/models/EnumWhooingAccount";
 import { IWhooingSection } from "@/models/IWhooingSection";
@@ -84,9 +84,6 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component
 export default class DashBoardVue extends Vue {
-  private isLoading: boolean = false;
-
-  public dashboardData: IDashboardBalace[] | null = null;
 
   get lastSyncDate() {
     return AppDataModule.balancesSyncDate;
@@ -97,6 +94,9 @@ export default class DashBoardVue extends Vue {
       dateFns.addHours(new Date(), -1),
     );
   }
+
+  public dashboardData: IDashboardBalace[] | null = null;
+  private isLoading: boolean = false;
 
   public async created() {
     if (

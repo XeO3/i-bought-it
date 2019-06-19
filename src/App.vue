@@ -13,8 +13,8 @@
 <script lang="ts">
 import Snackbar from "@/views/layouts/Snackbar.vue";
 import { Component, Vue, Watch } from "vue-property-decorator";
-import { AuthModule, UserModule } from "./store/store";
 import LoginModal from "./components/login/LoginModal.vue";
+import { AuthModule, UserModule } from "./store/store";
 
 @Component({ components: { Snackbar, LoginModal } })
 export default class App extends Vue {
@@ -29,9 +29,9 @@ export default class App extends Vue {
   }
 
   @Watch("tokenExpiration")
-  ontokenExpiration(newVal: boolean, oldVal: boolean) {
+  public ontokenExpiration(newVal: boolean, oldVal: boolean) {
     if (this.tokenExpiration) {
-      (this.$refs["login"] as LoginModal).Submit();
+      (this.$refs.login as LoginModal).Submit();
     }
   }
 }
