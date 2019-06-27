@@ -26,13 +26,13 @@ const LeftItems: LeftItem[] = [
     link: "dashboard",
     isLogin: true,
   },
-  {
-    icon: "add_circle",
-    text: "거래입력",
-    click: LeftItemClick.Link,
-    link: "input",
-    isLogin: true,
-  },
+  // {
+  //   icon: "add_circle",
+  //   text: "거래입력",
+  //   click: LeftItemClick.Link,
+  //   link: "input",
+  //   isLogin: true,
+  // },
   {
     icon: "settings",
     text: "환경설정",

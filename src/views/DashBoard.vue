@@ -84,7 +84,6 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component
 export default class DashBoardVue extends Vue {
-
   get lastSyncDate() {
     return AppDataModule.balancesSyncDate;
   }
@@ -94,11 +93,13 @@ export default class DashBoardVue extends Vue {
       dateFns.addHours(new Date(), -1),
     );
   }
-
-  public dashboardData: IDashboardBalace[] | null = null;
+  get dashboardData() {
+    return DashboardBalaceHelper.Get();
+  }
+  // public dashboardData: IDashboardBalace[] | null = null;
   private isLoading: boolean = false;
 
-  public async created() {
+  public created() {
     if (
       dateFns.isBefore(
         this.lastSyncDate || new Date(),
@@ -107,7 +108,7 @@ export default class DashBoardVue extends Vue {
     ) {
       AppDataModule.FetchWhooingBs();
     }
-    this.dashboardData = DashboardBalaceHelper.Get();
+    // this.dashboardData = DashboardBalaceHelper.Get();
   }
 
   private Refresh() {
