@@ -98,7 +98,7 @@
             :headers="suggestionHeaders"
             :items="suggestionItems"
             item-key="key"
-            :rows-per-page-items="[20]"
+            hide-actions
             disable-initial-sort
           >
             <template slot="items" slot-scope="props">
