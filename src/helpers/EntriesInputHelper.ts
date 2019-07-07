@@ -59,7 +59,7 @@ export namespace EntriesInputHelper {
       });
   }
 
-  function UpdateBalanceState({
+  export function UpdateBalanceState({
     section_id,
     account,
     account_id,

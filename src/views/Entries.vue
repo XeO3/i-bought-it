@@ -52,7 +52,12 @@ import { IWhooingSection } from "@/models/IWhooingSection";
 import { AppDataHelper } from "@/store/modules/AppData";
 import { EntriesHelper } from "@/store/modules/Entries";
 import { UserHelper } from "@/store/modules/User";
-import { AppModule, EntriesModule, UserModule } from "@/store/store";
+import {
+  AppDataModule,
+  AppModule,
+  EntriesModule,
+  UserModule,
+} from "@/store/store";
 import { WhooingDate } from "@/utils/WhooingDate";
 import fns from "date-fns";
 import { Component, Vue } from "vue-property-decorator";
@@ -173,6 +178,9 @@ export default class EntriesVue extends Vue {
   public async Delete({ id }: { id: number }) {
     try {
       await DeleteWhooingEntries(id);
+
+      // 잔액정보 동기화 날짜를 초기화
+      AppDataModule.Set_BalancesSyncDate(null);
 
       const entriesSection = EntriesHelper.FindSection(this.sId);
       if (entriesSection) {
