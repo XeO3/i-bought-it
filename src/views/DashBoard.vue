@@ -87,12 +87,7 @@ export default class DashBoardVue extends Vue {
   get lastSyncDate() {
     return AppDataModule.balancesSyncDate;
   }
-  get isEnableSyncButton() {
-    return (
-      this.lastSyncDate === null ||
-      dateFns.isBefore(new Date(), dateFns.addHours(new Date(), -1))
-    );
-  }
+
   get dashboardData() {
     return DashboardBalaceHelper.Get();
   }
@@ -102,7 +97,7 @@ export default class DashBoardVue extends Vue {
   public created() {
     if (
       this.lastSyncDate === null ||
-      dateFns.isBefore(new Date(), dateFns.addHours(new Date(), -1))
+      dateFns.isBefore(this.lastSyncDate, dateFns.addHours(new Date(), -1))
     ) {
       AppDataModule.FetchWhooingBs();
     }
