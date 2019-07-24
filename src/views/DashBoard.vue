@@ -101,7 +101,6 @@ export default class DashBoardVue extends Vue {
     ) {
       AppDataModule.FetchWhooingBs();
     }
-    // this.dashboardData = DashboardBalaceHelper.Get();
   }
 
   private Refresh() {

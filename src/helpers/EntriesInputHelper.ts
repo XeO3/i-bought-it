@@ -4,20 +4,13 @@ import {
   IPostWhooingEntriesData,
   PostWhooingEntriesData,
 } from "@/models/PostWhooingEntriesData";
+import { IEntryInput } from "@/models/Types";
 import { UserHelper } from "@/store/modules/User";
 import { AppDataModule, EntriesModule } from "@/store/store";
 import { WhooingDate } from "@/utils/WhooingDate";
 
 export namespace EntriesInputHelper {
-  export async function PushEntryAsync(payload: {
-    sId: string;
-    left: string;
-    right: string;
-    money: string;
-    item: string;
-    memo?: string;
-    date?: Date;
-  }) {
+  export async function PushEntryAsync(payload: IEntryInput) {
     const data = CreatePostWhooingEntiesData(payload);
     if (!data) {
       throw Error("거래입력 아이템 생성 실패");
@@ -88,15 +81,9 @@ export namespace EntriesInputHelper {
     }
   }
 
-  function CreatePostWhooingEntiesData(payload: {
-    sId: string;
-    left: string;
-    right: string;
-    money: string;
-    item: string;
-    memo?: string | undefined;
-    date?: Date | undefined;
-  }): IPostWhooingEntriesData | undefined {
+  function CreatePostWhooingEntiesData(
+    payload: IEntryInput,
+  ): IPostWhooingEntriesData | undefined {
     const left = UserHelper.GetAccount(payload.sId, payload.left);
     const right = UserHelper.GetAccount(payload.sId, payload.right);
     if (left && right) {

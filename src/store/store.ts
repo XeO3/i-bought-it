@@ -14,7 +14,6 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store<IRootState>({
   strict: true,
-  plugins: [createPersistedState()],
   modules: {
     App,
     Auth,

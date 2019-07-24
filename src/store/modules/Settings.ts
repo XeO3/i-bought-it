@@ -10,20 +10,37 @@ import {
   VuexModule,
 } from "vuex-module-decorators";
 
+const LOCALSTORAGEKEY = "Settings";
+const initValue = (JSON.parse(
+  localStorage.getItem(LOCALSTORAGEKEY) || "null",
+) as ISettingsState) || {
+  sections: [],
+};
+
+function setLocalStorage(state: ISettingsState | null): void {
+  if (state) {
+    localStorage.setItem(LOCALSTORAGEKEY, JSON.stringify(state));
+  } else {
+    localStorage.removeItem(LOCALSTORAGEKEY);
+  }
+}
+
 @Module({ store, name: "Settings" })
 export class Settings extends VuexModule implements ISettingsState {
   /** 섹션 설정 */
-  public sections: ISettingsSection[] = [];
+  public sections: ISettingsSection[] = initValue.sections;
 
   @Mutation
   public Set_SettingsSections(sections: ISettingsSection[]) {
     this.sections = sections;
+    setLocalStorage(this);
   }
 
   /** 섹션설정 추가 */
   @Mutation
   public Push_SettingsSection(newSection: ISettingsSection) {
     this.sections.push(newSection);
+    setLocalStorage(this);
   }
 
   /** 대시보드 표시 항목 추가 */
@@ -34,6 +51,7 @@ export class Settings extends VuexModule implements ISettingsState {
   }): void {
     const section = SettingsHelper.Get_SettingSecion(this, payload.section_id);
     section.pinedList.push(payload.account_id);
+    setLocalStorage(this);
   }
 
   /** 대시보드 표시 항목 설정 */
@@ -44,6 +62,7 @@ export class Settings extends VuexModule implements ISettingsState {
   }): void {
     const section = SettingsHelper.Get_SettingSecion(this, payload.section_id);
     section.pinedList = payload.pinedList;
+    setLocalStorage(this);
   }
 
   @Action

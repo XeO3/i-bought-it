@@ -138,6 +138,9 @@ import {
 import { WhooingDate } from "@/utils/WhooingDate";
 import fns from "date-fns";
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { IEntryInput } from "../models/Types";
+import { InputSeggestionItem } from "../models/InputSeggestionItem";
+import { EntriesHelper } from "../store/modules/Entries";
 
 @Component({
   components: {
@@ -145,26 +148,38 @@ import { Component, Prop, Vue } from "vue-property-decorator";
   },
 })
 export default class InputVue extends Vue {
+  /** 헤더 */
   public suggestionHeaders = [
     { text: "아이템", value: "item" },
     { text: "왼쪽", value: "left" },
     { text: "오른쪽", value: "right" },
   ];
+
+  /** 로딩중 */
   private entryLoading: boolean = false;
+
+  /** 메뉴 */
   private menu = {
+    /** 날짜메뉴 */
     date: false,
   };
+
+  /** 메모표시 */
   private showMemo: boolean = false;
+
+  /** 임시 */
   private temp: {
     suggestionItems: Array<{ key: string; data: IInputSeggestionItem[] }>;
   } = {
     suggestionItems: [],
   };
 
+  /** 섹션 리스트 */
   get sections(): IWhooingSection[] {
     return UserModule.sectionList;
   }
 
+  /** 섹션 Id */
   get sId(): string {
     if (this.$route.query.sId) {
       return this.$route.query.sId as string;
@@ -174,6 +189,7 @@ export default class InputVue extends Vue {
       return sId;
     }
   }
+  /** 섹션 Id */
   set sId(v) {
     this.$router.replace({
       name: "input",
@@ -243,7 +259,8 @@ export default class InputVue extends Vue {
       query: { ...this.$route.query, memo: v },
     });
   }
-  get Inputtable() {
+  /** true: 입력가능 */
+  get Inputtable(): boolean {
     if (
       this.sId &&
       this.item &&
@@ -258,7 +275,8 @@ export default class InputVue extends Vue {
     }
   }
 
-  get InputItem() {
+  /** 입력 아이템 */
+  get InputItem(): IEntryInput {
     return {
       sId: this.sId,
       left: this.left,
@@ -270,7 +288,8 @@ export default class InputVue extends Vue {
     };
   }
 
-  get suggestionItems() {
+  /** 입력제안 리스트 */
+  get suggestionItems(): InputSeggestionItem[] {
     const key = `${this.item ? this.item.split("(")[0] : ""}|${this.left ||
       ""}|${this.right || ""}`;
     const item = this.temp.suggestionItems.find((o) => o.key === key);
@@ -286,10 +305,20 @@ export default class InputVue extends Vue {
     if (newItem.length > 0 && key !== "||") {
       this.temp.suggestionItems = [{ key, data: newItem }];
     }
-
     return newItem;
   }
 
+  get hasDuplicateEntry() {
+    return this.suggestionItems.filter((o) =>
+      o.data.filter(
+        (p) =>
+          p.money === this.money &&
+          p.entry_date === WhooingDate.ConvertNumber(new Date(this.date)),
+      ),
+    );
+  }
+
+  /** 거래입력 */
   public async PushEntry() {
     if (!this.Inputtable) {
       return;
