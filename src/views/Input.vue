@@ -138,8 +138,8 @@ import {
 import { WhooingDate } from "@/utils/WhooingDate";
 import fns from "date-fns";
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { IEntryInput } from "../models/Types";
 import { InputSeggestionItem } from "../models/InputSeggestionItem";
+import { IEntryInput } from "../models/Types";
 import { EntriesHelper } from "../store/modules/Entries";
 
 @Component({
