@@ -68,9 +68,9 @@
 </template>
 <script lang="ts">
 import { WhooingAccountModel } from "@/models/WhooingAccountModel";
-import { SettingsHelper } from "@/store/modules/Settings";
 import { SettingsModule, UserModule } from "@/store/store";
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { SettingsHelper } from "../helpers/SettingsHelper";
 
 @Component({})
 export default class SettingsVue extends Vue {
@@ -92,7 +92,6 @@ export default class SettingsVue extends Vue {
 
   public GetPinedList(section_id: string): string[] {
     const section = SettingsHelper.Get_SettingSecion(
-      SettingsModule,
       section_id,
     );
     return section.pinedList;

@@ -1,8 +1,8 @@
-import { getWhooingSections } from "@/api/GetWhooingSections";
+import { SettingsHelper } from "@/helpers/SettingsHelper";
 import { WhooingAccount } from "@/models/EnumWhooingAccount";
 import { WhooingAccountModel } from "@/models/WhooingAccountModel";
 import { AppData, AppDataHelper } from "@/store/modules/AppData";
-import { Settings, SettingsHelper } from "@/store/modules/Settings";
+import { Settings } from "@/store/modules/Settings";
 import { User, UserHelper } from "@/store/modules/User";
 import { AppDataModule, SettingsModule, UserModule } from "@/store/store";
 
@@ -105,10 +105,11 @@ export namespace DashboardBalaceHelper {
         const balance = AppDataHelper.Get_Balance(
           section_id,
           account_id,
-          appData,
         );
-        pushItem.money = balance.money;
-        pushItem.isLoading = balance.isLoading;
+        if (balance) {
+          pushItem.money = balance.money;
+          pushItem.isLoading = balance.isLoading;
+        }
       } finally {
         sectionItem.accounts.push(pushItem);
       }

@@ -45,7 +45,7 @@
                   </v-card-title>
                   <v-card-text
                     class="pt-0 text-xs-right headline"
-                  >{{account.money.toLocaleString()}}</v-card-text>
+                  >{{account.money !== null ? account.money.toLocaleString(): "***"}}</v-card-text>
                 </v-card>
               </v-flex>
             </v-layout>
@@ -76,6 +76,7 @@ import {
   IDashboardBalace,
   IDashboardBalanceItem,
 } from "@/helpers/DashboardBalaceHelper.ts";
+import { SettingsHelper } from "@/helpers/SettingsHelper";
 import { WhooingAccount } from "@/models/EnumWhooingAccount";
 import { IWhooingSection } from "@/models/IWhooingSection";
 import { AppDataModule, SettingsModule, UserModule } from "@/store/store";
@@ -84,6 +85,8 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component
 export default class DashBoardVue extends Vue {
+  private isLoading: boolean = false;
+
   get lastSyncDate() {
     return AppDataModule.balancesSyncDate;
   }
@@ -91,16 +94,17 @@ export default class DashBoardVue extends Vue {
   get dashboardData() {
     return DashboardBalaceHelper.Get();
   }
-  // public dashboardData: IDashboardBalace[] | null = null;
-  private isLoading: boolean = false;
 
-  public created() {
+  public async created() {
+    this.isLoading = true;
+
     if (
       this.lastSyncDate === null ||
       dateFns.isBefore(this.lastSyncDate, dateFns.addHours(new Date(), -1))
     ) {
-      AppDataModule.FetchWhooingBs();
+      await AppDataModule.FetchWhooingBs();
     }
+    this.isLoading = false;
   }
 
   private Refresh() {

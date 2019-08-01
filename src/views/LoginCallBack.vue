@@ -22,6 +22,7 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { AppData } from "@/store/modules/AppData";
 import { AppDataModule, AuthModule, UserModule } from "@/store/store";
 import { AppModule } from "@/store/store";
+import { SettingsHelper } from "../helpers/SettingsHelper";
 
 @Component({})
 export default class LoginCallBack extends Vue {
@@ -56,7 +57,9 @@ export default class LoginCallBack extends Vue {
     if (this.token && this.pin) {
       try {
         await this.LoginAsync();
-        this.$router.replace("/dashboard");
+        this.$nextTick(() => {
+          this.$router.replace("/dashboard");
+        });
       } catch (e) {
         this.FailLogin();
         this.$router.replace("/");
@@ -79,6 +82,7 @@ export default class LoginCallBack extends Vue {
     const p2 = UserModule.FetchSectionList();
     await Promise.all([p1, p2]);
     await AppDataModule.FetchWhooingBs();
+    SettingsHelper.SetPinListFirstSection();
   }
 
   private FailLogin() {

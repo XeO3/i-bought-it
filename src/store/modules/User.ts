@@ -67,25 +67,25 @@ export class User extends VuexModule implements IUserState {
     this.SET_USER(null);
   }
 
-  @Action({})
+  @Action
   public async FetchUserInfoAsync() {
     const { results } = await getWhooingUser();
     this.SET_USER(results);
   }
 
-  @Action({})
+  @Action
   public async FetchSectionList() {
     const sections = (await getWhooingSections()).results;
     this.SET_SECTIONLIST(sections);
-    sections.forEach((section) => {
-      getWhooingAccounts(section.section_id).then((res) => {
-        this.SET_SECTIONACCOUNTS({
-          sectionId: section.section_id,
-          accounts: res.results,
-        });
-        // section.accounts = res.results;
+
+    const pList = sections.map(async (section) => {
+      const res = await getWhooingAccounts(section.section_id);
+      this.SET_SECTIONACCOUNTS({
+        sectionId: section.section_id,
+        accounts: res.results,
       });
     });
+    await Promise.all(pList);
   }
 }
 

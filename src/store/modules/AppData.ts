@@ -70,10 +70,11 @@ export class AppData extends VuexModule implements IAppDataState {
     const item = AppDataHelper.Get_Balance(
       balance.section_id,
       balance.account_id,
-      this,
     );
-    item.money = balance.money;
-    item.isLoading = false;
+    if (item) {
+      item.money = balance.money;
+      item.isLoading = false;
+    }
   }
 
   /**
@@ -89,9 +90,10 @@ export class AppData extends VuexModule implements IAppDataState {
     const item = AppDataHelper.Get_Balance(
       payload.key.section_id,
       payload.key.account_id,
-      this,
     );
-    item.money += payload.addBalance;
+    if (item) {
+      item.money += payload.addBalance;
+    }
   }
 
   /**
@@ -103,19 +105,19 @@ export class AppData extends VuexModule implements IAppDataState {
     const sectionIds = UserModule.SectionIdList;
     const now = new Date();
     const today = WhooingDate.ConvertNumber(now);
-    sectionIds.forEach((sid) => {
-      getWhooingBs(sid, today).then((res) => {
-        res.results.assets.accounts.forEach((aa) => {
-          const newBalItem = new BalanceItem(sid, aa.account_id, aa.money);
-          this.Upsert_Balance(newBalItem);
-        });
-        res.results.liabilities.accounts.forEach((aa) => {
-          const newBalItem = new BalanceItem(sid, aa.account_id, aa.money);
-          this.Upsert_Balance(newBalItem);
-        });
+    const pList = sectionIds.map(async (sid) => {
+      const res = await getWhooingBs(sid, today);
+      res.results.assets.accounts.forEach((aa) => {
+        const newBalItem = new BalanceItem(sid, aa.account_id, aa.money);
+        this.Upsert_Balance(newBalItem);
+      });
+      res.results.liabilities.accounts.forEach((aa) => {
+        const newBalItem = new BalanceItem(sid, aa.account_id, aa.money);
+        this.Upsert_Balance(newBalItem);
       });
     });
     this.Set_BalancesSyncDate(now);
+    await Promise.all(pList);
   }
 }
 
@@ -123,9 +125,8 @@ export namespace AppDataHelper {
   export function Get_Balance(
     section_id: string,
     account_id: string,
-    appData: AppData = AppDataModule,
   ): IBalanceItem {
-    const item = appData.balances.find(
+    const item = AppDataModule.balances.find(
       (b) => b.section_id === section_id && b.account_id === account_id,
     );
     if (item) {
