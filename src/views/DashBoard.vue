@@ -3,7 +3,7 @@
     <v-layout v-if="dashboardData.length > 0" row wrap align-content-start>
       <v-flex xs12 class="my-2 text-xs-right">
         <v-btn @click="Refresh" :disabled="isLoading" :loading="isLoading" round>
-          <v-icon>refresh</v-icon>
+          <v-icon>mdi-refresh</v-icon>
           <span class="hidden-sm-and-down">새로고침</span>
         </v-btn>
       </v-flex>
