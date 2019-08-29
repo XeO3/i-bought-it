@@ -28,7 +28,7 @@ import { GetWhooingAppTokenData } from "@/models/GetWhooingAppTokenData";
 import { AppModule, AuthModule } from "@/store/store";
 import { Component, Prop, Vue } from "vue-property-decorator";
 
-@Component({})
+@Component
 export default class LoginModal extends Vue {
   public dialog: boolean = false;
 
