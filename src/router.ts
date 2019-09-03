@@ -63,6 +63,15 @@ const router = new Router({
           component: EntriesVue,
         },
         {
+          path: "checkDuplication",
+          name: "checkDuplication",
+          meta: { title: "중복거래검색", requiresAuth: true },
+          component: () =>
+            import(
+              /* webpackChunkName: "checkDuplication" */ "./views/CheckDuplication.vue"
+            ),
+        },
+        {
           path: "input",
           name: "input",
           meta: { title: "거래입력", requiresAuth: true },

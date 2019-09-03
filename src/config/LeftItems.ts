@@ -26,6 +26,13 @@ const LeftItems: LeftItem[] = [
     link: "dashboard",
     isLogin: true,
   },
+  {
+    icon: "mdi-checkbox-multiple-marked-outline",
+    text: "중복입력검색",
+    click: LeftItemClick.Link,
+    link: "checkDuplication",
+    isLogin: true,
+  },
   // {
   //   icon: "add_circle",
   //   text: "거래입력",
