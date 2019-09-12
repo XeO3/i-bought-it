@@ -8,7 +8,7 @@ import { Whooing } from "@/utils/WhooingHelper";
 import axios from "axios";
 
 /**
- * 후잉 거래 입력
+ * 후잉 거래 가져오기
  */
 export async function getWhooingEntries(
   params: IWhoooingGetEntriesParams,
