@@ -13,6 +13,18 @@
           <v-card-text>
             <v-layout row wrap>
               <v-flex xs12 class="text-xs-center">
+                <v-menu offset-y>
+                  <v-chip slot="activator">{{sIdName}}</v-chip>
+                  <v-list>
+                    <v-list-tile
+                      v-for="section in sections"
+                      :key="section.section_id"
+                      @click="sId = section.section_id"
+                    >
+                      <v-list-tile-title>{{ section.title }}</v-list-tile-title>
+                    </v-list-tile>
+                  </v-list>
+                </v-menu>
                 <v-menu
                   :close-on-content-click="false"
                   v-model="menu.startDate"
@@ -62,31 +74,38 @@
             </v-btn>
           </v-card-actions>
         </v-card>
-        {{rawData}}
+        {{duplicatData}}
+
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import fns from "date-fns";
-import {
-  getWhooingEntries,
-  IWhooingEntriesResults,
-} from "../api/GetWhooingEntries";
+import { IWhooingSection } from "@/models/IWhooingSection";
 import {
   IWhoooingGetEntriesParams,
   WhoooingGetEntriesParams,
 } from "@/models/IWhoooingGetEntriesPayload";
 import { WhooingEntryModel } from "@/models/WhooingEntryModel";
+import fns from "date-fns";
+import { interfaces } from "mocha";
+import { Component, Prop, Vue } from "vue-property-decorator";
+import {
+  getWhooingEntries,
+  IWhooingEntriesResults,
+} from "../api/GetWhooingEntries";
+import { UserModule } from "../store/store";
 import { WhooingDate } from "../utils/WhooingDate";
+import { UserHelper } from "../store/modules/User";
+import {
+  EntriesDuplicationHelper,
+  IDuplicationOptions,
+} from "../helpers/EntriesDuplicationHelper";
 
 @Component
 export default class CheckDuplication extends Vue {
-  @Prop({ required: true, type: String })
-  public section_id!: string;
-  public searchForm: SearchForm = new SearchForm(this.section_id);
+  public searchForm: IDuplicationOptions = this.createSearchForm();
   public menu = {
     startDate: false,
     endDate: false,
@@ -97,7 +116,52 @@ export default class CheckDuplication extends Vue {
   public rawData: WhooingEntryModel[] = [];
 
   public clearSearchForm() {
-    this.searchForm = new SearchForm(this.section_id);
+    this.searchForm = this.createSearchForm();
+  }
+
+  /** 섹션 리스트 */
+  get sections(): IWhooingSection[] {
+    return UserModule.sectionList;
+  }
+
+  /** 섹션 Id */
+  get sId(): string {
+    if (this.$route.query && this.$route.query.sId) {
+      return this.$route.query.sId as string;
+    } else {
+      const sId = this.sections[0].section_id;
+      this.sId = sId;
+      return sId;
+    }
+  }
+  /** 섹션 Id */
+  set sId(v) {
+    this.$router.replace({
+      name: this.$route.name,
+      query: { sId: v },
+    });
+  }
+  get sIdName() {
+    return UserHelper.GetSectionName(this.sId);
+  }
+
+  get duplicatData(): { [index: string]: WhooingEntryModel[] } {
+    if (this.rawData.length < 1) {
+      return {};
+    }
+    const duplicationList = EntriesDuplicationHelper.duplicateEntries(
+      this.rawData,
+      this.searchForm,
+    );
+
+    const result: { [index: string]: WhooingEntryModel[] } = {}
+    for(const key of Object.keys(duplicationList)){
+      const item = duplicationList[key];
+      if(item.length > 1){
+        result[key] = item;
+      }
+    }
+    return result;
   }
 
   // 거래불러오기
@@ -119,7 +183,7 @@ export default class CheckDuplication extends Vue {
 
   // 거래불러오기 조건 설정
   private createGetRawDataParams(): WhoooingGetEntriesParams {
-    const params = new WhoooingGetEntriesParams(this.section_id);
+    const params = new WhoooingGetEntriesParams(this.sId);
     params.start_date = WhooingDate.ConvertNumber(
       new Date(this.searchForm.startDate),
     );
@@ -129,24 +193,26 @@ export default class CheckDuplication extends Vue {
 
     return params;
   }
-}
 
-class SearchForm {
-  section_id: string;
-  startDate: string;
-  endDate: string;
-  isSameMoney: boolean = true;
-  isSameItem: boolean = false;
-  isSameLeft: boolean = false;
-  isSameRight: boolean = true;
-  isSameDate: boolean = false;
-  constructor(section_id: string) {
-    this.section_id = section_id;
+  // 검색조건 초기화
+  private createSearchForm(): IDuplicationOptions {
     const today = new Date();
-    const starDate = new Date(today.getFullYear(), today.getMonth());
+    const startDate = new Date(today.getFullYear(), today.getMonth());
     const endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-    this.startDate = fns.format(starDate, "YYYY-MM-DD");
-    this.endDate = fns.format(endDate, "YYYY-MM-DD");
+
+    const searchForm: IDuplicationOptions = {
+      isSameMoney: true,
+      isSameItem: false,
+      isSameLeft: false,
+      isSameRight: true,
+      isSameDate: true,
+      startDate: fns.format(startDate, "YYYY-MM-DD"),
+      endDate: fns.format(endDate, "YYYY-MM-DD"),
+    };
+    this.searchForm = searchForm;
+    return searchForm;
   }
+
+  private created() {}
 }
 </script>

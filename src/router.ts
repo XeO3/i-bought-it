@@ -68,7 +68,7 @@ const router = new Router({
           meta: { title: "중복거래검색", requiresAuth: true },
           component: () =>
             import(
-              /* webpackChunkName: "checkDuplication" */ "./views/CheckDuplication.vue"
+              /* webpackChunkName: "checkDuplication" */ "./views/CheckDuplication.vue",
             ),
         },
         {
