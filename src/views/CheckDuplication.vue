@@ -68,14 +68,13 @@
           <v-card-actions>
             <v-btn color="blue darken-1" flat @click="clearSearchForm">clear</v-btn>
             <v-spacer></v-spacer>
-            <v-btn color="info" @click="getRawData">
+            <v-btn color="info" @click="getRawData" :loading="state.isLoadingRawData">
               검색
               <v-icon right>search</v-icon>
             </v-btn>
           </v-card-actions>
         </v-card>
         {{duplicatData}}
-
       </v-flex>
     </v-layout>
   </v-container>
@@ -95,13 +94,13 @@ import {
   getWhooingEntries,
   IWhooingEntriesResults,
 } from "../api/GetWhooingEntries";
-import { UserModule } from "../store/store";
-import { WhooingDate } from "../utils/WhooingDate";
-import { UserHelper } from "../store/modules/User";
 import {
   EntriesDuplicationHelper,
   IDuplicationOptions,
 } from "../helpers/EntriesDuplicationHelper";
+import { UserHelper } from "../store/modules/User";
+import { UserModule } from "../store/store";
+import { WhooingDate } from "../utils/WhooingDate";
 
 @Component
 export default class CheckDuplication extends Vue {
@@ -114,6 +113,7 @@ export default class CheckDuplication extends Vue {
     isLoadingRawData: false,
   };
   public rawData: WhooingEntryModel[] = [];
+  public duplicatData: { [index: string]: WhooingEntryModel[] } = {};
 
   public clearSearchForm() {
     this.searchForm = this.createSearchForm();
@@ -145,19 +145,21 @@ export default class CheckDuplication extends Vue {
     return UserHelper.GetSectionName(this.sId);
   }
 
-  get duplicatData(): { [index: string]: WhooingEntryModel[] } {
-    if (this.rawData.length < 1) {
+  public getDuplicatData(
+    rawData = this.rawData,
+  ): { [index: string]: WhooingEntryModel[] } {
+    if (rawData.length < 1) {
       return {};
     }
     const duplicationList = EntriesDuplicationHelper.duplicateEntries(
-      this.rawData,
+      rawData,
       this.searchForm,
     );
 
-    const result: { [index: string]: WhooingEntryModel[] } = {}
-    for(const key of Object.keys(duplicationList)){
+    const result: { [index: string]: WhooingEntryModel[] } = {};
+    for (const key of Object.keys(duplicationList)) {
       const item = duplicationList[key];
-      if(item.length > 1){
+      if (item.length > 1) {
         result[key] = item;
       }
     }
@@ -177,6 +179,9 @@ export default class CheckDuplication extends Vue {
       if (rows.length !== params.limit) {
         break;
       }
+    }
+    if (this.rawData === result) {
+      this.duplicatData = this.getDuplicatData(this.rawData);
     }
     this.state.isLoadingRawData = false;
   }
@@ -212,7 +217,5 @@ export default class CheckDuplication extends Vue {
     this.searchForm = searchForm;
     return searchForm;
   }
-
-  private created() {}
 }
 </script>
