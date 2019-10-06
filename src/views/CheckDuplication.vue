@@ -6,9 +6,9 @@
           <v-toolbar color="teal" dark>
             <v-toolbar-title>중복거래 검색 조건</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn icon>
+            <!-- <v-btn icon>
               <v-icon>help</v-icon>
-            </v-btn>
+            </v-btn> -->
           </v-toolbar>
           <v-card-text>
             <v-layout row wrap>
@@ -48,31 +48,40 @@
                   <v-date-picker v-model="searchForm.endDate" @input="menu.endDate = false"></v-date-picker>
                 </v-menu>
               </v-flex>
-              <v-flex xs6 sm3 md2>
-                <v-switch v-model="searchForm.isSameDate" label="날짜"></v-switch>
-              </v-flex>
-              <v-flex xs6 sm3 md2>
-                <v-switch v-model="searchForm.isSameItem" label="아이템"></v-switch>
-              </v-flex>
-              <v-flex xs6 sm3 md2 offset-md1>
-                <v-switch v-model="searchForm.isSameMoney" label="금액"></v-switch>
-              </v-flex>
-              <v-flex xs6 sm3 md2>
-                <v-switch v-model="searchForm.isSameLeft" label="왼쪽"></v-switch>
-              </v-flex>
-              <v-flex xs6 sm3 md2>
-                <v-switch v-model="searchForm.isSameRight" label="오른쪽"></v-switch>
-              </v-flex>
             </v-layout>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="blue darken-1" flat @click="clearSearchForm">clear</v-btn>
+            <!-- <v-btn color="blue darken-1" flat @click="clearSearchForm">clear</v-btn> -->
             <v-spacer></v-spacer>
             <v-btn color="info" @click="getRawData" :loading="state.isLoadingRawData">
               검색
               <v-icon right>search</v-icon>
             </v-btn>
           </v-card-actions>
+        </v-card>
+        <v-card class="mb-2" v-if="rawData.length>0">
+          <v-card-title class="primary py-1 white--text" >
+            {{rawData.length}}건 검색되었습니다. 중복 조건을 지정해주세요.
+          </v-card-title>
+          <v-card-text class="py-1">
+            <v-layout row wrap>
+              <v-flex>
+                <v-switch v-model="duplicationOptions.isSameDate" label="날짜"></v-switch>
+              </v-flex>
+              <v-flex>
+                <v-switch v-model="duplicationOptions.isSameItem" label="아이템"></v-switch>
+              </v-flex>
+              <v-flex>
+                <v-switch v-model="duplicationOptions.isSameMoney" label="금액"></v-switch>
+              </v-flex>
+              <v-flex>
+                <v-switch v-model="duplicationOptions.isSameLeft" label="왼쪽"></v-switch>
+              </v-flex>
+              <v-flex>
+                <v-switch v-model="duplicationOptions.isSameRight" label="오른쪽"></v-switch>
+              </v-flex>
+            </v-layout>
+          </v-card-text>
         </v-card>
         {{duplicatData}}
       </v-flex>
@@ -89,7 +98,7 @@ import {
 import { WhooingEntryModel } from "@/models/WhooingEntryModel";
 import fns from "date-fns";
 import { interfaces } from "mocha";
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import {
   getWhooingEntries,
   IWhooingEntriesResults,
@@ -104,7 +113,10 @@ import { WhooingDate } from "../utils/WhooingDate";
 
 @Component
 export default class CheckDuplication extends Vue {
-  public searchForm: IDuplicationOptions = this.createSearchForm();
+  // data
+  public searchForm: ISearchForm = this.createSearchForm();
+  public duplicationOptions: IDuplicationOptions = this.createDuplicateOptions();
+
   public menu = {
     startDate: false,
     endDate: false,
@@ -115,10 +127,7 @@ export default class CheckDuplication extends Vue {
   public rawData: WhooingEntryModel[] = [];
   public duplicatData: { [index: string]: WhooingEntryModel[] } = {};
 
-  public clearSearchForm() {
-    this.searchForm = this.createSearchForm();
-  }
-
+  // computed
   /** 섹션 리스트 */
   get sections(): IWhooingSection[] {
     return UserModule.sectionList;
@@ -145,6 +154,19 @@ export default class CheckDuplication extends Vue {
     return UserHelper.GetSectionName(this.sId);
   }
 
+  // watch
+  @Watch("duplicationOptions", { deep: true })
+  onDuplicationOptions() {
+    console.log("onDuplicationOptions");
+    this.duplicatData = this.getDuplicatData(this.rawData);
+  }
+
+  // methods
+  public clearSearchForm() {
+    this.searchForm = this.createSearchForm();
+    this.duplicationOptions = this.createDuplicateOptions();
+  }
+
   public getDuplicatData(
     rawData = this.rawData,
   ): { [index: string]: WhooingEntryModel[] } {
@@ -153,7 +175,7 @@ export default class CheckDuplication extends Vue {
     }
     const duplicationList = EntriesDuplicationHelper.duplicateEntries(
       rawData,
-      this.searchForm,
+      this.duplicationOptions,
     );
 
     const result: { [index: string]: WhooingEntryModel[] } = {};
@@ -200,22 +222,37 @@ export default class CheckDuplication extends Vue {
   }
 
   // 검색조건 초기화
-  private createSearchForm(): IDuplicationOptions {
+  private createSearchForm(): ISearchForm {
     const today = new Date();
     const startDate = new Date(today.getFullYear(), today.getMonth());
     const endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
-    const searchForm: IDuplicationOptions = {
+    return {
+      startDate: fns.format(startDate, "YYYY-MM-DD"),
+      endDate: fns.format(endDate, "YYYY-MM-DD"),
+    };
+  }
+
+  // 중복검색조건 초기화
+  private createDuplicateOptions(): IDuplicationOptions {
+    const duplicationOptions: IDuplicationOptions = {
       isSameMoney: true,
       isSameItem: false,
       isSameLeft: false,
       isSameRight: true,
       isSameDate: true,
-      startDate: fns.format(startDate, "YYYY-MM-DD"),
-      endDate: fns.format(endDate, "YYYY-MM-DD"),
     };
-    this.searchForm = searchForm;
-    return searchForm;
+    return duplicationOptions;
   }
+
+  public created() {}
+  public mounted() {
+    this.getRawData();
+  }
+}
+
+interface ISearchForm {
+  startDate: string;
+  endDate: string;
 }
 </script>

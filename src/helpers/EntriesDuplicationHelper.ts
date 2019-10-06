@@ -1,8 +1,6 @@
 import { WhooingEntryModel } from "@/models/WhooingEntryModel";
 
 export interface IDuplicationOptions {
-  startDate: string;
-  endDate: string;
   isSameMoney: boolean;
   isSameItem: boolean;
   isSameLeft: boolean;
