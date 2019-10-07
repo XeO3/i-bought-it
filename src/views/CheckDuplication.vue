@@ -4,11 +4,11 @@
       <v-flex xs12>
         <v-card class="mb-2">
           <v-toolbar color="teal" dark>
-            <v-toolbar-title>중복거래 검색 조건</v-toolbar-title>
+            <v-toolbar-title>중복거래 검색</v-toolbar-title>
             <v-spacer></v-spacer>
             <!-- <v-btn icon>
               <v-icon>help</v-icon>
-            </v-btn> -->
+            </v-btn>-->
           </v-toolbar>
           <v-card-text>
             <v-layout row wrap>
@@ -60,30 +60,39 @@
           </v-card-actions>
         </v-card>
         <v-card class="mb-2" v-if="rawData.length>0">
-          <v-card-title class="primary py-1 white--text" >
-            {{rawData.length}}건 검색되었습니다. 중복 조건을 지정해주세요.
-          </v-card-title>
+          <v-card-title class="primary py-1 white--text">{{rawData.length}}건 검색되었습니다. 중복 조건을 지정해주세요.</v-card-title>
           <v-card-text class="py-1">
             <v-layout row wrap>
-              <v-flex>
+              <v-flex class="mx-1">
                 <v-switch v-model="duplicationOptions.isSameDate" label="날짜"></v-switch>
               </v-flex>
-              <v-flex>
+              <v-flex class="mx-1">
                 <v-switch v-model="duplicationOptions.isSameItem" label="아이템"></v-switch>
               </v-flex>
-              <v-flex>
+              <v-flex class="mx-1">
                 <v-switch v-model="duplicationOptions.isSameMoney" label="금액"></v-switch>
               </v-flex>
-              <v-flex>
+              <v-flex class="mx-1">
                 <v-switch v-model="duplicationOptions.isSameLeft" label="왼쪽"></v-switch>
               </v-flex>
-              <v-flex>
+              <v-flex class="mx-1">
                 <v-switch v-model="duplicationOptions.isSameRight" label="오른쪽"></v-switch>
               </v-flex>
             </v-layout>
           </v-card-text>
         </v-card>
-        {{duplicatData}}
+        <v-card v-for="(items, key) in duplicatData" :key="key" class="mb-1">
+          <v-card-title>{{key}}</v-card-title>
+          <v-card-text>
+            <v-layout row wrap v-for="item in items" :key="item.entry_id">
+              <v-flex>{{item.entry_date}}</v-flex>
+              <v-flex>{{item.item}}</v-flex>
+              <v-flex>{{item.l_account_id}}</v-flex>
+              <v-flex>{{item.r_account_id}}</v-flex>
+              <v-flex>{{item.money}}</v-flex>
+            </v-layout>
+          </v-card-text>
+        </v-card>
       </v-flex>
     </v-layout>
   </v-container>
@@ -236,7 +245,7 @@ export default class CheckDuplication extends Vue {
   // 중복검색조건 초기화
   private createDuplicateOptions(): IDuplicationOptions {
     const duplicationOptions: IDuplicationOptions = {
-      isSameMoney: true,
+      isSameMoney: false,
       isSameItem: false,
       isSameLeft: false,
       isSameRight: true,
@@ -244,6 +253,8 @@ export default class CheckDuplication extends Vue {
     };
     return duplicationOptions;
   }
+
+  // number to date
 
   public created() {}
   public mounted() {
