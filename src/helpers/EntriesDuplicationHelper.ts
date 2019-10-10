@@ -8,6 +8,14 @@ export interface IDuplicationOptions {
   isSameDate: boolean;
 }
 
+export interface IKeyObject {
+  date: string | null;
+  item: string | null;
+  left: string | null;
+  right: string | null;
+  money: string | null;
+}
+
 export namespace EntriesDuplicationHelper {
   export const duplicateEntries = (
     entries: WhooingEntryModel[],
@@ -27,11 +35,24 @@ export namespace EntriesDuplicationHelper {
     return result;
   };
 
+  /**
+   * 키값을 파싱해서 오브젝트로 반환
+   * @param duplicationKey 중복그룹키값
+   */
+  export const parseKey = (duplicationKey: string): IKeyObject => {
+    const [date, item, left, right, money] = duplicationKey
+      .split("|")
+      .map((o) => (o === "*" ? null : o)); // '*'는 null로치환
+    return { date, item, left, right, money };
+  };
+
   function createKey(
     entry: WhooingEntryModel,
     options: IDuplicationOptions,
   ): string {
-    const date = options.isSameDate ? Math.floor(entry.entry_date).toString() : "*";
+    const date = options.isSameDate
+      ? Math.floor(entry.entry_date).toString()
+      : "*";
     const item = options.isSameItem ? entry.item.split("(")[0] : "*";
     const left = options.isSameLeft ? entry.l_account_id : "*";
     const right = options.isSameRight ? entry.r_account_id : "*";

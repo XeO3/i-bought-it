@@ -81,18 +81,11 @@
             </v-layout>
           </v-card-text>
         </v-card>
-        <v-card v-for="(items, key) in duplicatData" :key="key" class="mb-1">
-          <v-card-title>{{key}}</v-card-title>
-          <v-card-text>
-            <v-layout row wrap v-for="item in items" :key="item.entry_id">
-              <v-flex>{{item.entry_date}}</v-flex>
-              <v-flex>{{item.item}}</v-flex>
-              <v-flex>{{item.l_account_id}}</v-flex>
-              <v-flex>{{item.r_account_id}}</v-flex>
-              <v-flex>{{item.money}}</v-flex>
-            </v-layout>
-          </v-card-text>
-        </v-card>
+        <duplication-group
+          :value="{key:key, data:items}"
+          v-for="(items, key) in duplicatData"
+          :key="key"
+        ></duplication-group>
       </v-flex>
     </v-layout>
   </v-container>
@@ -119,8 +112,13 @@ import {
 import { UserHelper } from "../store/modules/User";
 import { UserModule } from "../store/store";
 import { WhooingDate } from "../utils/WhooingDate";
+import DuplicationGroup from "../components/DuplicationGroup.vue";
 
-@Component
+@Component({
+  components: {
+    DuplicationGroup,
+  },
+})
 export default class CheckDuplication extends Vue {
   // data
   public searchForm: ISearchForm = this.createSearchForm();
