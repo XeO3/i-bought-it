@@ -83,6 +83,7 @@
         </v-card>
         <duplication-group
           :value="{key:key, data:items}"
+          :sId="sId"
           v-for="(items, key) in duplicatData"
           :key="key"
         ></duplication-group>
@@ -105,6 +106,7 @@ import {
   getWhooingEntries,
   IWhooingEntriesResults,
 } from "../api/GetWhooingEntries";
+import DuplicationGroup from "../components/DuplicationGroup.vue";
 import {
   EntriesDuplicationHelper,
   IDuplicationOptions,
@@ -112,7 +114,6 @@ import {
 import { UserHelper } from "../store/modules/User";
 import { UserModule } from "../store/store";
 import { WhooingDate } from "../utils/WhooingDate";
-import DuplicationGroup from "../components/DuplicationGroup.vue";
 
 @Component({
   components: {
@@ -120,20 +121,6 @@ import DuplicationGroup from "../components/DuplicationGroup.vue";
   },
 })
 export default class CheckDuplication extends Vue {
-  // data
-  public searchForm: ISearchForm = this.createSearchForm();
-  public duplicationOptions: IDuplicationOptions = this.createDuplicateOptions();
-
-  public menu = {
-    startDate: false,
-    endDate: false,
-  };
-  public state = {
-    isLoadingRawData: false,
-  };
-  public rawData: WhooingEntryModel[] = [];
-  public duplicatData: { [index: string]: WhooingEntryModel[] } = {};
-
   // computed
   /** 섹션 리스트 */
   get sections(): IWhooingSection[] {
@@ -160,11 +147,24 @@ export default class CheckDuplication extends Vue {
   get sIdName() {
     return UserHelper.GetSectionName(this.sId);
   }
+  // data
+  public searchForm: ISearchForm = this.createSearchForm();
+  public duplicationOptions: IDuplicationOptions = this.createDuplicateOptions();
+
+  public menu = {
+    startDate: false,
+    endDate: false,
+  };
+  public state = {
+    isLoadingRawData: false,
+  };
+  public rawData: WhooingEntryModel[] = [];
+  public duplicatData: { [index: string]: WhooingEntryModel[] } = {};
 
   // watch
   @Watch("duplicationOptions", { deep: true })
-  onDuplicationOptions() {
-    console.log("onDuplicationOptions");
+  public onDuplicationOptions() {
+    // console.log("onDuplicationOptions");
     this.duplicatData = this.getDuplicatData(this.rawData);
   }
 
@@ -215,6 +215,13 @@ export default class CheckDuplication extends Vue {
     this.state.isLoadingRawData = false;
   }
 
+  // number to date
+
+  public created() {}
+  public mounted() {
+    this.getRawData();
+  }
+
   // 거래불러오기 조건 설정
   private createGetRawDataParams(): WhoooingGetEntriesParams {
     const params = new WhoooingGetEntriesParams(this.sId);
@@ -250,13 +257,6 @@ export default class CheckDuplication extends Vue {
       isSameDate: true,
     };
     return duplicationOptions;
-  }
-
-  // number to date
-
-  public created() {}
-  public mounted() {
-    this.getRawData();
   }
 }
 
