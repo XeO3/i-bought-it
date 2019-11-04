@@ -215,9 +215,6 @@ export default class CheckDuplication extends Vue {
     this.state.isLoadingRawData = false;
   }
 
-  // number to date
-
-  public created() {}
   public mounted() {
     this.getRawData();
   }
