@@ -19,7 +19,7 @@
           <v-divider v-if="item_i > 0" class="mb-2"></v-divider>
           <v-layout row wrap justify-space-between style="min-height: 45px;">
             <v-flex xs1 order-sm1>
-              <v-checkbox v-model="selectedIds" :value="item.entry_id" class="ma-0" hide-details></v-checkbox>
+              <v-checkbox v-model="selectedIds" :value="item.entry_id" class="mt-1" hide-details></v-checkbox>
             </v-flex>
             <v-flex xs3 sm2 order-sm2 class="pr-2">
               <v-btn
@@ -29,7 +29,7 @@
                 @click="mergeSelected.date = item.entry_date.split('.')[0]"
                 class="ma-0 mb-1"
               >{{item.entry_date | whooingDate | dateToString}}</v-btn>
-              <v-chip v-else class="ma-0">{{item.entry_date | whooingDate | dateToString}}</v-chip>
+              <v-chip v-else class="my-1">{{item.entry_date | whooingDate | dateToString}}</v-chip>
             </v-flex>
             <v-flex xs4 sm2 order-sm5 class="pr-2 text-xs-right">
               <v-btn
@@ -39,7 +39,7 @@
                 @click="mergeSelected.left = item.l_account_id"
                 class="ma-0 mb-1"
               >{{item.l_account_id| accountLabel(sId)}}</v-btn>
-              <v-chip v-else class="ma-0 mb-1">{{item.l_account_id| accountLabel(sId)}}</v-chip>
+              <v-chip v-else class="my-1">{{item.l_account_id| accountLabel(sId)}}</v-chip>
             </v-flex>
             <v-flex xs4 sm2 order-sm6 class="pr-2 text-xs-right">
               <v-btn
@@ -49,7 +49,7 @@
                 @click="mergeSelected.right = item.r_account_id"
                 class="ma-0 mb-1"
               >{{item.r_account_id| accountLabel(sId)}}</v-btn>
-              <v-chip v-else class="ma-0 mb-1">{{item.r_account_id| accountLabel(sId)}}</v-chip>
+              <v-chip v-else class="my-1">{{item.r_account_id| accountLabel(sId)}}</v-chip>
             </v-flex>
             <v-flex xs8 sm3 order-sm3 class="pr-2">
               <v-btn
@@ -59,7 +59,7 @@
                 @click="mergeSelected.item = item.item; mergeSelected.memo = item.memo"
                 class="ma-0 mb-1"
               >{{item.item}}</v-btn>
-              <v-chip v-else label class="ma-0 mb-1" style="display:block; width:100%">{{item.item}}</v-chip>
+              <v-chip v-else label class="my-1" style="display:block; width:100%">{{item.item}}</v-chip>
               <div class="pt-1 caption text-truncate grey--text">{{item.memo}}</div>
             </v-flex>
             <v-flex xs4 sm2 order-sm4 class="text-xs-right pr-2">
@@ -73,7 +73,7 @@
               <v-chip
                 v-else
                 label
-                class="ma-0 mb-1"
+                class="my-1"
                 style="display:block; width:100%"
               >{{item.money.toLocaleString()}}</v-chip>
             </v-flex>
