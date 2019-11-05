@@ -1,44 +1,87 @@
 <template>
-  <v-card class="mb-1">
-    <v-card-title>
-      <v-chip class="mx-2" label v-if="keyObject.date">{{keyObject.date | dateToString}}</v-chip>
-      <v-chip class="mx-2" label v-if="keyObject.item">{{keyObject.item}}</v-chip>
-      <v-chip class="mx-2" label v-if="keyObject.money">{{keyObject.money}}</v-chip>
-      <v-chip class="mx-2" label v-if="keyObject.left || keyObject.right">
-        <span>{{keyObject.left | accountLabel(sId, "(All)") }}</span>
-        ← {{keyObject.right | accountLabel(sId, "(All)")}}
-      </v-chip>
-      <v-spacer></v-spacer>
-      <v-btn>병합</v-btn>
-    </v-card-title>
-    <v-card-text>
-      <v-layout row wrap v-for="item in value.data" :key="item.entry_id" justify-space-between>
-        <v-flex xs1>
-          <v-checkbox v-model="selectedIds" :value="item.entry_id" class="ma-0"></v-checkbox>
-        </v-flex>
-        <v-flex xs3 sm2>
-          <v-radio-group
-            v-if="selectedIds.includes(item.entry_id)"
-            v-model="mergeSelected.date"
-            class="ma-0"
-          >
-            <v-radio
-              :value="item.entry_date.split('.')[0]"
-              :success="item.entry_date.split('.')[0]===mergeSelected.date"
-              color="success"
-            >
-              <div slot="label">{{item.entry_date | whooingDate | dateToString}}</div>
-            </v-radio>
-          </v-radio-group>
-          <template v-else>{{item.entry_date | whooingDate | dateToString}}</template>
-        </v-flex>
-        <v-flex xs4 sm3>{{item.item}}</v-flex>
-        <v-flex xs3 sm2 class="text-xs-right pr-2">{{item.money}}</v-flex>
-        <v-flex xs4 sm2 offset-xs3 offset-sm0>{{item.l_account_id| accountLabel(sId)}}</v-flex>
-        <v-flex xs4 sm2>{{item.r_account_id| accountLabel(sId)}}</v-flex>
-      </v-layout>
-    </v-card-text>
-  </v-card>
+  <v-hover>
+    <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2} mb-2`">
+      <v-card-title>
+        <v-chip class="mx-2" label v-if="keyObject.date">{{keyObject.date | dateToString}}</v-chip>
+        <v-chip class="mx-2" label v-if="keyObject.item">{{keyObject.item}}</v-chip>
+        <v-chip class="mx-2" label v-if="keyObject.money">{{keyObject.money}}</v-chip>
+        <v-chip class="mx-2" label v-if="keyObject.left || keyObject.right">
+          <span>{{keyObject.left | accountLabel(sId, "(All)") }}</span>
+          ← {{keyObject.right | accountLabel(sId, "(All)")}}
+        </v-chip>
+        <v-spacer></v-spacer>
+        <v-btn v-if="selectedIds.length === 0" @click="selectAll">전체선택</v-btn>
+        <v-btn v-else @click="selectedIds = []">선택해제</v-btn>
+        <v-btn :disabled="selectedIds.length < 2" color="primary" @click="merge">병합</v-btn>
+      </v-card-title>
+      <v-card-text>
+        <div v-for="(item, item_i) in value.data" :key="item.entry_id">
+          <v-divider v-if="item_i > 0" class="mb-2"></v-divider>
+          <v-layout row wrap justify-space-between style="min-height: 45px;">
+            <v-flex xs1 order-sm1>
+              <v-checkbox v-model="selectedIds" :value="item.entry_id" class="ma-0" hide-details></v-checkbox>
+            </v-flex>
+            <v-flex xs3 sm2 order-sm2 class="pr-2">
+              <v-btn
+                v-if="selectedIds.includes(item.entry_id)"
+                :color="item.entry_date.split('.')[0] === mergeSelected.date ? 'success':'grey'"
+                block
+                @click="mergeSelected.date = item.entry_date.split('.')[0]"
+                class="ma-0 mb-1"
+              >{{item.entry_date | whooingDate | dateToString}}</v-btn>
+              <v-chip v-else class="ma-0">{{item.entry_date | whooingDate | dateToString}}</v-chip>
+            </v-flex>
+            <v-flex xs4 sm2 order-sm5 class="pr-2 text-xs-right">
+              <v-btn
+                v-if="selectedIds.includes(item.entry_id)"
+                :color="item.l_account_id === mergeSelected.left ? 'success':'grey'"
+                block
+                @click="mergeSelected.left = item.l_account_id"
+                class="ma-0 mb-1"
+              >{{item.l_account_id| accountLabel(sId)}}</v-btn>
+              <v-chip v-else class="ma-0 mb-1">{{item.l_account_id| accountLabel(sId)}}</v-chip>
+            </v-flex>
+            <v-flex xs4 sm2 order-sm6 class="pr-2 text-xs-right">
+              <v-btn
+                v-if="selectedIds.includes(item.entry_id)"
+                :color="item.r_account_id === mergeSelected.right ? 'success':'grey'"
+                block
+                @click="mergeSelected.right = item.r_account_id"
+                class="ma-0 mb-1"
+              >{{item.r_account_id| accountLabel(sId)}}</v-btn>
+              <v-chip v-else class="ma-0 mb-1">{{item.r_account_id| accountLabel(sId)}}</v-chip>
+            </v-flex>
+            <v-flex xs8 sm3 order-sm3 class="pr-2">
+              <v-btn
+                v-if="selectedIds.includes(item.entry_id)"
+                :color="item.item === mergeSelected.item &&  mergeSelected.memo === item.memo ? 'success':'grey'"
+                block
+                @click="mergeSelected.item = item.item; mergeSelected.memo = item.memo"
+                class="ma-0 mb-1"
+              >{{item.item}}</v-btn>
+              <v-chip v-else label class="ma-0 mb-1" style="display:block; width:100%">{{item.item}}</v-chip>
+              <div class="pt-1 caption text-truncate grey--text">{{item.memo}}</div>
+            </v-flex>
+            <v-flex xs4 sm2 order-sm4 class="text-xs-right pr-2">
+              <v-btn
+                v-if="selectedIds.includes(item.entry_id)"
+                :color="item.money === mergeSelected.money ? 'success':'grey'"
+                block
+                @click="mergeSelected.money = item.money"
+                class="ma-0 mb-1 subheading xs-text-right"
+              >{{item.money.toLocaleString()}}</v-btn>
+              <v-chip
+                v-else
+                label
+                class="ma-0 mb-1"
+                style="display:block; width:100%"
+              >{{item.money.toLocaleString()}}</v-chip>
+            </v-flex>
+          </v-layout>
+        </div>
+      </v-card-text>
+    </v-card>
+  </v-hover>
 </template>
 
 <script lang="ts">
@@ -89,7 +132,7 @@ export default class DuplicationGroup extends Vue {
     const selectedLength = this.selectedIds.length;
     if (selectedLength === 0) {
       this.mergeSelected = null;
-    } else if (selectedLength === 1) {
+    } else if (selectedLength === 1 || !this.mergeSelected) {
       const selectedItem = this.value.data.find(
         (o) => o.entry_id === this.selectedIds[0],
       );
@@ -104,6 +147,14 @@ export default class DuplicationGroup extends Vue {
         };
       }
     }
+  }
+
+  public selectAll() {
+    this.selectedIds = this.value.data.map((o) => o.entry_id);
+  }
+
+  public merge(){
+    this.$emit("merge", this.mergeSelected, this.selectedIds)
   }
 }
 </script>
