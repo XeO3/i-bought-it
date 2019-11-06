@@ -55,6 +55,12 @@ const LeftItems: LeftItem[] = [
     link: Urls.xeo3_ibi,
   },
   {
+    icon: "error",
+    text: "버그신고 및 건의사항",
+    click: LeftItemClick.NewTab,
+    link: Urls.whooingIbi,
+  },
+  {
     icon: "open_in_new",
     text: "Whooing 바로가기",
     click: LeftItemClick.NewTab,
