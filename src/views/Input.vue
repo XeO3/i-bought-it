@@ -308,16 +308,6 @@ export default class InputVue extends Vue {
     return newItem;
   }
 
-  get hasDuplicateEntry() {
-    return this.suggestionItems.filter((o) =>
-      o.data.filter(
-        (p) =>
-          p.money === this.money &&
-          p.entry_date === WhooingDate.ConvertNumber(new Date(this.date)),
-      ),
-    );
-  }
-
   /** 거래입력 */
   public async PushEntry() {
     if (!this.Inputtable) {
