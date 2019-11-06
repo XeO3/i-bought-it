@@ -29,10 +29,10 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { IMergeSelected } from "../models/IMergeSelected";
-import { EntriesInputHelper } from "../helpers/EntriesInputHelper";
-import { WhooingDate } from "../utils/WhooingDate";
 import { DeleteWhooingEntries } from "../api/DeleteWhooingEntries";
+import { EntriesInputHelper } from "../helpers/EntriesInputHelper";
+import { IMergeSelected } from "../models/IMergeSelected";
+import { WhooingDate } from "../utils/WhooingDate";
 
 @Component
 export default class MergeEntriesModal extends Vue {

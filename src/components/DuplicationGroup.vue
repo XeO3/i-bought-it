@@ -91,8 +91,8 @@ import {
   EntriesDuplicationHelper,
   IKeyObject,
 } from "../helpers/EntriesDuplicationHelper";
-import { UserHelper } from "../store/modules/User";
 import { IMergeSelected } from "../models/IMergeSelected";
+import { UserHelper } from "../store/modules/User";
 
 interface IDuplicationGroupModel {
   key: string;
@@ -121,8 +121,8 @@ export default class DuplicationGroup extends Vue {
 
   @Watch("value")
   public onValue() {
-    if(this.value.data.some(o=> !this.selectedIds.includes(o.entry_id))){
-      this.selectedIds = []
+    if(this.value.data.some((o)=> !this.selectedIds.includes(o.entry_id))) {
+      this.selectedIds = [];
     }
   }
 

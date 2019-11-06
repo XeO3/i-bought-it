@@ -105,6 +105,7 @@
 </template>
 
 <script lang="ts">
+import { IMergeSelected } from "@/models/IMergeSelected";
 import { IWhooingSection } from "@/models/IWhooingSection";
 import {
   IWhoooingGetEntriesParams,
@@ -119,6 +120,7 @@ import {
   IWhooingEntriesResults,
 } from "../api/GetWhooingEntries";
 import DuplicationGroup from "../components/DuplicationGroup.vue";
+import MergeEntriesModal from "../components/MergeEntriesModal.vue";
 import {
   EntriesDuplicationHelper,
   IDuplicationOptions,
@@ -126,8 +128,6 @@ import {
 import { UserHelper } from "../store/modules/User";
 import { UserModule } from "../store/store";
 import { WhooingDate } from "../utils/WhooingDate";
-import MergeEntriesModal from "../components/MergeEntriesModal.vue";
-import { IMergeSelected } from "@/models/IMergeSelected";
 
 @Component({
   components: {
@@ -228,7 +228,7 @@ export default class CheckDuplication extends Vue {
       if (rows.length !== params.limit) {
         break;
       }
-      if(result.length >= 5000){
+      if(result.length >= 5000) {
         break;
       }
     }
