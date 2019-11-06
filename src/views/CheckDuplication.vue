@@ -59,7 +59,8 @@
             </v-btn>
           </v-card-actions>
         </v-card>
-        <v-card class="mb-2" v-if="rawData.length>0">
+        
+        <v-card class="mb-2" v-if="rawData.length>1">
           <v-card-title class="primary py-1 white--text">{{rawData.length}}건 검색되었습니다. 중복 조건을 지정해주세요.</v-card-title>
           <v-card-text class="py-1">
             <v-layout row wrap>
@@ -81,14 +82,25 @@
             </v-layout>
           </v-card-text>
         </v-card>
+        <v-card v-else>
+          <v-card-title class="primary py-1 white--text">{{rawData.length === 0 ? "검색결과가 없습니다.": `${rawData.length}건 검색되었습니다.`}} 최소 2건 이상의 거래가 필요합니다.</v-card-title>
+        </v-card>
         <duplication-group
           :value="{key:key, data:items}"
           :sId="sId"
           v-for="(items, key) in duplicatData"
           :key="key"
-        ></duplication-group>
+          @merge="(mergeSelected, entryIds)=> mergeModalValue = {mergeSelected, entryIds}"
+        />
       </v-flex>
     </v-layout>
+    <merge-entries-modal
+      v-if="mergeModalValue"
+      v-bind="mergeModalValue"
+      :sId="sId"
+      @close="mergeModalValue = null"
+      @merged="getRawData"
+    />
   </v-container>
 </template>
 
@@ -114,13 +126,21 @@ import {
 import { UserHelper } from "../store/modules/User";
 import { UserModule } from "../store/store";
 import { WhooingDate } from "../utils/WhooingDate";
+import MergeEntriesModal from "../components/MergeEntriesModal.vue";
+import { IMergeSelected } from "@/models/IMergeSelected";
 
 @Component({
   components: {
     DuplicationGroup,
+    MergeEntriesModal,
   },
 })
 export default class CheckDuplication extends Vue {
+  public mergeModalValue: {
+    mergeSelected: IMergeSelected;
+    entryIds: number[];
+  } | null = null;
+
   // computed
   /** 섹션 리스트 */
   get sections(): IWhooingSection[] {
@@ -206,6 +226,9 @@ export default class CheckDuplication extends Vue {
       const { rows } = results;
       result.push(...results.rows);
       if (rows.length !== params.limit) {
+        break;
+      }
+      if(result.length >= 5000){
         break;
       }
     }

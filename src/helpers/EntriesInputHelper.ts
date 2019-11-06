@@ -28,7 +28,8 @@ export namespace EntriesInputHelper {
     entries
       .filter(
         (item) =>
-          Math.floor(item.entry_date) <= WhooingDate.ConvertNumber(new Date()),
+          Math.floor(Number(item.entry_date)) <=
+          WhooingDate.ConvertNumber(new Date()),
       )
       .forEach((item) => {
         const section_id = payload.sId;

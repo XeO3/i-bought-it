@@ -92,19 +92,11 @@ import {
   IKeyObject,
 } from "../helpers/EntriesDuplicationHelper";
 import { UserHelper } from "../store/modules/User";
+import { IMergeSelected } from "../models/IMergeSelected";
 
 interface IDuplicationGroupModel {
   key: string;
   data: WhooingEntryModel[];
-}
-
-interface IMergeSelected {
-  date: string;
-  item: string;
-  memo: string;
-  money: string;
-  left: string;
-  right: string;
 }
 
 @Component
@@ -125,6 +117,13 @@ export default class DuplicationGroup extends Vue {
 
   public get keyTags(): string[] {
     return [];
+  }
+
+  @Watch("value")
+  public onValue() {
+    if(this.value.data.some(o=> !this.selectedIds.includes(o.entry_id))){
+      this.selectedIds = []
+    }
   }
 
   @Watch("selectedIds")
@@ -153,8 +152,8 @@ export default class DuplicationGroup extends Vue {
     this.selectedIds = this.value.data.map((o) => o.entry_id);
   }
 
-  public merge(){
-    this.$emit("merge", this.mergeSelected, this.selectedIds)
+  public merge() {
+    this.$emit("merge", this.mergeSelected, this.selectedIds);
   }
 }
 </script>

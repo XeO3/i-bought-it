@@ -92,8 +92,8 @@ const router = new Router({
         },
       ],
     },
-    { path: "login", redirect: "/" },
-    { path: "pwa", redirect: "/" },
+    { path: "/login", redirect: "/" },
+    { path: "/pwa", redirect: "/" },
     { path: "*", redirect: "/" },
   ],
 });

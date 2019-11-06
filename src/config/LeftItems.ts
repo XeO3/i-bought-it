@@ -28,7 +28,7 @@ const LeftItems: LeftItem[] = [
   },
   {
     icon: "mdi-checkbox-multiple-marked-outline",
-    text: "중복입력검색",
+    text: "중복입력검색 (BETA)",
     click: LeftItemClick.Link,
     link: "checkDuplication",
     isLogin: true,
