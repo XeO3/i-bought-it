@@ -51,7 +51,7 @@ export namespace EntriesDuplicationHelper {
     options: IDuplicationOptions,
   ): string {
     const date = options.isSameDate
-      ? Math.floor(entry.entry_date).toString()
+      ? Math.floor(Number(entry.entry_date)).toString()
       : "*";
     const item = options.isSameItem ? entry.item.split("(")[0] : "*";
     const left = options.isSameLeft ? entry.l_account_id : "*";
