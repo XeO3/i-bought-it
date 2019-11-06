@@ -1,5 +1,9 @@
 export namespace WhooingDate {
   export const ParseNumber = (dateNumber: number): Date => {
+
+    dateNumber =
+      typeof dateNumber === "string" ? Number(dateNumber) : dateNumber;
+    dateNumber = Math.floor(dateNumber);
     const year = dateNumber / 10000;
     const month = Math.floor((dateNumber % 10000) / 100 - 1);
     const day = dateNumber % 100;

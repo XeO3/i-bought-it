@@ -3,7 +3,7 @@ import { WhooingAccount } from "./EnumWhooingAccount";
 export class WhooingEntryModel {
   constructor(
     public entry_id: number,
-    public entry_date: number,
+    public entry_date: string,
     public l_account: WhooingAccount,
     public l_account_id: string,
     public r_account: WhooingAccount,

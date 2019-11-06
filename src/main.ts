@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueAnalytics from "vue-analytics";
 import VCalc from "vuetify-calculator/src/components/index";
 import App from "./App.vue";
+import "./Filters";
 import "./plugins/vuetify";
 import "./registerServiceWorker";
 import router from "./router";
