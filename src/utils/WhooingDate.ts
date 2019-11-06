@@ -1,6 +1,5 @@
 export namespace WhooingDate {
-  export const ParseNumber = (dateNumber: number): Date => {
-
+  export const ParseNumber = (dateNumber: number | string): Date => {
     dateNumber =
       typeof dateNumber === "string" ? Number(dateNumber) : dateNumber;
     dateNumber = Math.floor(dateNumber);
