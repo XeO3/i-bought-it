@@ -228,9 +228,11 @@ export default class CheckDuplication extends Vue {
       if (rows.length !== params.limit) {
         break;
       }
-      if(result.length >= 5000) {
+      if(result.length >= 1000) {
+        alert("최대 1000건까지만 지원합니다. 검색조건을 조정해주세요.")
         break;
       }
+      params.max = Number(rows[rows.length-1].entry_date);
     }
     if (this.rawData === result) {
       this.duplicatData = this.getDuplicatData(this.rawData);
