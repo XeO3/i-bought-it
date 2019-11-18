@@ -92,6 +92,11 @@
           :key="key"
           @merge="(mergeSelected, entryIds)=> mergeModalValue = {mergeSelected, entryIds}"
         />
+        <v-card v-if="Object.keys(duplicatData).length === 0">
+          <v-card-text>
+            중복입력거래가 없습니다.
+          </v-card-text>
+        </v-card>
       </v-flex>
     </v-layout>
     <merge-entries-modal
@@ -229,7 +234,7 @@ export default class CheckDuplication extends Vue {
         break;
       }
       if(result.length >= 1000) {
-        alert("최대 1000건까지만 지원합니다. 검색조건을 조정해주세요.")
+        alert("최대 1000건까지만 지원합니다. 검색조건을 조정해주세요.");
         break;
       }
       params.max = Number(rows[rows.length-1].entry_date);
@@ -272,7 +277,7 @@ export default class CheckDuplication extends Vue {
   // 중복검색조건 초기화
   private createDuplicateOptions(): IDuplicationOptions {
     const duplicationOptions: IDuplicationOptions = {
-      isSameMoney: false,
+      isSameMoney: true,
       isSameItem: false,
       isSameLeft: false,
       isSameRight: true,
