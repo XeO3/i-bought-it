@@ -5,14 +5,17 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build-api": "npx @openapitools/openapi-generator-cli generate -i ./swagger.yarm -g typescript-axios -o ./src/api/",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.29",
     "@fortawesome/free-solid-svg-icons": "^5.13.1",
     "@fortawesome/vue-fontawesome": "^0.1.10",
+    "axios": "^0.19.2",
     "bulma": "^0.9.0",
     "register-service-worker": "^1.7.1",
+    "url": "^0.11.0",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
     "vue-property-decorator": "^8.4.2",
@@ -35,6 +38,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "lint-staged": "^9.5.0",
     "prettier": "^1.19.1",
+    "swagger-typescript-codegen": "^3.1.0",
     "typescript": "~3.9.3",
     "vue-template-compiler": "^2.6.11"
   },
