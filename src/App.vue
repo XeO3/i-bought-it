@@ -1,38 +1,19 @@
 <template>
-  <v-app>
-    <template>
-      <router-view name="top"></router-view>
-      <router-view name="left"></router-view>
-      <router-view></router-view>
-    </template>
-    <Snackbar></Snackbar>
-    <login-modal v-show="false" ref="login"></login-modal>
-  </v-app>
+  <div id="app">
+    <TheHeading />
+    <section class="section">
+      <router-view />
+    </section>
+  </div>
 </template>
 
 <script lang="ts">
-import Snackbar from "@/views/layouts/Snackbar.vue";
-import { Component, Vue, Watch } from "vue-property-decorator";
-import LoginModal from "./components/login/LoginModal.vue";
-import { AuthModule, UserModule } from "./store/store";
+import Vue from "vue";
+import Component from "vue-class-component";
+import TheHeading from "@/components/organisms/TheHeading.vue";
 
-@Component({ components: { Snackbar, LoginModal } })
-export default class App extends Vue {
-  get requiresAuth() {
-    return this.$route.matched.some((o) => o.meta.requiresAuth === true);
-  }
-  get tokenExpiration(): boolean {
-    return AuthModule.tokenExpiration;
-  }
-  get isLogin(): boolean {
-    return UserModule.isLogin;
-  }
-
-  @Watch("tokenExpiration")
-  public ontokenExpiration(newVal: boolean, oldVal: boolean) {
-    if (this.tokenExpiration) {
-      (this.$refs.login as LoginModal).Submit();
-    }
-  }
-}
+@Component
+export default class App extends Vue.extend({
+  components: { TheHeading: TheHeading }
+}) {}
 </script>
