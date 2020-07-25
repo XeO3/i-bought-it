@@ -6,14 +6,15 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import { defineComponent } from "@vue/composition-api";
 import AtomHeadingBrand from "../atoms/AtomHeadingBrand.vue";
 import AtomNavbarBurger from "../atoms/AtomNavbarBurger.vue";
 
-export default class TheNavbarBrand extends Vue.extend({
+const TheNavbarBrand = defineComponent({
   components: {
     AtomHeadingBrand: AtomHeadingBrand,
     AtomNavbarBurger: AtomNavbarBurger
   }
-}) {}
+});
+export default TheNavbarBrand;
 </script>

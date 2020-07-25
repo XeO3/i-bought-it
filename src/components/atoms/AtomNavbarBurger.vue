@@ -13,9 +13,8 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import Component from "vue-class-component";
+import { defineComponent } from "@vue/composition-api";
 
-@Component
-export default class AtomNavbarBurger extends Vue.extend({}) {}
+const AtomNavbarBurger = defineComponent({});
+export default AtomNavbarBurger;
 </script>

@@ -11,9 +11,8 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import Component from "vue-class-component";
+import { defineComponent } from "@vue/composition-api";
 
-@Component
-export default class Home extends Vue.extend({}) {}
+const Home = defineComponent({});
+export default Home;
 </script>

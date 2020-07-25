@@ -17,19 +17,15 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import { defineComponent } from "@vue/composition-api";
 import TheNavbarBrand from "../molecules/TheNavbarBrand.vue";
 import AtomButtonLogin from "../atoms/AtomButtonLogin.vue";
 
-export default class TheHeading extends Vue.extend({
-  props: {
-    title: {
-      type: String
-    }
-  },
+const TheHeading = defineComponent({
   components: {
     TheNavbarBrand: TheNavbarBrand,
     AtomButtonLogin: AtomButtonLogin
   }
-}) {}
+});
+export default TheHeading;
 </script>

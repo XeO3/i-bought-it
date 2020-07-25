@@ -8,12 +8,11 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import Component from "vue-class-component";
-import TheHeading from "@/components/organisms/TheHeading.vue";
+import { defineComponent } from "@vue/composition-api";
+import TheHeading from "./components/organisms/TheHeading.vue";
 
-@Component
-export default class App extends Vue.extend({
+const App = defineComponent({
   components: { TheHeading: TheHeading }
-}) {}
+});
+export default App;
 </script>

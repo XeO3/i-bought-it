@@ -5,9 +5,8 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import Component from "vue-class-component";
+import { defineComponent } from "@vue/composition-api";
 
-@Component
-export default class About extends Vue.extend({}) {}
+const About = defineComponent({});
+export default About;
 </script>

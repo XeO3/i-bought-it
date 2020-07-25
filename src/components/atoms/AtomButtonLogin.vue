@@ -3,9 +3,8 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import Component from "vue-class-component";
+import { defineComponent } from "@vue/composition-api";
 
-@Component
-export default class AtomButtonLogin extends Vue.extend({}) {}
+const AtomButtonLogin = defineComponent({});
+export default AtomButtonLogin;
 </script>

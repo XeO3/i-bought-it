@@ -5,16 +5,15 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import Component from "vue-class-component";
+import { defineComponent } from "@vue/composition-api";
 
-@Component
-export default class AtomLink extends Vue.extend({
+const AtomLink = defineComponent({
   props: {
     href: {
       type: String,
       required: true
     }
   }
-}) {}
+});
+export default AtomLink;
 </script>

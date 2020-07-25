@@ -3,13 +3,10 @@
     <img :src="src" :alt="alt" :width="width" :height="height" />
   </figure>
 </template>
-
 <script lang="ts">
-import Vue from "vue";
-import Component from "vue-class-component";
+import { defineComponent } from "@vue/composition-api";
 
-@Component
-export default class AtomImage extends Vue.extend({
+const AtomImage = defineComponent({
   props: {
     src: {
       type: String,
@@ -19,5 +16,6 @@ export default class AtomImage extends Vue.extend({
     width: [String, Number],
     height: [String, Number]
   }
-}) {}
+});
+export default AtomImage;
 </script>
